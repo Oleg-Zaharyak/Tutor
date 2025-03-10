@@ -1,0 +1,85 @@
+{
+  "language-name": "Українська",
+  "sign-in": {
+    "title": "Login to Account",
+    "sub-title": "Please enter your email and password to continue",
+    "email": {
+      "title": "Email address:",
+      "placeholder": "Enter your email address",
+      "error": {
+        "empty": "Enter your email address"
+      }
+    },
+    "password": {
+      "title": "Password:",
+      "placeholder": "Enter your password",
+      "error": {
+        "empty": "Enter your password"
+      }
+    },
+    "forget-password": "Forget Password?",
+    "remember-password": "Remember password?",
+    "btn-title": "Sign In",
+    "under-btn": {
+      "text": "Don’t have an account?",
+      "link": "Create Account"
+    }
+  },
+
+  "sign-up": {
+    "title": "Create an Account",
+    "sub-title": "Create a account to continut",
+    "email": {
+      "title": "Email address:",
+      "placeholder": "Enter email address",
+      "error": {
+        "invalide": "Invalid email",
+        "required": "Email is required"
+      }
+    },
+    "password": {
+      "title": "Password:",
+      "placeholder": "Enter password",
+      "error": {
+        "required": "Password is required",
+        "min": "Password must contain more than 5 characters",
+        "max": "Password must be no longer than 25 characters",
+        "invalide": "Password must contain 1 upper case letter, 1 lower case letter, 1 numeric digit"
+      }
+    },
+    "confirm-password": {
+      "title": "Confirm password:",
+      "placeholder": "Enter confirm password",
+      "error": {
+        "match": "Passwords must match",
+        "required": "Confirm password is required"
+      }
+    },
+    "acceptTerms": "I accept terms and conditions",
+    "btn-title": "Sign Up",
+    "under-btn": {
+      "text": "Already have an account?",
+      "link": "Sign In"
+    }
+  },
+
+  "forgot-password": {
+    "title": "Forgot password?",
+    "sub-title": "Please enter your email address to reset your password.",
+    "email": {
+      "title": "Email address:",
+      "placeholder": "Enter your email address",
+      "error": {
+        "invalide": "Invalid email",
+        "required": "Email is required"
+      }
+    },
+    "send-btn-title": "Send Link",
+    "back-btn-title": "Back to Sign In"
+  },
+  "not-found": {
+    "title": "404",
+    "sub-title": "Oops... page not found",
+    "btn-title": "Back to Home"
+  }
+}

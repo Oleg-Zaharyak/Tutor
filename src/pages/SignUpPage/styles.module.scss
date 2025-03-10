@@ -1,0 +1,75 @@
+// @import "../../constants/colors.scss";
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-main-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 640px;
+  background-color: var(--bg-secondary-color);
+  transition: background-color 0.3s ease-in-out;
+  padding: 60px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-family: "Nunito-700";
+  font-size: 32px;
+}
+.sub_title {
+  margin-top: 10px;
+}
+
+.inputs_container {
+  display: flex;
+  width: 100%;
+  margin-top: 37px;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.middle_buttons {
+  width: 100%;
+  margin: 20px 0 40px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bottom_container {
+  width: 100%;
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  &_text {
+    margin-right: 6px;
+    color: var(--text-color);
+  }
+  &_link {
+    text-decoration: none;
+    color: #4880ff;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}

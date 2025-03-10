@@ -1,0 +1,40 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  column-gap: 10px;
+}
+.theme_btn,
+.language_btn {
+  padding: 5px;
+}
+
+.dark_theme {
+  --bg-main-color: #1b2431;
+  --bg-secondary-color: #273142;
+  --text-color: #ffffff;
+
+  --bg-input-color: #323d4e;
+  --input-placeholder-text: #b6b6b6;
+  --input-border-color: #444e5d;
+  --input-border-hover-color: #b6b6b6;
+}
+
+// Світла тема
+.light_theme {
+  --bg-main-color: #f5f6fa;
+  --bg-secondary-color: #fff;
+  --text-color: #202224;
+
+  --bg-input-color: #f1f4f9;
+  --input-placeholder-text: #a6a6a6;
+  --input-border-color: #d8d8d8;
+  --input-border-hover-color: #202224;
+}

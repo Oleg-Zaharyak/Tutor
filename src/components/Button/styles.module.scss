@@ -1,0 +1,44 @@
+.button {
+  cursor: pointer;
+  width: 100%;
+  font-family: "Nunito-700";
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #4880ff;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.filled {
+  color: #fff;
+  background-color: #4880ff;
+  &:hover:not(:disabled) {
+    color: #4880ff;
+    background-color: transparent;
+  }
+  &:disabled {
+    border-color: #6f9aff;
+    background-color: #6f9aff;
+    color: #fff;
+  }
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.outline {
+  color: #4880ff;
+  background-color: transparent;
+  &:hover:not(:disabled) {
+    color: #fff;
+    background-color: #4880ff;
+  }
+  &:disabled {
+    border-color: #6f9aff;
+    color: #6f9aff;
+  }
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
