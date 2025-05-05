@@ -2,6 +2,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import { isAuth } from "../constants/variables";
 // import { useAuth } from "../hooks/use-auth";
 
-export const PrivateRoute = () => {
-  return isAuth ? <Outlet /> : <Navigate to="/sign-in" />;
+export const AuthRoute = () => {
+  return isAuth ? <Navigate to="/dashboard" /> : <Outlet />;
 };

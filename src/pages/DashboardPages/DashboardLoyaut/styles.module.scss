@@ -1,0 +1,28 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-main-color);
+  transition: all ease-in-out 0.3s;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "sidebar topBar"
+    "sidebar main";
+}
+
+.open {
+  grid-template-columns: 70px 1fr;
+}
+
+.topBar {
+  grid-area: topBar;
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.main {
+  height: 100%;
+  grid-area: main;
+  overflow: scroll;
+}

@@ -1,13 +1,16 @@
 import styles from "./styles.module.scss";
 import clsx from "clsx";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import { ForgotPasswordSchema } from "../../libs/schema";
+
 import { FC } from "react";
 import i18next from "i18next";
+
+import { ForgotPasswordSchema } from "../../../libs/schema";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
 const ForgotPasswordPage: FC = () => {
   const { t } = useTranslation();

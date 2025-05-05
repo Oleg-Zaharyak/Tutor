@@ -4,18 +4,7 @@
   position: relative;
 }
 
-.buttons {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  column-gap: 10px;
-}
-.theme_btn,
-.language_btn {
-  padding: 5px;
-}
-
+// Темна тема
 .dark_theme {
   --bg-main-color: #1b2431;
   --bg-secondary-color: #273142;
