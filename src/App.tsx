@@ -1,11 +1,11 @@
 import styles from "./App.module.scss";
 import clsx from "clsx";
-import { useAppSelector } from "./utils/hooks";
-import { Route, Routes } from "react-router-dom";
+import { useAppSelector } from "./hooks/hooks";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "./utils/PrivateRoute";
 
 // pages
-import NotFoundPage from "./pages/NotFoundPage";
+// import NotFoundPage from "./pages/NotFoundPage";
 import DashboardLoyaut from "./pages/DashboardPages/DashboardLoyaut";
 import { AuthRoute } from "./utils/AuthRoute";
 import { AuthLoyaut } from "./pages/AuthPages/AuthLoyaut";
@@ -29,7 +29,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Route>
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </div>
   );

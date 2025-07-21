@@ -1,5 +1,5 @@
 {
-  "language-name": "Українська",
+  "language-name": "Укр.",
   "sign-in": {
     "title": "Login to Account",
     "sub-title": "Please enter your email and password to continue",
@@ -81,5 +81,10 @@
     "title": "404",
     "sub-title": "Oops... page not found",
     "btn-title": "Back to Home"
+  },
+
+  "menu": {
+    "title-main": "Main",
+    "title-student": "Students"
   }
 }

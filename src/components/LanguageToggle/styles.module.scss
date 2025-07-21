@@ -1,0 +1,14 @@
+.language_btn {
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  color: var(--text-color);
+  transition: background-color ease-in-out 0.2s;
+  aspect-ratio: 1 / 1;
+
+  &:hover {
+    outline: 2px solid #4880ff;
+  }
+}

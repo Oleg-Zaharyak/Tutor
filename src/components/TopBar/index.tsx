@@ -4,25 +4,38 @@ import {
   TbLayoutSidebarLeftCollapse,
   TbLayoutSidebarLeftExpand,
 } from "react-icons/tb";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { toggleMenu } from "../../store/slices/appUISlice";
 
-export const TopBar: FC = () => {
+import ThemeToggle from "../ThemeToggle";
+import LanguageToggle from "../LanguageToggle";
+
+const TopBar: FC = () => {
   const dispatch = useAppDispatch();
   const { expandMenu } = useAppSelector((state) => state.appUI);
-  const hangleClick = useCallback(() => dispatch(toggleMenu()), [dispatch]);
+
+  const hangleCollapseMenu = useCallback(
+    () => dispatch(toggleMenu()),
+    [dispatch]
+  );
 
   return (
     <div className={styles.container}>
-      <div className={styles.colapsMenu}>
-        <button onClick={hangleClick}>
-          {expandMenu ? (
-            <TbLayoutSidebarLeftCollapse />
-          ) : (
-            <TbLayoutSidebarLeftExpand />
-          )}
-        </button>
+      <button className={styles.collapse_button} onClick={hangleCollapseMenu}>
+        {expandMenu ? (
+          <TbLayoutSidebarLeftExpand className={styles.collapse_button_icon} />
+        ) : (
+          <TbLayoutSidebarLeftCollapse
+            className={styles.collapse_button_icon}
+          />
+        )}
+      </button>
+      <div className={styles.buttons}>
+        <LanguageToggle />
+        <ThemeToggle />
       </div>
     </div>
   );
 };
+
+export default TopBar;
