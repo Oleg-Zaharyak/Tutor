@@ -84,7 +84,7 @@
   },
 
   "menu": {
-    "title-main": "Головна",
+    "title-dashboard": "Головна",
     "title-student": "Учні"
   }
 }

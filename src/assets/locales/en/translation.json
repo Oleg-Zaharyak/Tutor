@@ -28,7 +28,7 @@
 
   "sign-up": {
     "title": "Create an Account",
-    "sub-title": "Create a account to continut",
+    "sub-title": "Create a account to continue",
     "email": {
       "title": "Email address:",
       "placeholder": "Enter email address",
@@ -84,7 +84,7 @@
   },
 
   "menu": {
-    "title-main": "Main",
+    "title-dashboard": "Dashboard",
     "title-student": "Students"
   }
 }

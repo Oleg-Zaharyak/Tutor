@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface CounterState {
-  theme: string;
+interface ThemeState {
+  theme: "light" | "dark";
 }
 
-const initialState: CounterState = {
-  theme: localStorage.getItem("theme") || "light",
+const savedTheme = localStorage.getItem("theme");
+const isValidTheme = savedTheme === "light" || savedTheme === "dark";
+
+const initialState: ThemeState = {
+  theme: isValidTheme ? savedTheme : "light",
 };
 
 const themeSlice = createSlice({

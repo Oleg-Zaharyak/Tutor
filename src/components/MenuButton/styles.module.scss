@@ -6,13 +6,15 @@
   padding: 10px;
   border-radius: 6px;
   color: var(--text-color);
+  border: 2px solid transparent;
 
   font-size: 14px;
   &:hover:not(.button_active) {
-    outline: 2px solid #4880ff;
+    border: 2px solid #4880ff;
   }
   &_active {
     background-color: #4880ff;
+    border: 2px solid #4880ff;
     color: white;
   }
 }

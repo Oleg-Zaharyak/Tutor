@@ -9,20 +9,20 @@ type MenuButtonProps = {
   url: string;
   Icon?: IconType;
   expandMenu: boolean;
-  active?: boolean;
 };
 
-const MenuButton: FC<MenuButtonProps> = ({
-  title,
-  url,
-  Icon,
-  expandMenu,
-  active,
-}) => {
+const MenuButton: FC<MenuButtonProps> = ({ title, url, Icon, expandMenu }) => {
+  const activeButtonClassName = clsx(styles.button, styles.button_active);
+  const buttonClassName = clsx(styles.button);
+
   return (
     <NavLink
       to={url}
-      className={clsx(styles.button, active && styles.button_active)}
+      className={(isActive) =>
+        isActive && window.location.pathname === url
+          ? activeButtonClassName
+          : buttonClassName
+      }
     >
       {Icon ? <Icon className={styles.icon} /> : null}
       {!expandMenu ? title : ""}

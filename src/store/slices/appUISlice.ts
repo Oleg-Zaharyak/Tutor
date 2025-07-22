@@ -1,23 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface CounterState {
+interface UIState {
   expandMenu: boolean;
 }
 
-const initialState: CounterState = {
-  expandMenu: false,
+const savedExpandMenu = localStorage.getItem("expandMenu");
+
+const initialState: UIState = {
+  expandMenu: savedExpandMenu ? JSON.parse(savedExpandMenu) : false,
 };
 
 const appUISlice = createSlice({
   name: "appUI",
   initialState,
   reducers: {
-    toggleMenu: (state) => {
+    toggleExpandMenu: (state) => {
       state.expandMenu = !state.expandMenu;
+      localStorage.setItem("expandMenu", JSON.stringify(state.expandMenu));
     },
   },
 });
 
-export const { toggleMenu } = appUISlice.actions;
+export const { toggleExpandMenu } = appUISlice.actions;
 
 export default appUISlice.reducer;

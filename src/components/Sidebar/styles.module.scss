@@ -6,17 +6,9 @@
   overflow-x: hidden;
 }
 
-.logo {
-  height: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .menu {
-  height: calc(100% - 70px);
-  padding: 0 15px;
+  height: 100%;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,5 +17,41 @@
 .menu_button {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   row-gap: 10px;
+}
+
+.collapse_button_container {
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.collapse_button {
+  cursor: pointer;
+  background-color: inherit;
+  border-radius: 6px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  transition: background-color ease-in-out 0.3s;
+  aspect-ratio: 1 / 1;
+  border: 2px solid transparent;
+
+  &_icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    border: 2px solid #4880ff;
+  }
+}
+
+@media (max-width: 1024px) {
+  .collapse_button_container {
+    display: none;
+  }
 }

@@ -12,6 +12,8 @@ import { AuthLoyaut } from "./pages/AuthPages/AuthLoyaut";
 import SignInPage from "./pages/AuthPages/SignInPage";
 import SignUpPage from "./pages/AuthPages/SignUpPage";
 import ForgotPasswordPage from "./pages/AuthPages/ForgotPasswordPage";
+import Main from "./pages/DashboardPages/Main";
+import Students from "./pages/DashboardPages/Students";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
@@ -20,7 +22,10 @@ function App() {
     <div className={clsx(styles.container, styles[`${theme}_theme`])}>
       <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<DashboardLoyaut />} />
+          <Route path="/dashboard" element={<DashboardLoyaut />}>
+            <Route index={true} element={<Main />} />
+            <Route path="/dashboard/students" element={<Students />} />
+          </Route>
         </Route>
         <Route element={<AuthRoute />}>
           <Route element={<AuthLoyaut />}>

@@ -1,0 +1,15 @@
+.container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  color: var(--text-color);
+
+  &_header {
+    font-size: 32px;
+  }
+
+  &_content{
+    background-color: var(--bg-secondary-color);
+  }
+}
