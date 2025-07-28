@@ -85,6 +85,15 @@
 
   "menu": {
     "title-dashboard": "Головна",
-    "title-student": "Учні"
+    "title-student": "Учні",
+    "title-statistic": "Статистика",
+    "title-chats": "Чати",
+    "title-whiteboards": "Дошки",
+    "title-calendar": "Календар",
+    "title-files": "Файли",
+    "title-quizzes": "Вікторини",
+    "title-settings": "Налаштування",
+    "expand": "Розгорнути",
+    "collapse": "Згорнути"
   }
 }

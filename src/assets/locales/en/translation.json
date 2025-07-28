@@ -85,6 +85,15 @@
 
   "menu": {
     "title-dashboard": "Dashboard",
-    "title-student": "Students"
+    "title-student": "Students",
+    "title-statistic": "Statistic",
+    "title-chats": "Chats",
+    "title-whiteboards": "Whiteboards",
+    "title-calendar": "Calendar",
+    "title-files": "Files",
+    "title-quizzes": "Quizzes",
+    "title-settings": "Settings",
+    "expand": "Expand",
+    "collapse": "Collapse"
   }
 }

@@ -49,9 +49,16 @@
     border: 2px solid #4880ff;
   }
 }
+.tooltip {
+  background-color: #4880ff !important;
+  font-size: 14px !important;
+}
 
 @media (max-width: 1024px) {
   .collapse_button_container {
+    display: none;
+  }
+  .tooltip {
     display: none;
   }
 }

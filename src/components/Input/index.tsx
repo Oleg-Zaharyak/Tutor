@@ -22,8 +22,8 @@ type InputsProps = {
   placeholder?: string;
   showPassword?: boolean;
   setShowPassword?: Dispatch<SetStateAction<boolean>>;
-  onBlure?(el?: FocusEvent<HTMLInputElement>): void;
-  onChange(el?: ChangeEvent<HTMLInputElement>): void;
+  onBlure?(e?: FocusEvent<HTMLInputElement>): void;
+  onChange(e?: ChangeEvent<HTMLInputElement>): void;
 };
 
 const Input: FC<InputsProps> = ({

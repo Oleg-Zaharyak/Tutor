@@ -7,7 +7,10 @@ const Main = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_header}>{t("menu.title-dashboard")}</div>
-      <div className={styles.container_content}>Some content</div>
+      <div className={styles.container_content}>
+        Тут буде якийсь глобальний контент і по якому можна буде переходити на
+        певні сторінки
+      </div>
     </div>
   );
 };

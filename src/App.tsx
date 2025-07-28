@@ -14,6 +14,13 @@ import SignUpPage from "./pages/AuthPages/SignUpPage";
 import ForgotPasswordPage from "./pages/AuthPages/ForgotPasswordPage";
 import Main from "./pages/DashboardPages/Main";
 import Students from "./pages/DashboardPages/Students";
+import Calendar from "./pages/DashboardPages/Calendar";
+import Chat from "./pages/DashboardPages/Chat";
+import Whiteboards from "./pages/DashboardPages/Whiteboards";
+import Statistic from "./pages/DashboardPages/Statistic";
+import Files from "./pages/DashboardPages/Files";
+import Quizzes from "./pages/DashboardPages/Quizzes";
+import Settings from "./pages/DashboardPages/Settings";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
@@ -25,6 +32,13 @@ function App() {
           <Route path="/dashboard" element={<DashboardLoyaut />}>
             <Route index={true} element={<Main />} />
             <Route path="/dashboard/students" element={<Students />} />
+            <Route path="/dashboard/calendar" element={<Calendar />} />
+            <Route path="/dashboard/chats" element={<Chat />} />
+            <Route path="/dashboard/whiteboards" element={<Whiteboards />} />
+            <Route path="/dashboard/statistic" element={<Statistic />} />
+            <Route path="/dashboard/files" element={<Files />} />
+            <Route path="/dashboard/quizzes" element={<Quizzes />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
           </Route>
         </Route>
         <Route element={<AuthRoute />}>
