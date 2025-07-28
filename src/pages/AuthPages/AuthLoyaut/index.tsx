@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import ThemeToggle from "../../../components/ThemeToggle";
 import LanguageToggle from "../../../components/LanguageToggle";
 
-export const AuthLoyaut = () => {
+const AuthLoyaut = () => {
   return (
     <div className={styles.container}>
       <Outlet></Outlet>
@@ -15,3 +15,4 @@ export const AuthLoyaut = () => {
     </div>
   );
 };
+export default AuthLoyaut;

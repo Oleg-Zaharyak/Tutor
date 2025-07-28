@@ -3,24 +3,27 @@ import clsx from "clsx";
 import { useAppSelector } from "./hooks/hooks";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "./utils/PrivateRoute";
-
-// pages
-// import NotFoundPage from "./pages/NotFoundPage";
-import DashboardLoyaut from "./pages/DashboardPages/DashboardLoyaut";
 import { AuthRoute } from "./utils/AuthRoute";
-import { AuthLoyaut } from "./pages/AuthPages/AuthLoyaut";
-import SignInPage from "./pages/AuthPages/SignInPage";
-import SignUpPage from "./pages/AuthPages/SignUpPage";
-import ForgotPasswordPage from "./pages/AuthPages/ForgotPasswordPage";
-import Main from "./pages/DashboardPages/Main";
-import Students from "./pages/DashboardPages/Students";
-import Calendar from "./pages/DashboardPages/Calendar";
-import Chat from "./pages/DashboardPages/Chat";
-import Whiteboards from "./pages/DashboardPages/Whiteboards";
-import Statistic from "./pages/DashboardPages/Statistic";
-import Files from "./pages/DashboardPages/Files";
-import Quizzes from "./pages/DashboardPages/Quizzes";
-import Settings from "./pages/DashboardPages/Settings";
+
+import { 
+  SignInPage, 
+  SignUpPage, 
+  ForgotPasswordPage, 
+  AuthLoyaut 
+} from "./pages/AuthPages";
+
+import {
+  Main,
+  Students,
+  Calendar,
+  Chat,
+  Whiteboards,
+  Statistic,
+  Files,
+  Quizzes,
+  Settings,
+  DashboardLoyaut,
+} from "./pages/DashboardPages";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
@@ -30,15 +33,15 @@ function App() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<DashboardLoyaut />}>
-            <Route index={true} element={<Main />} />
-            <Route path="/dashboard/students" element={<Students />} />
-            <Route path="/dashboard/calendar" element={<Calendar />} />
-            <Route path="/dashboard/chats" element={<Chat />} />
-            <Route path="/dashboard/whiteboards" element={<Whiteboards />} />
-            <Route path="/dashboard/statistic" element={<Statistic />} />
-            <Route path="/dashboard/files" element={<Files />} />
-            <Route path="/dashboard/quizzes" element={<Quizzes />} />
-            <Route path="/dashboard/settings" element={<Settings />} />
+            <Route index element={<Main />} />
+            <Route path="students" element={<Students />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="chats" element={<Chat />} />
+            <Route path="whiteboards" element={<Whiteboards />} />
+            <Route path="statistic" element={<Statistic />} />
+            <Route path="files" element={<Files />} />
+            <Route path="quizzes" element={<Quizzes />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
         <Route element={<AuthRoute />}>

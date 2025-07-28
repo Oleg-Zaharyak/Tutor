@@ -1,0 +1,10 @@
+export { default as DashboardLoyaut } from "./DashboardLoyaut";
+export { default as Main } from "./Main";
+export { default as Students } from "./Students";
+export { default as Calendar } from "./Calendar";
+export { default as Chat } from "./Chat";
+export { default as Whiteboards } from "./Whiteboards";
+export { default as Statistic } from "./Statistic";
+export { default as Files } from "./Files";
+export { default as Quizzes } from "./Quizzes";
+export { default as Settings } from "./Settings";

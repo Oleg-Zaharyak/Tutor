@@ -8,7 +8,7 @@
 
 .menu {
   height: 100%;
-  padding: 10px 15px;
+  padding: 10px 10px 10px 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,8 +17,11 @@
 .menu_button {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  height: calc(100vh - 140px);
+  overflow-x: scroll;
   row-gap: 10px;
+  padding-right: 5px;
 }
 
 .collapse_button_container {
@@ -58,6 +61,10 @@
   .collapse_button_container {
     display: none;
   }
+  .menu_button {
+    height: calc(100vh - 70px);
+  }
+
   .tooltip {
     display: none;
   }
