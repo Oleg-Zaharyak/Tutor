@@ -5,11 +5,15 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import { AuthRoute } from "./utils/AuthRoute";
 
-import { 
-  SignInPage, 
-  SignUpPage, 
-  ForgotPasswordPage, 
-  AuthLoyaut 
+import Loader from "./components/Loader";
+
+import {
+  SignInPage,
+  SignUpPage,
+  ForgotPasswordPage,
+  AuthLoyaut,
+  ResetPasswordPage,
+  SuccessfulPasswordResetPage,
 } from "./pages/AuthPages";
 
 import {
@@ -27,6 +31,7 @@ import {
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
+  const { isLoading } = useAppSelector((state) => state.appUI);
 
   return (
     <div className={clsx(styles.container, styles[`${theme}_theme`])}>
@@ -49,10 +54,16 @@ function App() {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route
+              path="/successful-password-reset"
+              element={<SuccessfulPasswordResetPage />}
+            />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
+      {isLoading && <Loader />}
     </div>
   );
 }

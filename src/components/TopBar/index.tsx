@@ -8,6 +8,8 @@ import { RxCross2 } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import Button from "../Button";
 
+import { useClerk } from "@clerk/clerk-react";
+
 type TopBarProps = {
   onBurgerClick: () => void;
   isMobileMenuOpen: boolean;
@@ -15,6 +17,12 @@ type TopBarProps = {
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const [showProfileModal, setShowProfileModal] = useState(false);
+
+  const { signOut } = useClerk();
+
+  const handleLogout = async () => {
+    await signOut();
+  };
 
   return (
     <div className={styles.container}>
@@ -56,6 +64,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
               <Button
                 title="Logout"
                 styleType="outline"
+                onClick={handleLogout}
                 className={styles.profile_modal_logout}
               />
             </div>

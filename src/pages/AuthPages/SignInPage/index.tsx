@@ -12,10 +12,26 @@ import Checkbox from "../../../components/CkeckBox";
 import Button from "../../../components/Button";
 import { SignInSchema } from "../../../libs/schema";
 
+import { useSignIn } from "@clerk/clerk-react";
+import { setLoading } from "../../../store/slices/appUISlice";
+import { useAppDispatch } from "../../../hooks/hooks";
+
+type ClerkErrorDetail = {
+  message: string;
+  meta: {
+    paramName: string;
+  };
+};
+
+interface ClerkSignInError {
+  errors?: ClerkErrorDetail[];
+}
 
 const SignInPage: FC = () => {
+  const { signIn, setActive, isLoaded } = useSignIn();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -25,8 +41,50 @@ const SignInPage: FC = () => {
       rememberPassword: false,
     },
     validationSchema: SignInSchema,
-    onSubmit: () => {
-      navigate("/dashboard");
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+      if (!isLoaded) return;
+
+      dispatch(setLoading(true));
+
+      try {
+        const result = await signIn.create({
+          identifier: values.email,
+          password: values.password,
+        });
+
+        if (result.status === "complete") {
+          await setActive({ session: result.createdSessionId });
+          navigate("/dashboard");
+        } else {
+          console.log("Не завершено:", result);
+        }
+      } catch (err) {
+        const clerkError = err as ClerkSignInError;
+
+        if (clerkError.errors) {
+          const emailError = clerkError.errors.find(
+            (e) => e.meta.paramName === "identifier"
+          );
+          const passwordError = clerkError.errors.find(
+            (e) => e.meta.paramName === "password"
+          );
+
+          if (emailError || passwordError) {
+            setErrors({
+              email: " ",
+              password: t("sign-in.incorrect-value"),
+            });
+          }
+        } else {
+          setErrors({
+            email: " ",
+            password: t("sign-in.login-error"),
+          });
+        }
+      } finally {
+        setSubmitting(false);
+        dispatch(setLoading(false));
+      }
     },
   });
 

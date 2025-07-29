@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { isAuth } from "../constants/variables";
-// import { useAuth } from "../hooks/use-auth";
+import { useUser } from "@clerk/clerk-react";
 
 export const AuthRoute = () => {
-  return isAuth ? <Navigate to="/dashboard" /> : <Outlet />;
+  const { isSignedIn } = useUser();
+  return isSignedIn ? <Navigate to="/dashboard" /> : <Outlet />;
 };

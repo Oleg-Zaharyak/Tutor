@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { isAuth } from "../constants/variables";
-// import { useAuth } from "../hooks/use-auth";
+import { useUser } from "@clerk/clerk-react";
 
 export const PrivateRoute = () => {
-  return isAuth ? <Outlet /> : <Navigate to="/sign-in" />;
+  const { isSignedIn } = useUser();
+  return isSignedIn ? <Outlet /> : <Navigate to="/sign-in" />;
 };

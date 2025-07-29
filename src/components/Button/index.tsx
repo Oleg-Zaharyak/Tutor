@@ -7,7 +7,7 @@ type ButtonProps = {
   type?: "submit" | "button" | "reset";
   styleType?: "filled" | "outline";
   style?: object;
-  className: string;
+  className?: string;
   disabled?: boolean;
   onClick?(event?: MouseEvent<HTMLElement>): void;
 };

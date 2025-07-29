@@ -4,7 +4,11 @@ import i18next from "i18next";
 
 export const SignInSchema = () =>
   Yup.object().shape({
-    email: Yup.string().required(i18next.t("sign-in.email.error.empty")),
+    email: Yup.string()
+      .matches(emailRules, {
+        message: i18next.t("sign-up.email.error.invalide"),
+      })
+      .required(i18next.t("sign-in.email.error.empty")),
     password: Yup.string().required(i18next.t("sign-in.password.error.empty")),
   });
 
@@ -16,7 +20,7 @@ export const SignUpSchema = () =>
       })
       .required(i18next.t("sign-up.email.error.required")),
     password: Yup.string()
-      .min(5, i18next.t("sign-up.password.error.min"))
+      .min(8, i18next.t("sign-up.password.error.min"))
       .max(25, i18next.t("sign-up.password.error.max"))
       .matches(passwordRules, {
         message: i18next.t("sign-up.password.error.invalide"),
@@ -38,4 +42,18 @@ export const ForgotPasswordSchema = () =>
         message: i18next.t("forgot-password.email.error.invalide"),
       })
       .required(i18next.t("forgot-password.email.error.required")),
+  });
+
+export const ResetPasswordSchema = () =>
+  Yup.object().shape({
+    newPassword: Yup.string()
+      .min(8, i18next.t("change-password.new-password.error.min"))
+      .max(25, i18next.t("change-password.new-password.error.max"))
+      .matches(passwordRules, {
+        message: i18next.t("change-password.new-password.error.invalide"),
+      })
+      .required(i18next.t("change-password.new-password.error.required")),
+    code: Yup.string()
+      .required(i18next.t("change-password.code.error.required"))
+      .length(6, i18next.t("change-password.code.error.invalide")),
   });

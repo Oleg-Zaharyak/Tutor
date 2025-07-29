@@ -23,7 +23,9 @@
     "under-btn": {
       "text": "Don’t have an account?",
       "link": "Create Account"
-    }
+    },
+    "incorrect-value": "Password or Email address is incorrect. Try again",
+    "login-error": "Login error"
   },
 
   "sign-up": {
@@ -42,7 +44,7 @@
       "placeholder": "Enter password",
       "error": {
         "required": "Password is required",
-        "min": "Password must contain more than 5 characters",
+        "min": "Password must contain more than 8 characters",
         "max": "Password must be no longer than 25 characters",
         "invalide": "Password must contain 1 upper case letter, 1 lower case letter, 1 numeric digit"
       }
@@ -74,9 +76,40 @@
         "required": "Email is required"
       }
     },
-    "send-btn-title": "Send Link",
+    "send-btn-title": "Send Code",
     "back-btn-title": "Back to Sign In"
   },
+
+  "change-password": {
+    "title": "Change password",
+    "sub-title": "Enter new password and code you received in the email to change your password.",
+    "new-password": {
+      "title": "New password",
+      "placeholder": "Enter new password",
+      "error": {
+        "min": "New password must contain more than 8 characters",
+        "max": "New password must be no longer than 25 characters",
+        "invalide": "New password must contain 1 upper case letter, 1 lower case letter, 1 numeric digit",
+        "required": "New password is required"
+      }
+    },
+    "code": {
+      "title": "Code",
+      "placeholder": "Enter the code you received in the mail",
+      "error": {
+        "invalide": "Invalid code",
+        "required": "Code is required"
+      }
+    },
+    "resend-code-timer-text": "Resend in {{counter}} sec.",
+    "change-btn-title": "Change password",
+    "resend-code-btn-title": "Didn't receive a code? Click to resend.",
+    "successful-password-reset": {
+      "title": "Successfully changed",
+      "sub-title": "Your password has been changed - please login to your profile using your credentials."
+    }
+  },
+
   "not-found": {
     "title": "404",
     "sub-title": "Oops... page not found",

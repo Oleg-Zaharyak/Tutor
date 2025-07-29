@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface UIState {
   expandMenu: boolean;
+  isLoading: boolean;
 }
 
 const savedExpandMenu = localStorage.getItem("expandMenu");
 
 const initialState: UIState = {
   expandMenu: savedExpandMenu ? JSON.parse(savedExpandMenu) : false,
+  isLoading: false,
 };
 
 const appUISlice = createSlice({
@@ -18,9 +20,12 @@ const appUISlice = createSlice({
       state.expandMenu = !state.expandMenu;
       localStorage.setItem("expandMenu", JSON.stringify(state.expandMenu));
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { toggleExpandMenu } = appUISlice.actions;
+export const { toggleExpandMenu, setLoading } = appUISlice.actions;
 
 export default appUISlice.reducer;
