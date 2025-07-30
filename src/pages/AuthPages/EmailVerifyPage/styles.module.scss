@@ -1,0 +1,23 @@
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: "Nunito-700";
+  font-size: 32px;
+}
+.sub_title {
+  margin-top: 10px;
+}
+
+.inputs_container {
+  display: flex;
+  width: 100%;
+  margin-top: 37px;
+  flex-direction: column;
+  row-gap: 30px;
+}

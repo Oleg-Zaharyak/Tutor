@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import { useAppDispatch } from "../hooks/hooks";
 import { useEffect } from "react";
 import { setLoading } from "../store/slices/appUISlice";
-import { useAppDispatch } from "../hooks/hooks";
 
-const PrivateRoute = () => {
+const OnboardingRoute = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   const dispatch = useAppDispatch();
 
@@ -17,12 +17,12 @@ const PrivateRoute = () => {
   // Якщо не авторизований — редірект на sign-in
   if (!isSignedIn) return <Navigate to="/sign-in" />;
 
-  // Якщо авторизований, але не має імені або прізвища — редірект на onboarding
+  // Якщо профіль уже заповнений — редірект на dashboard
   const isProfileFilled = !!user?.firstName && !!user?.lastName;
-  if (!isProfileFilled) return <Navigate to="/user-onboarding" />;
+  if (isProfileFilled) return <Navigate to="/dashboard" />;
 
-  // Все добре — показуємо вкладений маршрут
+  // Інакше показуємо onboarding
   return <Outlet />;
 };
 
-export default PrivateRoute;
+export default OnboardingRoute;

@@ -6,8 +6,12 @@ import LanguageToggle from "../../../components/LanguageToggle";
 
 const AuthLoyaut = () => {
   return (
-    <div className={styles.container}>
-      <Outlet></Outlet>
+    <div className={styles.loyaut_container}>
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <Outlet></Outlet>
+        </div>
+      </div>
       <div className={styles.buttons}>
         <LanguageToggle />
         <ThemeToggle />

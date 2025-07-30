@@ -2,8 +2,10 @@ import styles from "./App.module.scss";
 import clsx from "clsx";
 import { useAppSelector } from "./hooks/hooks";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { PrivateRoute } from "./utils/PrivateRoute";
-import { AuthRoute } from "./utils/AuthRoute";
+
+import PrivateRoute from "./utils/PrivateRoute";
+import AuthRoute from "./utils/AuthRoute";
+import OnboardingRoute from "./utils/OnboardingRoute";
 
 import Loader from "./components/Loader";
 
@@ -13,7 +15,8 @@ import {
   ForgotPasswordPage,
   AuthLoyaut,
   ResetPasswordPage,
-  SuccessfulPasswordResetPage,
+  EmailVerifyPage,
+  PasswordResetSuccessPage,
 } from "./pages/AuthPages";
 
 import {
@@ -28,6 +31,7 @@ import {
   Settings,
   DashboardLoyaut,
 } from "./pages/DashboardPages";
+import UserOnboardingPage from "./pages/UserOnboardingPage";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
@@ -36,6 +40,24 @@ function App() {
   return (
     <div className={clsx(styles.container, styles[`${theme}_theme`])}>
       <Routes>
+        <Route element={<AuthRoute />}>
+          <Route element={<AuthLoyaut />}>
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/email-verify" element={<EmailVerifyPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route
+              path="/password-success-reset"
+              element={<PasswordResetSuccessPage />}
+            />
+          </Route>
+        </Route>
+
+        <Route element={<OnboardingRoute />}>
+          <Route path="/user-onboarding" element={<UserOnboardingPage />} />
+        </Route>
+
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<DashboardLoyaut />}>
             <Route index element={<Main />} />
@@ -49,18 +71,8 @@ function App() {
             <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
-        <Route element={<AuthRoute />}>
-          <Route element={<AuthLoyaut />}>
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route
-              path="/successful-password-reset"
-              element={<SuccessfulPasswordResetPage />}
-            />
-          </Route>
-        </Route>
+
+        <Route path="/user-onboarding" element={<UserOnboardingPage />} />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
       {isLoading && <Loader />}

@@ -1,5 +1,4 @@
 import styles from "./styles.module.scss";
-import clsx from "clsx";
 
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
@@ -46,6 +45,7 @@ const ResetPasswordPage: FC = () => {
     if (email) {
       setResetPasswordEmail(email);
     }
+
     return () => localStorage.removeItem("resetPasswordEmail");
   }, []);
 
@@ -98,9 +98,9 @@ const ResetPasswordPage: FC = () => {
             password: values.newPassword,
           })
           .then(async () => {
-            await signOut();
             localStorage.removeItem("resetPasswordEmail");
-            navigate("/successful-password-reset");
+            await signOut();
+            navigate("/password-success-reset");
           });
       } catch (err) {
         const clerkError = err as ClerkSignInError;
@@ -141,66 +141,57 @@ const ResetPasswordPage: FC = () => {
   });
 
   return (
-    <div className={clsx(styles.wrapper)}>
-      <div className={clsx(styles.container)}>
-        <h1 className={styles.title}>{t("change-password.title")}</h1>
-        <p className={styles.sub_title}>{t("change-password.sub-title")}</p>
-        <form onSubmit={formik.handleSubmit} className={styles.form}>
-          <>
-            <Input
-              name="code"
-              inputType="text"
-              style={{ width: "100%" }}
-              title={t("change-password.code.title")}
-              value={formik.values.code}
-              error={
-                Boolean(formik.errors.code) && Boolean(formik.touched.code)
-              }
-              errorText={formik.errors.code}
-              onBlure={formik.handleBlur}
-              onChange={formik.handleChange}
-              placeholder={t("change-password.code.placeholder")}
-            />
-            <Input
-              name="newPassword"
-              inputType="password"
-              style={{ width: "100%" }}
-              title={t("change-password.new-password.title")}
-              value={formik.values.newPassword}
-              error={
-                Boolean(formik.errors.newPassword) &&
-                Boolean(formik.touched.newPassword)
-              }
-              errorText={formik.errors.newPassword}
-              onBlure={formik.handleBlur}
-              onChange={formik.handleChange}
-              showPassword={showPassword}
-              setShowPassword={setShowPassword}
-              placeholder={t("change-password.new-password.placeholder")}
-            />
-            <div className={styles.buttons_container}>
-              <Button
-                title={t("change-password.change-btn-title")}
-                style={{ width: "80%" }}
-                type="submit"
-              />
-              {counter ? (
-                <div className={styles.counter}>
-                  {t("change-password.resend-code-timer-text", { counter })}
-                </div>
-              ) : (
-                <div
-                  className={styles.resend_button}
-                  onClick={handleResendCode}
-                >
-                  {t("change-password.resend-code-btn-title")}
-                </div>
-              )}
+    <>
+      <h1 className={styles.title}>{t("change-password.title")}</h1>
+      <p className={styles.sub_title}>{t("change-password.sub-title")}</p>
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
+        <Input
+          name="code"
+          inputType="text"
+          style={{ width: "100%" }}
+          title={t("change-password.code.title")}
+          value={formik.values.code}
+          error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}
+          errorText={formik.errors.code}
+          onBlure={formik.handleBlur}
+          onChange={formik.handleChange}
+          placeholder={t("change-password.code.placeholder")}
+        />
+        <Input
+          name="newPassword"
+          inputType="password"
+          style={{ width: "100%" }}
+          title={t("change-password.new-password.title")}
+          value={formik.values.newPassword}
+          error={
+            Boolean(formik.errors.newPassword) &&
+            Boolean(formik.touched.newPassword)
+          }
+          errorText={formik.errors.newPassword}
+          onBlure={formik.handleBlur}
+          onChange={formik.handleChange}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
+          placeholder={t("change-password.new-password.placeholder")}
+        />
+        <div className={styles.buttons_container}>
+          <Button
+            title={t("change-password.change-btn-title")}
+            style={{ width: "80%" }}
+            type="submit"
+          />
+          {counter ? (
+            <div className={styles.counter}>
+              {t("change-password.resend-code-timer-text", { counter })}
             </div>
-          </>
-        </form>
-      </div>
-    </div>
+          ) : (
+            <div className={styles.resend_button} onClick={handleResendCode}>
+              {t("change-password.resend-code-btn-title")}
+            </div>
+          )}
+        </div>
+      </form>
+    </>
   );
 };
 

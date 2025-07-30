@@ -57,3 +57,32 @@ export const ResetPasswordSchema = () =>
       .required(i18next.t("change-password.code.error.required"))
       .length(6, i18next.t("change-password.code.error.invalide")),
   });
+
+export const UserOnbardingSchema = () =>
+  Yup.object().shape({
+    firstName: Yup.string()
+      .required(i18next.t("user-onboarding.first-name.error.required"))
+      .min(2, i18next.t("user-onboarding.first-name.error.min")),
+
+    lastName: Yup.string()
+      .required(i18next.t("user-onboarding.last-name.error.required"))
+      .min(2, i18next.t("user-onboarding.first-name.error.min")),
+
+    dateOfBirth: Yup.date()
+      .required(i18next.t("user-onboarding.date-of-birth.error.required"))
+      .max(new Date(), i18next.t("user-onboarding.date-of-birth.error.max")),
+
+    accountType: Yup.string()
+      .oneOf(
+        ["STUDENT", "TEACHER"],
+        i18next.t("user-onboarding.account-type.error.invalide")
+      )
+      .required(i18next.t("user-onboarding.account-type.error.required")),
+  });
+
+export const EmailVerifySchema = () =>
+  Yup.object({
+    code: Yup.string()
+      .required(i18next.t("email-verify.code.error.required"))
+      .length(6, i18next.t("email-verify.code.error.invalide")),
+  });

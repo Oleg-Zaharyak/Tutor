@@ -9,6 +9,7 @@ import clsx from "clsx";
 const DashboardLoyaut: FC = () => {
   const { expandMenu } = useAppSelector((state) => state.appUI);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div
       className={clsx(
