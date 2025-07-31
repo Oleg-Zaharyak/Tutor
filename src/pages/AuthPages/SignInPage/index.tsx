@@ -14,17 +14,7 @@ import { SignInSchema } from "../../../libs/schema";
 import { useSignIn } from "@clerk/clerk-react";
 import { setLoading } from "../../../store/slices/appUISlice";
 import { useAppDispatch } from "../../../hooks/hooks";
-
-type ClerkErrorDetail = {
-  message: string;
-  meta: {
-    paramName: string;
-  };
-};
-
-interface ClerkSignInError {
-  errors?: ClerkErrorDetail[];
-}
+import { ClerkSignInError } from "../../../types/clerk";
 
 const SignInPage: FC = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -32,6 +22,7 @@ const SignInPage: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +33,7 @@ const SignInPage: FC = () => {
     validationSchema: SignInSchema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       if (!isLoaded) return;
-
+      let clerkErrorsInfo = {};
       dispatch(setLoading(true));
 
       try {
@@ -55,42 +46,63 @@ const SignInPage: FC = () => {
           await setActive({ session: result.createdSessionId });
           navigate("/dashboard");
         } else {
+          setErrors({
+            email: " ",
+            password: t("sign-in.clerk-error.default"),
+          });
           console.log("Не завершено:", result);
         }
       } catch (err) {
-        const clerkError = err as ClerkSignInError;
+        const clerkErr = err as ClerkSignInError;
 
-        if (clerkError.errors) {
-          const emailError = clerkError.errors.find(
+        if (clerkErr.errors) {
+          clerkErrorsInfo = clerkErr;
+          const emailError = clerkErr.errors.find(
             (e) => e.meta.paramName === "identifier"
           );
-          const passwordError = clerkError.errors.find(
+          const passwordError = clerkErr.errors.find(
             (e) => e.meta.paramName === "password"
           );
 
           if (emailError || passwordError) {
             setErrors({
               email: " ",
-              password: t("sign-in.incorrect-value"),
+              password: t("sign-in.clerk-error.incorrect-value"),
             });
           }
         } else {
           setErrors({
             email: " ",
-            password: t("sign-in.login-error"),
+            password: t("sign-in.clerk-error.default"),
           });
         }
       } finally {
+        setClerkErrors(clerkErrorsInfo);
         setSubmitting(false);
         dispatch(setLoading(false));
       }
     },
   });
 
-  i18next.on("languageChanged", () => {
-    formik.validateForm();
-  });
+  i18next.on("languageChanged", async () => {
+    await formik.validateForm();
+    if (clerkErrors.errors) {
+      setClerkErrors(clerkErrors);
+      const emailError = clerkErrors.errors.find(
+        (e) => e.meta.paramName === "identifier"
+      );
+      const passwordError = clerkErrors.errors.find(
+        (e) => e.meta.paramName === "password"
+      );
 
+      if (emailError || passwordError) {
+        formik.setErrors({
+          email: " ",
+          password: t("sign-in.clerk-error.incorrect-value"),
+        });
+      }
+    }
+  });
   return (
     <>
       <h1 className={styles.title}>{t("sign-in.title")}</h1>

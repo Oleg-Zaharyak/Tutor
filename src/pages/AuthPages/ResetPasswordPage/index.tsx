@@ -1,52 +1,45 @@
 import styles from "./styles.module.scss";
 
 import { useFormik } from "formik";
+import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-
 import { FC, useEffect, useState } from "react";
-import i18next from "i18next";
 
-import { ResetPasswordSchema } from "../../../libs/schema";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
-
-import { useClerk, useSignIn } from "@clerk/clerk-react";
+import { useSignIn, useSignUp } from "@clerk/clerk-react";
 
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
 
-type ClerkErrorDetail = {
-  message: string;
-  code: string;
-  longMessage: string;
-  meta: {
-    paramName: string;
-  };
-};
+import { ResetPasswordSchema } from "../../../libs/schema";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
+import PasswordResetSuccessModal from "../../../components/PasswordResetSuccessModal";
+import { ClerkSignInError } from "../../../types/clerk";
 
-interface ClerkSignInError {
-  errors?: ClerkErrorDetail[];
-}
 
 const ResetPasswordPage: FC = () => {
   const { t } = useTranslation();
   const { signIn } = useSignIn();
-  const { signOut } = useClerk();
+  const { isLoaded, setActive } = useSignUp();
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [counter, setCounter] = useState(0);
   const [resetPasswordEmail, setResetPasswordEmail] = useState("");
+  const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
+
+  const [showModal, setShowModal] = useState(false);
 
   //витягу емеїл з локал хоста
   useEffect(() => {
-    const email = localStorage.getItem("resetPasswordEmail");
+    const email = sessionStorage.getItem("resetPasswordEmail");
     if (email) {
       setResetPasswordEmail(email);
     }
 
-    return () => localStorage.removeItem("resetPasswordEmail");
+    return () => sessionStorage.removeItem("resetPasswordEmail");
   }, []);
 
   // каунтер
@@ -90,78 +83,123 @@ const ResetPasswordPage: FC = () => {
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       dispatch(setLoading(true));
-      try {
-        await signIn
-          ?.attemptFirstFactor({
-            strategy: "reset_password_email_code",
-            code: values.code,
-            password: values.newPassword,
-          })
-          .then(async () => {
-            localStorage.removeItem("resetPasswordEmail");
-            await signOut();
-            navigate("/password-success-reset");
-          });
-      } catch (err) {
-        const clerkError = err as ClerkSignInError;
+      let clerkErrorsInfo = {};
+      if (!isLoaded) return;
 
-        if (clerkError.errors) {
-          const codeError = clerkError.errors.find(
+      try {
+        const result = await signIn?.attemptFirstFactor({
+          strategy: "reset_password_email_code",
+          code: values.code,
+          password: values.newPassword,
+        });
+
+        if (result?.status === "complete") {
+          sessionStorage.removeItem("resetPasswordEmail");
+          setShowModal(true);
+
+          setTimeout(async () => {
+            setShowModal(false);
+            await setActive({ session: result.createdSessionId });
+            navigate("/dashboard");
+          }, 3000);
+        } else {
+          setErrors({
+            code: " ",
+            newPassword: t("reset-password.clerk-error.default"),
+          });
+        }
+      } catch (err) {
+        const clerkErr = err as ClerkSignInError;
+
+        if (clerkErr.errors) {
+          clerkErrorsInfo = clerkErr;
+          const codeError = clerkErr.errors.find(
             (e) => e.meta.paramName === "code"
           );
 
-          const expiredCode = clerkError.errors.find(
+          const expiredCode = clerkErr.errors.find(
             (e) => e.code === "verification_expired"
           );
 
           if (codeError) {
             setErrors({
-              code: t("change-password.code.error.invalide"),
+              code: t("reset-password.clerk-error.invalide"),
             });
-          }
-          if (expiredCode) {
+          } else if (expiredCode) {
             setErrors({
-              newPassword: expiredCode?.longMessage,
+              code: t("reset-password.clerk-error.expired"),
+            });
+          } else {
+            setErrors({
+              code: " ",
+              newPassword: t("reset-password.clerk-error.default"),
             });
           }
         } else {
           setErrors({
-            newPassword: "Error",
+            code: " ",
+            newPassword: t("reset-password.clerk-error.default"),
           });
         }
       } finally {
         setSubmitting(false);
+        setClerkErrors(clerkErrorsInfo);
         dispatch(setLoading(false));
       }
     },
   });
 
-  i18next.on("languageChanged", () => {
-    formik.validateForm();
-  });
+  i18next.on("languageChanged", async () => {
+    await formik.validateForm();
+    if (clerkErrors.errors) {
+      setClerkErrors(clerkErrors);
 
+      const codeError = clerkErrors.errors.find(
+        (e) => e.meta.paramName === "code"
+      );
+
+      const expiredCode = clerkErrors.errors.find(
+        (e) => e.code === "verification_expired"
+      );
+
+      if (codeError) {
+        formik.setErrors({
+          code: t("reset-password.clerk-error.invalide"),
+        });
+      } else if (expiredCode) {
+        formik.setErrors({
+          code: t("reset-password.clerk-error.expired"),
+        });
+      } else {
+        formik.setErrors({
+          code: " ",
+          newPassword: t("reset-password.clerk-error.default"),
+        });
+      }
+    }
+  });
   return (
     <>
-      <h1 className={styles.title}>{t("change-password.title")}</h1>
-      <p className={styles.sub_title}>{t("change-password.sub-title")}</p>
+      <h1 className={styles.title}>{t("reset-password.title")}</h1>
+      <p className={styles.sub_title}>{t("reset-password.sub-title")}</p>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
         <Input
           name="code"
           inputType="text"
           style={{ width: "100%" }}
-          title={t("change-password.code.title")}
+          title={t("reset-password.code.title")}
           value={formik.values.code}
           error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}
           errorText={formik.errors.code}
           onBlure={formik.handleBlur}
           onChange={formik.handleChange}
-          placeholder={t("change-password.code.placeholder")}
+          placeholder={t("reset-password.code.placeholder")}
         />
         <Input
           name="newPassword"
           inputType="password"
           style={{ width: "100%" }}
-          title={t("change-password.new-password.title")}
+          title={t("reset-password.new-password.title")}
           value={formik.values.newPassword}
           error={
             Boolean(formik.errors.newPassword) &&
@@ -172,25 +210,26 @@ const ResetPasswordPage: FC = () => {
           onChange={formik.handleChange}
           showPassword={showPassword}
           setShowPassword={setShowPassword}
-          placeholder={t("change-password.new-password.placeholder")}
+          placeholder={t("reset-password.new-password.placeholder")}
         />
         <div className={styles.buttons_container}>
           <Button
-            title={t("change-password.change-btn-title")}
+            title={t("reset-password.reset-btn-title")}
             style={{ width: "80%" }}
             type="submit"
           />
           {counter ? (
             <div className={styles.counter}>
-              {t("change-password.resend-code-timer-text", { counter })}
+              {t("reset-password.resend-code-timer-text", { counter })}
             </div>
           ) : (
             <div className={styles.resend_button} onClick={handleResendCode}>
-              {t("change-password.resend-code-btn-title")}
+              {t("reset-password.resend-code-btn-title")}
             </div>
           )}
         </div>
       </form>
+      {showModal && <PasswordResetSuccessModal />}
     </>
   );
 };

@@ -24,8 +24,10 @@
       "text": "Don’t have an account?",
       "link": "Create Account"
     },
-    "incorrect-value": "Password or Email address is incorrect. Try again",
-    "login-error": "Login error"
+    "clerk-error": {
+      "incorrect-value": "Password or Email address is incorrect. Try again",
+      "default": "Something went wrong"
+    }
   },
 
   "sign-up": {
@@ -62,6 +64,11 @@
     "under-btn": {
       "text": "Already have an account?",
       "link": "Sign In"
+    },
+
+    "clerk-error": {
+      "incorrect-value": "Unable to create account. Email address may already be in use.",
+      "default": "Something went wrong"
     }
   },
 
@@ -76,7 +83,13 @@
         "invalide": "Invalid code"
       }
     },
-    "btn-title": "Verify"
+    "btn-title": "Verify",
+
+    "clerk-error": {
+      "invalide": "Incorrect code",
+      "expired": "This verification has expired.",
+      "default": "Something went wrong"
+    }
   },
 
   "forgot-password": {
@@ -91,10 +104,14 @@
       }
     },
     "send-btn-title": "Send Code",
-    "back-btn-title": "Back to Sign In"
+    "back-btn-title": "Back to Sign In",
+
+    "clerk-error": {
+      "default": "Something went wrong"
+    }
   },
 
-  "change-password": {
+  "reset-password": {
     "title": "Change password",
     "sub-title": "Enter new password and code you received in the email to change your password.",
     "new-password": {
@@ -116,11 +133,18 @@
       }
     },
     "resend-code-timer-text": "Resend in {{counter}} sec.",
-    "change-btn-title": "Change password",
+    "reset-btn-title": "Change password",
     "resend-code-btn-title": "Didn't receive a code? Click to resend.",
+
     "successful-password-reset": {
       "title": "Successfully changed",
-      "sub-title": "Your password has been changed - please login to your profile using your credentials."
+      "sub-title": "Your password has been successfully changed - you will be automatically redirected to the home page."
+    },
+
+    "clerk-error": {
+      "invalide": "Incorrect code",
+      "expired": "This verification has expired.",
+      "default": "Something went wrong"
     }
   },
 

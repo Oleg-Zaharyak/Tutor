@@ -4,4 +4,3 @@ export { default as SignUpPage } from "./SignUpPage";
 export { default as ForgotPasswordPage } from "./ForgotPasswordPage";
 export { default as ResetPasswordPage } from "./ResetPasswordPage";
 export { default as EmailVerifyPage } from "./EmailVerifyPage";
-export { default as PasswordResetSuccessPage } from "./PasswordResetSuccessPage";

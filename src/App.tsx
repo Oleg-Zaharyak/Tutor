@@ -16,7 +16,6 @@ import {
   AuthLoyaut,
   ResetPasswordPage,
   EmailVerifyPage,
-  PasswordResetSuccessPage,
 } from "./pages/AuthPages";
 
 import {
@@ -47,10 +46,6 @@ function App() {
             <Route path="/email-verify" element={<EmailVerifyPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route
-              path="/password-success-reset"
-              element={<PasswordResetSuccessPage />}
-            />
           </Route>
         </Route>
 

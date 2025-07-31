@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import i18next from "i18next";
 
 import { ForgotPasswordSchema } from "../../../libs/schema";
@@ -15,42 +15,65 @@ import { useSignIn } from "@clerk/clerk-react";
 
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
+import { ClerkSignInError } from "../../../types/clerk";
+
 
 const ForgotPasswordPage: FC = () => {
   const { t } = useTranslation();
-  const { signIn } = useSignIn();
+  const { signIn, isLoaded } = useSignIn();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
 
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: ForgotPasswordSchema,
-    onSubmit: async (values, { setSubmitting }) => {
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+      if (!isLoaded) return;
       dispatch(setLoading(true));
+      let clerkErrorsInfo = {};
 
       try {
-        await signIn
-          ?.create({
-            strategy: "reset_password_email_code",
-            identifier: values.email,
-          })
-          .then(() => {
-            localStorage.setItem("resetPasswordEmail", values.email);
-            navigate("/reset-password");
+        await signIn?.create({
+          strategy: "reset_password_email_code",
+          identifier: values.email,
+        });
+
+        sessionStorage.setItem("resetPasswordEmail", values.email);
+        navigate("/reset-password");
+      } catch (err) {
+        const clerkErr = err as ClerkSignInError;
+
+        if (clerkErr.errors) {
+          clerkErrorsInfo = clerkErr;
+
+          setErrors({
+            email: t("forgot-password.clerk-error.default"),
           });
-      } catch (error) {
-        console.log(error);
+          console.log("Error", clerkErr.errors);
+        }
       } finally {
+        setClerkErrors(clerkErrorsInfo);
         setSubmitting(false);
         dispatch(setLoading(false));
       }
     },
   });
 
-  i18next.on("languageChanged", () => {
-    formik.validateForm();
+  i18next.on("languageChanged", async () => {
+    await formik.validateForm();
+
+    if (clerkErrors.errors) {
+      setClerkErrors(clerkErrors);
+
+      formik.setErrors({
+        email: t("forgot-password.clerk-error.default"),
+      });
+      console.log("Error", clerkErrors.errors);
+    }
   });
 
   return (

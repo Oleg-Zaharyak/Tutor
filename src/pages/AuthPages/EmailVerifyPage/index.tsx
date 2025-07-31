@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -12,23 +12,15 @@ import { EmailVerifySchema } from "../../../libs/schema";
 import { useSignUp } from "@clerk/clerk-react";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
+import { ClerkSignInError } from "../../../types/clerk";
 
-type ClerkErrorDetail = {
-  message: string;
-  meta: {
-    paramName: string;
-  };
-};
-
-interface ClerkSignInError {
-  errors?: ClerkErrorDetail[];
-}
 
 const EmailVerifyPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { signUp, isLoaded, setActive } = useSignUp();
+  const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +30,8 @@ const EmailVerifyPage: FC = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       dispatch(setLoading(true));
       if (!isLoaded) return;
+      let clerkErrorsInfo = {};
+      dispatch(setLoading(true));
 
       try {
         const result = await signUp.attemptEmailAddressVerification({
@@ -48,21 +42,68 @@ const EmailVerifyPage: FC = () => {
           await setActive({ session: result.createdSessionId });
           navigate("/user-onboarding");
         } else {
-          setErrors({ code: "Невірний код або термін дії закінчився." });
+          setErrors({ code: t("email-verify.clerk-error.default") });
         }
       } catch (err) {
-        const clerkError = err as ClerkSignInError;
-        console.error(clerkError);
-        setErrors({ code: "Помилка під час верифікації коду." });
+        const clerkErr = err as ClerkSignInError;
+        if (clerkErr.errors) {
+          clerkErrorsInfo = clerkErr;
+          console.error(clerkErr);
+          const codeError = clerkErr.errors.find(
+            (e) => e.meta.paramName === "code"
+          );
+
+          const expiredCode = clerkErr.errors.find(
+            (e) => e.code === "verification_expired"
+          );
+
+          if (codeError) {
+            setErrors({
+              code: t("email-verify.clerk-error.invalide"),
+            });
+          } else if (expiredCode) {
+            setErrors({
+              code: t("email-verify.clerk-error.expired"),
+            });
+          } else {
+            setErrors({ code: t("email-verify.clerk-error.default") });
+          }
+        } else {
+          setErrors({ code: t("email-verify.clerk-error.default") });
+        }
       } finally {
+        setClerkErrors(clerkErrorsInfo);
         setSubmitting(false);
         dispatch(setLoading(false));
       }
     },
   });
 
-  i18next.on("languageChanged", () => {
-    formik.validateForm();
+  i18next.on("languageChanged", async () => {
+    await formik.validateForm();
+    if (clerkErrors.errors) {
+      const codeError = clerkErrors.errors.find(
+        (e) => e.meta.paramName === "code"
+      );
+
+      const expiredCode = clerkErrors.errors.find(
+        (e) => e.code === "verification_expired"
+      );
+
+      if (codeError) {
+        formik.setErrors({
+          code: t("email-verify.clerk-error.invalide"),
+        });
+      } else if (expiredCode) {
+        formik.setErrors({
+          code: t("email-verify.clerk-error.expired"),
+        });
+      } else {
+        formik.setErrors({ code: t("email-verify.clerk-error.default") });
+      }
+    } else {
+      formik.setErrors({ code: t("email-verify.clerk-error.default") });
+    }
   });
 
   return (

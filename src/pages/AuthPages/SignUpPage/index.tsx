@@ -13,17 +13,7 @@ import { SignUpSchema } from "../../../libs/schema";
 import { useSignUp } from "@clerk/clerk-react";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
-
-type ClerkErrorDetail = {
-  message: string;
-  meta: {
-    paramName: string;
-  };
-};
-
-interface ClerkSignInError {
-  errors?: ClerkErrorDetail[];
-}
+import { ClerkSignInError } from "../../../types/clerk";
 
 const SignUpPage: FC = () => {
   const { t } = useTranslation();
@@ -32,8 +22,9 @@ const SignUpPage: FC = () => {
   const { signUp, isLoaded } = useSignUp();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
 
-  const formikOne = useFormik({
+  const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -44,6 +35,7 @@ const SignUpPage: FC = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       dispatch(setLoading(true));
       if (!isLoaded) return;
+      let clerkErrorsInfo = {};
 
       try {
         await signUp?.create({
@@ -57,42 +49,70 @@ const SignUpPage: FC = () => {
         });
         navigate("/email-verify");
       } catch (err) {
-        const clerkError = err as ClerkSignInError;
+        const clerkErr = err as ClerkSignInError;
+        if (clerkErr.errors) {
+          clerkErrorsInfo = clerkErr;
 
-        console.error(clerkError);
-        setErrors({
-          email: "Не вдалося створити акаунт. Можливо, емейл вже зайнятий.",
-        });
+          const emailError = clerkErr.errors.find(
+            (e) => e.meta.paramName === "email_address"
+          );
+          if (emailError) {
+            setErrors({
+              email: t("sign-up.clerk-error.incorrect-value"),
+            });
+          } else {
+            console.log("Error", clerkErr.errors);
+          }
+        } else {
+          setErrors({
+            email: "",
+            password: "",
+            confirmPassword: t("sign-up.clerk-error.default"),
+          });
+        }
       } finally {
+        setClerkErrors(clerkErrorsInfo);
         setSubmitting(false);
         dispatch(setLoading(false));
       }
     },
   });
 
-  i18next.on("languageChanged", () => {
-    formikOne.validateForm();
+  i18next.on("languageChanged", async () => {
+    await formik.validateForm();
+    if (clerkErrors.errors) {
+      setClerkErrors(clerkErrors);
+      const emailError = clerkErrors.errors.find(
+        (e) => e.meta.paramName === "email_address"
+      );
+      if (emailError) {
+        formik.setErrors({
+          email: t("sign-up.clerk-error.incorrect-value"),
+        });
+      } else {
+        console.log("Error", clerkErrors.errors);
+      }
+    }
   });
 
   return (
     <>
       <h1 className={styles.title}>{t("sign-up.title")}</h1>
       <p className={styles.sub_title}>{t("sign-up.sub-title")}</p>
-      <form onSubmit={formikOne.handleSubmit} className={styles.form}>
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
         <div className={styles.inputs_container}>
           <Input
             name="email"
             inputType="text"
             style={{ width: "100%" }}
             title={t("sign-up.email.title")}
-            value={formikOne.values.email}
+            value={formik.values.email}
             error={
-              Boolean(formikOne.errors.email) &&
-              Boolean(formikOne.touched.email)
+              Boolean(formik.errors.email) && Boolean(formik.touched.email)
             }
-            errorText={formikOne.errors.email}
-            onBlure={formikOne.handleBlur}
-            onChange={formikOne.handleChange}
+            errorText={formik.errors.email}
+            onBlure={formik.handleBlur}
+            onChange={formik.handleChange}
             placeholder={t("sign-up.email.placeholder")}
           />
           <Input
@@ -100,14 +120,14 @@ const SignUpPage: FC = () => {
             inputType="password"
             title={t("sign-up.password.title")}
             style={{ width: "100%" }}
-            value={formikOne.values.password}
+            value={formik.values.password}
             error={
-              Boolean(formikOne.errors.password) &&
-              Boolean(formikOne.touched.password)
+              Boolean(formik.errors.password) &&
+              Boolean(formik.touched.password)
             }
-            errorText={formikOne.errors.password}
-            onChange={formikOne.handleChange}
-            onBlure={formikOne.handleBlur}
+            errorText={formik.errors.password}
+            onChange={formik.handleChange}
+            onBlure={formik.handleBlur}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
             placeholder={t("sign-up.password.placeholder")}
@@ -118,13 +138,13 @@ const SignUpPage: FC = () => {
             title={t("sign-up.confirm-password.title")}
             style={{ width: "100%" }}
             error={
-              Boolean(formikOne.errors.confirmPassword) &&
-              Boolean(formikOne.touched.confirmPassword)
+              Boolean(formik.errors.confirmPassword) &&
+              Boolean(formik.touched.confirmPassword)
             }
-            errorText={formikOne.errors.confirmPassword}
-            value={formikOne.values.confirmPassword}
-            onChange={formikOne.handleChange}
-            onBlure={formikOne.handleBlur}
+            errorText={formik.errors.confirmPassword}
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            onBlure={formik.handleBlur}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
             placeholder={t("sign-up.confirm-password.placeholder")}
@@ -134,10 +154,10 @@ const SignUpPage: FC = () => {
           <Checkbox
             title={t("sign-up.acceptTerms")}
             name="acceptTerms"
-            onChange={formikOne.handleChange}
+            onChange={formik.handleChange}
             error={
-              Boolean(formikOne.errors.acceptTerms) &&
-              Boolean(formikOne.touched.acceptTerms)
+              Boolean(formik.errors.acceptTerms) &&
+              Boolean(formik.touched.acceptTerms)
             }
           />
         </div>

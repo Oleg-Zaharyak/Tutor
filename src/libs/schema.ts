@@ -47,15 +47,15 @@ export const ForgotPasswordSchema = () =>
 export const ResetPasswordSchema = () =>
   Yup.object().shape({
     newPassword: Yup.string()
-      .min(8, i18next.t("change-password.new-password.error.min"))
-      .max(25, i18next.t("change-password.new-password.error.max"))
+      .min(8, i18next.t("reset-password.new-password.error.min"))
+      .max(25, i18next.t("reset-password.new-password.error.max"))
       .matches(passwordRules, {
-        message: i18next.t("change-password.new-password.error.invalide"),
+        message: i18next.t("reset-password.new-password.error.invalide"),
       })
-      .required(i18next.t("change-password.new-password.error.required")),
+      .required(i18next.t("reset-password.new-password.error.required")),
     code: Yup.string()
-      .required(i18next.t("change-password.code.error.required"))
-      .length(6, i18next.t("change-password.code.error.invalide")),
+      .required(i18next.t("reset-password.code.error.required"))
+      .length(6, i18next.t("reset-password.code.error.invalide")),
   });
 
 export const UserOnbardingSchema = () =>
