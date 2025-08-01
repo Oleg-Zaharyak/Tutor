@@ -47,3 +47,6 @@ yarn.lock
 
 # ===== Misc user/test files =====
 exampleData.js
+
+# ===== Prisma =====
+backend/generated/prisma

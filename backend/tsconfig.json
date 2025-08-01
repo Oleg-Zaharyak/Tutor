@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                 // Сучасний JavaScript
+    "module": "CommonJS",               // Потрібно для Node.js (а не "nodenext")
+    "rootDir": "./src",                 // Де знаходяться .ts файли
+    "outDir": "./dist",                 // Куди буде компілюватись .js
+
+    "strict": true,                     // Увімкнені всі строгі перевірки
+    "esModuleInterop": true,           // Щоб працювали імпорти типу: import express from 'express'
+    "skipLibCheck": true,              // Ігнорує перевірку типів у node_modules
+
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],                  // Які файли компілювати
+  "exclude": ["node_modules"]          // Що виключати
+}
