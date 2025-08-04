@@ -9,6 +9,10 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import Button from "../Button";
 
 import { useClerk } from "@clerk/clerk-react";
+import { useAppSelector } from "../../hooks/hooks";
+import { toCapitalCase } from "../../utils/string";
+import { GoGear } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 type TopBarProps = {
   onBurgerClick: () => void;
@@ -16,9 +20,16 @@ type TopBarProps = {
 };
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
-  const [showProfileModal, setShowProfileModal] = useState(false);
-
+  const navigate = useNavigate();
   const { signOut } = useClerk();
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const { userProfile } = useAppSelector((state) => state.user);
+
+  const role = toCapitalCase(userProfile?.role);
+
+  const handleCloseModal = () => {
+    setShowProfileModal((prev) => !prev);
+  };
 
   const handleLogout = async () => {
     await signOut();
@@ -41,31 +52,52 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
           <LanguageToggle />
           <ThemeToggle />
         </div>
-        <div
-          onClick={() => setShowProfileModal(true)}
-          className={styles.profile}
-        >
+        <div onClick={handleCloseModal} className={styles.profile}>
           <HiOutlineUserCircle className={styles.profile_img} />
           <div className={styles.profile_info}>
-            <p className={styles.profile_name}>Oleg Zakhariak</p>
-            <p className={styles.profile_role}>Admin</p>
+            <p className={styles.profile_name}>{userProfile.fullName}</p>
+            <p className={styles.profile_role}>{role}</p>
           </div>
         </div>
         {showProfileModal && (
-          <div
-            onClick={() => setShowProfileModal(false)}
-            className={styles.profile_wrapper}
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={styles.profile_modal}
-            >
-              <HiOutlineUserCircle className={styles.profile_modal_img} />
+          <div onClick={handleCloseModal} className={styles.modal_wrapper}>
+            <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
+              <div className={styles.modal_top_block}>
+                <div className={styles.modal_btns}>
+                  <GoGear
+                    onClick={() => {
+                      navigate("/dashboard/settings");
+                      handleCloseModal();
+                    }}
+                    className={styles.modal_btns_setting}
+                  />
+                  <RxCross2
+                    onClick={handleCloseModal}
+                    className={styles.modal_btns_close}
+                  />
+                </div>
+                <HiOutlineUserCircle className={styles.modal_img} />
+                <p className={styles.modal_username}>{userProfile.fullName}</p>
+              </div>
+
+              <div className={styles.modal_info_block}>
+                <div className={styles.modal_email}>
+                  <div className={styles.modal_email_title}>Email</div>
+                  <div className={styles.modal_email_text}>
+                    {userProfile.email}
+                  </div>
+                </div>
+                <div className={styles.modal_id}>
+                  <div className={styles.modal_id_title}>Your id</div>
+                  <div className={styles.modal_id_text}>{userProfile.id}</div>
+                </div>
+              </div>
+
               <Button
                 title="Logout"
                 styleType="outline"
                 onClick={handleLogout}
-                className={styles.profile_modal_logout}
+                className={styles.modal_logout_btn}
               />
             </div>
           </div>

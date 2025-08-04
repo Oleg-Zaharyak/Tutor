@@ -1,15 +1,46 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import TopBar from "../../../components/TopBar";
 import { Sidebar } from "../../../components/Sidebar";
-import { useAppSelector } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import clsx from "clsx";
+import { getProfileById } from "../../../store/actions/user";
+import { useUser } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 
 const DashboardLoyaut: FC = () => {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const { user } = useUser();
+  const { getToken } = useAuth();
+
   const { expandMenu } = useAppSelector((state) => state.appUI);
+
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const [currentLocation, setCurrentLocation] = useState(location.pathname);
+
+  // витягую дані про користувача з бд
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = await getToken();
+      if (user && token) {
+        dispatch(getProfileById({ id: user.id, token }));
+      }
+    };
+    if (user) fetchProfile();
+  }, [user, dispatch, getToken]);
+
+  // закриваю меню при зміні шляху
+  useEffect(() => {
+    const newLocation = location.pathname;
+    if (isMobileMenuOpen && currentLocation !== newLocation) {
+      setCurrentLocation(newLocation);
+      setMobileMenuOpen(false);
+    }
+  }, [currentLocation, location, isMobileMenuOpen]);
+
   return (
     <div
       className={clsx(
@@ -23,7 +54,6 @@ const DashboardLoyaut: FC = () => {
           isMobileMenuOpen={isMobileMenuOpen}
           onBurgerClick={() => setMobileMenuOpen((prev) => !prev)}
         />
-        {/* <TopBar /> */}
       </div>
       <div className={styles.sidebar}>
         <Sidebar />

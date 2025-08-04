@@ -43,7 +43,7 @@
     height: calc(100vh - 70px);
     width: 240px;
     background-color: var(--bg-main-color);
-    z-index: 1000;
+    z-index: 999;
     transition: left 0.3s ease-in-out;
   }
 
