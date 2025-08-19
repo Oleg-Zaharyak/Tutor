@@ -5,7 +5,7 @@ import TopBar from "../../../components/TopBar";
 import { Sidebar } from "../../../components/Sidebar";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import clsx from "clsx";
-import { getProfileById } from "../../../store/actions/user";
+import { getProfileById } from "../../../store/api/user";
 import { useUser } from "@clerk/clerk-react";
 import { useAuth } from "@clerk/clerk-react";
 

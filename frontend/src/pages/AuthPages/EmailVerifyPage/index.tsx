@@ -14,7 +14,6 @@ import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
 import { ClerkSignInError } from "../../../types/clerk";
 
-
 const EmailVerifyPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();

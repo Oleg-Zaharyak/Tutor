@@ -1,14 +1,7 @@
-import { ChangeEvent, FC, useId } from "react";
+import { FC, useId } from "react";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
-
-type CheckboxProps = {
-  title: string;
-  name: string;
-  value?: string;
-  error?: boolean;
-  onChange(el?: ChangeEvent<HTMLInputElement>): void;
-};
+import { CheckboxProps } from "./types";
 
 const Checkbox: FC<CheckboxProps> = ({
   title,

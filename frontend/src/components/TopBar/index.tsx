@@ -13,11 +13,9 @@ import { useAppSelector } from "../../hooks/hooks";
 import { toCapitalCase } from "../../utils/string";
 import { GoGear } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import { TopBarProps } from "./types";
 
-type TopBarProps = {
-  onBurgerClick: () => void;
-  isMobileMenuOpen: boolean;
-};
+
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const navigate = useNavigate();

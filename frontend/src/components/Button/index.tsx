@@ -1,16 +1,7 @@
-import { FC, MouseEvent } from "react";
+import { FC } from "react";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
-
-type ButtonProps = {
-  title?: string;
-  type?: "submit" | "button" | "reset";
-  styleType?: "filled" | "outline";
-  style?: object;
-  className?: string;
-  disabled?: boolean;
-  onClick?(event?: MouseEvent<HTMLElement>): void;
-};
+import { ButtonProps } from "./types";
 
 const Button: FC<ButtonProps> = ({
   style,

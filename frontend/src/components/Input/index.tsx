@@ -1,30 +1,8 @@
-import {
-  ChangeEvent,
-  FC,
-  Dispatch,
-  SetStateAction,
-  useId,
-  FocusEvent,
-} from "react";
+import { FC, useId } from "react";
 import styles from "./styles.module.scss";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import clsx from "clsx";
-
-type InputsProps = {
-  title: string;
-  name?: string;
-  inputType: string;
-  value?: string;
-  style?: object;
-  error?: boolean;
-  errorText?: string;
-  disabled?: boolean;
-  placeholder?: string;
-  showPassword?: boolean;
-  setShowPassword?: Dispatch<SetStateAction<boolean>>;
-  onBlure?(e?: FocusEvent<HTMLInputElement>): void;
-  onChange(e?: ChangeEvent<HTMLInputElement>): void;
-};
+import { InputsProps } from "./types";
 
 const Input: FC<InputsProps> = ({
   name,

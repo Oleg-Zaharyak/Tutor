@@ -1,17 +1,7 @@
-import { ChangeEvent, FC, useId } from "react";
+import { FC, useId } from "react";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
-
-type SelectProps = {
-  name: string;
-  title: string;
-  options: { title: string; value: string }[];
-  style?: object;
-  error?: boolean;
-  errorText?: string;
-  onChange(e?: ChangeEvent<HTMLSelectElement>): void;
-  defaultOptionTitle?: string;
-};
+import { SelectProps } from "./types";
 
 const Select: FC<SelectProps> = ({
   name,

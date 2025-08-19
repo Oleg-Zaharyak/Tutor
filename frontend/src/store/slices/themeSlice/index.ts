@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ThemeState } from "./types";
 
-interface ThemeState {
-  theme: "light" | "dark";
-}
 
 const savedTheme = localStorage.getItem("theme");
 const isValidTheme = savedTheme === "light" || savedTheme === "dark";

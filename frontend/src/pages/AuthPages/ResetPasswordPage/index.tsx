@@ -17,7 +17,6 @@ import Button from "../../../components/Button";
 import PasswordResetSuccessModal from "../../../components/PasswordResetSuccessModal";
 import { ClerkSignInError } from "../../../types/clerk";
 
-
 const ResetPasswordPage: FC = () => {
   const { t } = useTranslation();
   const { signIn } = useSignIn();

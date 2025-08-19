@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface UIState {
-  expandMenu: boolean;
-  isLoading: boolean;
-}
+import { UIState } from "./types";
 
 const savedExpandMenu = localStorage.getItem("expandMenu");
 
