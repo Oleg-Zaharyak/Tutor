@@ -5,15 +5,14 @@ import TopBar from "../../../components/TopBar";
 import { Sidebar } from "../../../components/Sidebar";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import clsx from "clsx";
-import { getProfileById } from "../../../store/api/user";
-import { useUser } from "@clerk/clerk-react";
+
 import { useAuth } from "@clerk/clerk-react";
+import { setToken } from "../../../store/slices/appUISlice";
 
 const DashboardLoyaut: FC = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-  const { user } = useUser();
   const { getToken } = useAuth();
 
   const { expandMenu } = useAppSelector((state) => state.appUI);
@@ -21,16 +20,13 @@ const DashboardLoyaut: FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
 
-  // витягую дані про користувача з бд
+  // витягую токен про користувача з бд
   useEffect(() => {
-    const fetchProfile = async () => {
+    (async () => {
       const token = await getToken();
-      if (user && token) {
-        dispatch(getProfileById({ id: user.id, token }));
-      }
-    };
-    if (user) fetchProfile();
-  }, [user, dispatch, getToken]);
+      dispatch(setToken(token));
+    })();
+  }, [dispatch, getToken]);
 
   // закриваю меню при зміні шляху
   useEffect(() => {

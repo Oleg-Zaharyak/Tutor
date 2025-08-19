@@ -1,0 +1,16 @@
+export interface UserProfile {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  birthDate: string;
+  address: string;
+  avatarUrl: string;
+  bio: string;
+  phoneNumber: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  selectedAccount: null | "STUDENT" | "TEACHER";
+}

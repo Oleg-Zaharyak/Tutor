@@ -12,7 +12,7 @@ enum ProfileRole {
   ADMIN
 }
 
-enum RoleType {
+enum AccountType {
   STUDENT
   TEACHER
 }
@@ -39,12 +39,13 @@ model Profile {
   updatedAt   DateTime    @updatedAt()
 
   accounts Account[]
+  selectedAccount AccountType?
 }
 
 model Account {
   id        String        @id @default(cuid())
   profileId String
-  type      RoleType
+  type      AccountType
   status    AccountStatus @default(ACTIVE)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt

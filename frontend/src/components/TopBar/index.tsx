@@ -8,22 +8,29 @@ import { RxCross2 } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import Button from "../Button";
 
-import { useClerk } from "@clerk/clerk-react";
-import { useAppSelector } from "../../hooks/hooks";
-import { toCapitalCase } from "../../utils/string";
+import { useClerk, useUser } from "@clerk/clerk-react";
 import { GoGear } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { TopBarProps } from "./types";
-
-
+import { useAppSelector } from "../../hooks/hooks";
+import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { toCapitalCase } from "../../utils/string";
+import ProfileSkeleton from "./profileSkeleton";
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const navigate = useNavigate();
   const { signOut } = useClerk();
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const { userProfile } = useAppSelector((state) => state.user);
+  const { user } = useUser();
 
-  const role = toCapitalCase(userProfile?.role);
+  const { token } = useAppSelector((state) => state.appUI);
+
+  const { data, isLoading } = useGetCurrentUserProfileQuery(
+    token && user ? { id: user.id, token } : skipToken
+  );
+
+  const role = data?.selectedAccount && toCapitalCase(data?.selectedAccount);
 
   const handleCloseModal = () => {
     setShowProfileModal((prev) => !prev);
@@ -50,13 +57,17 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
           <LanguageToggle />
           <ThemeToggle />
         </div>
-        <div onClick={handleCloseModal} className={styles.profile}>
-          <HiOutlineUserCircle className={styles.profile_img} />
-          <div className={styles.profile_info}>
-            <p className={styles.profile_name}>{userProfile.fullName}</p>
-            <p className={styles.profile_role}>{role}</p>
+        {!isLoading ? (
+          <div onClick={handleCloseModal} className={styles.profile}>
+            <HiOutlineUserCircle className={styles.profile_img} />
+            <div className={styles.profile_info}>
+              <p className={styles.profile_name}>{data?.fullName}</p>
+              <p className={styles.profile_role}>{role}</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <ProfileSkeleton />
+        )}
         {showProfileModal && (
           <div onClick={handleCloseModal} className={styles.modal_wrapper}>
             <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
@@ -75,19 +86,17 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
                   />
                 </div>
                 <HiOutlineUserCircle className={styles.modal_img} />
-                <p className={styles.modal_username}>{userProfile.fullName}</p>
+                <p className={styles.modal_username}>{data?.fullName}</p>
               </div>
 
               <div className={styles.modal_info_block}>
                 <div className={styles.modal_email}>
                   <div className={styles.modal_email_title}>Email</div>
-                  <div className={styles.modal_email_text}>
-                    {userProfile.email}
-                  </div>
+                  <div className={styles.modal_email_text}>{data?.email}</div>
                 </div>
                 <div className={styles.modal_id}>
                   <div className={styles.modal_id_title}>Your id</div>
-                  <div className={styles.modal_id_text}>{userProfile.id}</div>
+                  <div className={styles.modal_id_text}>{data?.id}</div>
                 </div>
               </div>
 

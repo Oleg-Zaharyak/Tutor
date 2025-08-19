@@ -189,6 +189,57 @@ button.modal_logout_btn {
   }
 }
 
+.skeleton {
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 5px 10px 5px 8px;
+  border-radius: 6px;
+
+  &_img {
+    height: 34px;
+    width: 34px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+  &_block {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+
+    &_text {
+      width: 88px;
+      height: 10px;
+      border-radius: 2px;
+      background-color: #e0e0e0;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    &_role{
+      width: 40px;
+      height: 10px;
+      border-radius: 2px;
+      background-color: #e0e0e0;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (min-width: 1024px) {
   .menu_button {
     display: none;
