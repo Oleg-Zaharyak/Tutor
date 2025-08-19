@@ -26,9 +26,9 @@ enum AccountStatus {
 model Profile {
   id          String      @id // Clerk userId
   email       String      @unique
-  firstName   String
-  lastName    String
-  fullName    String
+  firstName   String?
+  lastName    String?
+  fullName    String?
   birthDate   DateTime?
   address     String?
   avatarUrl   String?

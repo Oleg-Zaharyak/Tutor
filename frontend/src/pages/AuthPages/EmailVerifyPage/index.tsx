@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,36 @@ const EmailVerifyPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [counter, setCounter] = useState(0);
   const { signUp, isLoaded, setActive } = useSignUp();
   const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
+
+  //Каунтер
+  useEffect(() => {
+    let interval: number;
+
+    if (counter > 0) {
+      interval = setInterval(() => {
+        setCounter((prev) => prev - 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [counter]);
+
+  // Функція повторного надсилання коду на емеїл
+  const handleResendCode = async () => {
+    setCounter(30);
+    try {
+      await signUp?.prepareEmailAddressVerification({
+        strategy: "email_code",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -124,12 +152,22 @@ const EmailVerifyPage: FC = () => {
             placeholder={t("email-verify.code.placeholder")}
           />
         </div>
-
-        <Button
-          title={t("email-verify.btn-title")}
-          style={{ width: "80%", marginTop: "40px" }}
-          type="submit"
-        />
+        <div className={styles.buttons_container}>
+          <Button
+            title={t("email-verify.btn-title")}
+            style={{ width: "80%", marginTop: "40px" }}
+            type="submit"
+          />
+          {counter ? (
+            <div className={styles.counter}>
+              {t("reset-password.resend-code-timer-text", { counter })}
+            </div>
+          ) : (
+            <div className={styles.resend_button} onClick={handleResendCode}>
+              {t("reset-password.resend-code-btn-title")}
+            </div>
+          )}
+        </div>
       </form>
     </>
   );

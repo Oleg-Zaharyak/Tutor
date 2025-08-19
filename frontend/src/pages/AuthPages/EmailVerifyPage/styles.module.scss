@@ -1,4 +1,3 @@
-
 .form {
   width: 100%;
   display: flex;
@@ -20,4 +19,27 @@
   margin-top: 37px;
   flex-direction: column;
   row-gap: 30px;
+}
+
+.buttons_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+.counter {
+  color: #a6a6a6;
+}
+
+.resend_button {
+  cursor: pointer;
+  text-decoration: none;
+  color: #4880ff;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 }

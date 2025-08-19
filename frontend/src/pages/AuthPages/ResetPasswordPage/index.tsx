@@ -42,7 +42,6 @@ const ResetPasswordPage: FC = () => {
   }, []);
 
   // каунтер
-
   useEffect(() => {
     let interval: number;
 

@@ -26,16 +26,21 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
 
   const { token } = useAppSelector((state) => state.appUI);
 
+  //Витягую дані про профіль користувача
   const { data, isLoading } = useGetCurrentUserProfileQuery(
     token && user ? { id: user.id, token } : skipToken
   );
 
-  const role = data?.selectedAccount && toCapitalCase(data?.selectedAccount);
+  // Робить щоб слово починалось з великої літери
+  const selectedAccount =
+    data?.selectedAccount && toCapitalCase(data?.selectedAccount);
 
+  // Закривання модалки профілю
   const handleCloseModal = () => {
     setShowProfileModal((prev) => !prev);
   };
 
+  // Вихід з профіля
   const handleLogout = async () => {
     await signOut();
   };
@@ -62,7 +67,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
             <HiOutlineUserCircle className={styles.profile_img} />
             <div className={styles.profile_info}>
               <p className={styles.profile_name}>{data?.fullName}</p>
-              <p className={styles.profile_role}>{role}</p>
+              <p className={styles.profile_role}>{selectedAccount}</p>
             </div>
           </div>
         ) : (
