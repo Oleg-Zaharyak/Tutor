@@ -9,17 +9,20 @@ import i18next from "i18next";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { EmailVerifySchema } from "../../../libs/schema";
-import { useSignUp } from "@clerk/clerk-react";
+import { useAuth, useSignUp } from "@clerk/clerk-react";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
 import { ClerkSignInError } from "../../../types/clerk";
+import { useCreateProfileMutation } from "../../../store/api/profileApi";
 
 const EmailVerifyPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { getToken } = useAuth();
   const [counter, setCounter] = useState(0);
   const { signUp, isLoaded, setActive } = useSignUp();
+  const [createProfile] = useCreateProfileMutation();
   const [clerkErrors, setClerkErrors] = useState<ClerkSignInError>({});
 
   //Каунтер
@@ -67,6 +70,17 @@ const EmailVerifyPage: FC = () => {
 
         if (result.status === "complete") {
           await setActive({ session: result.createdSessionId });
+          const { emailAddress, createdUserId } = result;
+          const token = await getToken();
+
+          if (emailAddress && createdUserId && token) {
+            await createProfile({
+              id: createdUserId,
+              email: emailAddress,
+              token,
+            }).unwrap();
+          }
+
           navigate("/user-onboarding");
         } else {
           setErrors({ code: t("email-verify.clerk-error.default") });
@@ -147,7 +161,7 @@ const EmailVerifyPage: FC = () => {
             value={formik.values.code}
             error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}
             errorText={formik.errors.code}
-            onBlure={formik.handleBlur}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             placeholder={t("email-verify.code.placeholder")}
           />

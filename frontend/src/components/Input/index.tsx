@@ -16,7 +16,7 @@ const Input: FC<InputsProps> = ({
   placeholder,
   showPassword = false,
   setShowPassword,
-  onBlure,
+  onBlur,
   onChange,
 }) => {
   const inputId = useId();
@@ -34,7 +34,7 @@ const Input: FC<InputsProps> = ({
         className={clsx(styles.input, error && styles.input_error)}
         type={!showPassword ? inputType : "text"}
         id={inputId}
-        onBlur={onBlure}
+        onBlur={onBlur}
         onChange={onChange}
       />
       {inputType === "password" ? (

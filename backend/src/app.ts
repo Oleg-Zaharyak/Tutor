@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import accountRoutes from "./account/account.routes";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ app.use(
 );
 app.use(express.json());
 
-app.use("/api", accountRoutes);
+app.use("/api", routes);
 
 app.get("/api/health", (_, res) => {
   res.json({ message: "Backend is working!" });

@@ -21,6 +21,7 @@ enum AccountStatus {
   ACTIVE
   SUSPENDED
   BLOCKED
+  CLOSED
 }
 
 model Profile {
@@ -38,12 +39,13 @@ model Profile {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt()
 
-  accounts Account[]
-  selectedAccount AccountType?
+  accounts          Account[]
+  selectedAccountId String?   @unique
 }
 
 model Account {
   id        String        @id @default(cuid())
+  title     String
   profileId String
   type      AccountType
   status    AccountStatus @default(ACTIVE)

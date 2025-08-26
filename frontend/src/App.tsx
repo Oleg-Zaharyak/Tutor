@@ -1,6 +1,6 @@
 import styles from "./App.module.scss";
 import clsx from "clsx";
-import { useAppSelector } from "./hooks/hooks";
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import PrivateRoute from "./utils/PrivateRoute";
@@ -31,11 +31,24 @@ import {
   DashboardLoyaut,
 } from "./pages/DashboardPages";
 import UserOnboardingPage from "./pages/UserOnboardingPage";
-
+import { useAuth } from "@clerk/clerk-react";
+import { useEffect } from "react";
+import { setToken, setUserId } from "./store/slices/appUISlice";
 
 function App() {
+  const dispatch = useAppDispatch();
+  const { getToken, userId } = useAuth();
+
   const { theme } = useAppSelector((state) => state.theme);
   const { isLoading } = useAppSelector((state) => state.appUI);
+
+  useEffect(() => {
+    (async () => {
+      const token = await getToken();
+      dispatch(setToken(token));
+      dispatch(setUserId(userId));
+    })();
+  }, [dispatch, getToken, userId]);
 
   return (
     <div className={clsx(styles.container, styles[`${theme}_theme`])}>

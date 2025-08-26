@@ -111,7 +111,7 @@ const SignUpPage: FC = () => {
               Boolean(formik.errors.email) && Boolean(formik.touched.email)
             }
             errorText={formik.errors.email}
-            onBlure={formik.handleBlur}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             placeholder={t("sign-up.email.placeholder")}
           />
@@ -127,7 +127,7 @@ const SignUpPage: FC = () => {
             }
             errorText={formik.errors.password}
             onChange={formik.handleChange}
-            onBlure={formik.handleBlur}
+            onBlur={formik.handleBlur}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
             placeholder={t("sign-up.password.placeholder")}
@@ -144,7 +144,7 @@ const SignUpPage: FC = () => {
             errorText={formik.errors.confirmPassword}
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
-            onBlure={formik.handleBlur}
+            onBlur={formik.handleBlur}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
             placeholder={t("sign-up.confirm-password.placeholder")}

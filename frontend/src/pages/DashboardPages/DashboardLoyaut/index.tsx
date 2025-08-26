@@ -3,30 +3,16 @@ import styles from "./styles.module.scss";
 import { Outlet, useLocation } from "react-router-dom";
 import TopBar from "../../../components/TopBar";
 import { Sidebar } from "../../../components/Sidebar";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { useAppSelector } from "../../../hooks/hooks";
 import clsx from "clsx";
-
-import { useAuth } from "@clerk/clerk-react";
-import { setToken } from "../../../store/slices/appUISlice";
 
 const DashboardLoyaut: FC = () => {
   const location = useLocation();
-  const dispatch = useAppDispatch();
-
-  const { getToken } = useAuth();
 
   const { expandMenu } = useAppSelector((state) => state.appUI);
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
-
-  // витягую токен про користувача з бд
-  useEffect(() => {
-    (async () => {
-      const token = await getToken();
-      dispatch(setToken(token));
-    })();
-  }, [dispatch, getToken]);
 
   // закриваю меню при зміні шляху
   useEffect(() => {

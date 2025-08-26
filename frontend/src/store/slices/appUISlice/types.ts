@@ -1,5 +1,6 @@
 export interface UIState {
   expandMenu: boolean;
   isLoading: boolean;
-  token: string | null;
+  token: string;
+  userId: string;
 }

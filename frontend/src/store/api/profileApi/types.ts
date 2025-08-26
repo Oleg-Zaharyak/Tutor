@@ -12,5 +12,5 @@ export interface UserProfile {
   role: string;
   createdAt: string;
   updatedAt: string;
-  selectedAccount: null | "STUDENT" | "TEACHER";
+  selectedAccountId: string;
 }

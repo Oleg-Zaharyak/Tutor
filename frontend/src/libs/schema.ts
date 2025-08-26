@@ -68,10 +68,6 @@ export const UserOnbardingSchema = () =>
       .required(i18next.t("user-onboarding.last-name.error.required"))
       .min(2, i18next.t("user-onboarding.first-name.error.min")),
 
-    dateOfBirth: Yup.date()
-      .required(i18next.t("user-onboarding.date-of-birth.error.required"))
-      .max(new Date(), i18next.t("user-onboarding.date-of-birth.error.max")),
-
     accountType: Yup.string()
       .oneOf(
         ["STUDENT", "TEACHER"],

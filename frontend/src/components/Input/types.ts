@@ -12,6 +12,6 @@ export type InputsProps = {
   placeholder?: string;
   showPassword?: boolean;
   setShowPassword?: Dispatch<SetStateAction<boolean>>;
-  onBlure?(e?: FocusEvent<HTMLInputElement>): void;
+  onBlur?(e?: FocusEvent<HTMLInputElement>): void;
   onChange(e?: ChangeEvent<HTMLInputElement>): void;
 };

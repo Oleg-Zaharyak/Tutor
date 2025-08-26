@@ -1,48 +1,47 @@
 import { FC, useState } from "react";
 import styles from "./styles.module.scss";
 
-import ThemeToggle from "../ThemeToggle";
-import LanguageToggle from "../LanguageToggle";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import Button from "../Button";
 
-import { useClerk, useUser } from "@clerk/clerk-react";
-import { GoGear } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 import { TopBarProps } from "./types";
 import { useAppSelector } from "../../hooks/hooks";
 import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { toCapitalCase } from "../../utils/string";
 import ProfileSkeleton from "./profileSkeleton";
+import { useGetCurrentUserAccountQuery } from "../../store/api/accountApi";
+import PortfolioModal from "../PortfolioModal";
+import clsx from "clsx";
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
-  const navigate = useNavigate();
-  const { signOut } = useClerk();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const { user } = useUser();
 
   const { token } = useAppSelector((state) => state.appUI);
 
   //Витягую дані про профіль користувача
-  const { data, isLoading } = useGetCurrentUserProfileQuery(
-    token && user ? { id: user.id, token } : skipToken
-  );
+  const { data: profileData, isLoading: isProfileLoading } =
+    useGetCurrentUserProfileQuery(
+      token && user ? { id: user.id, token } : skipToken
+    );
+
+  //Витягую дані про акаунт користувача
+  const { data: accountData, isLoading: isAccountLoading } =
+    useGetCurrentUserAccountQuery(
+      token && profileData
+        ? { id: profileData.selectedAccountId, token }
+        : skipToken
+    );
 
   // Робить щоб слово починалось з великої літери
-  const selectedAccount =
-    data?.selectedAccount && toCapitalCase(data?.selectedAccount);
+  const selectedAccount = accountData?.type && toCapitalCase(accountData?.type);
 
   // Закривання модалки профілю
   const handleCloseModal = () => {
     setShowProfileModal((prev) => !prev);
-  };
-
-  // Вихід з профіля
-  const handleLogout = async () => {
-    await signOut();
   };
 
   return (
@@ -55,18 +54,19 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
             <IoMenu className={styles.menu_button_icon} />
           )}
         </button>
-        <div className={styles.logo}>Logo</div>
+        Logo
       </div>
       <div className={styles.right_container}>
-        <div className={styles.buttons}>
-          <LanguageToggle />
-          <ThemeToggle />
-        </div>
-        {!isLoading ? (
-          <div onClick={handleCloseModal} className={styles.profile}>
+        {!isProfileLoading && !isAccountLoading ? (
+          <div
+            onClick={handleCloseModal}
+            className={clsx(styles.profile, {
+              [styles.profile_active]: showProfileModal,
+            })}
+          >
             <HiOutlineUserCircle className={styles.profile_img} />
             <div className={styles.profile_info}>
-              <p className={styles.profile_name}>{data?.fullName}</p>
+              <p className={styles.profile_name}>{profileData?.fullName}</p>
               <p className={styles.profile_role}>{selectedAccount}</p>
             </div>
           </div>
@@ -74,45 +74,10 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
           <ProfileSkeleton />
         )}
         {showProfileModal && (
-          <div onClick={handleCloseModal} className={styles.modal_wrapper}>
-            <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
-              <div className={styles.modal_top_block}>
-                <div className={styles.modal_btns}>
-                  <GoGear
-                    onClick={() => {
-                      navigate("/dashboard/settings");
-                      handleCloseModal();
-                    }}
-                    className={styles.modal_btns_setting}
-                  />
-                  <RxCross2
-                    onClick={handleCloseModal}
-                    className={styles.modal_btns_close}
-                  />
-                </div>
-                <HiOutlineUserCircle className={styles.modal_img} />
-                <p className={styles.modal_username}>{data?.fullName}</p>
-              </div>
-
-              <div className={styles.modal_info_block}>
-                <div className={styles.modal_email}>
-                  <div className={styles.modal_email_title}>Email</div>
-                  <div className={styles.modal_email_text}>{data?.email}</div>
-                </div>
-                <div className={styles.modal_id}>
-                  <div className={styles.modal_id_title}>Your id</div>
-                  <div className={styles.modal_id_text}>{data?.id}</div>
-                </div>
-              </div>
-
-              <Button
-                title="Logout"
-                styleType="outline"
-                onClick={handleLogout}
-                className={styles.modal_logout_btn}
-              />
-            </div>
-          </div>
+          <PortfolioModal
+            profileData={profileData}
+            handleCloseModal={handleCloseModal}
+          />
         )}
       </div>
     </div>

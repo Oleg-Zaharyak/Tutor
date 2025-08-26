@@ -13,29 +13,60 @@ import Select from "../../components/Select";
 import { UserOnbardingSchema } from "../../libs/schema";
 import LanguageToggle from "../../components/LanguageToggle";
 import ThemeToggle from "../../components/ThemeToggle";
-// import { useNavigate } from "react-router-dom";
 
-// import { useSignIn } from "@clerk/clerk-react";
-
-// import { useAppDispatch } from "../../../hooks/hooks";
-// import { setLoading } from "../../../store/slices/appUISlice";
+import { useUpdateProfileMutation } from "../../store/api/profileApi";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { FormTypes } from "./types";
+import { useUser } from "@clerk/clerk-react";
+import { setLoading } from "../../store/slices/appUISlice";
+import { useCreateAccountMutation } from "../../store/api/accountApi";
 
 const UserOnboardingPage: FC = () => {
   const { t } = useTranslation();
-  //   const { signIn } = useSignIn();
-  // const navigate = useNavigate();
-  //   const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+
+  const [updateProfile] = useUpdateProfileMutation();
+  const [createAccount] = useCreateAccountMutation();
+  const { user } = useUser();
+  const { userId, token } = useAppSelector((state) => state.appUI);
 
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
-      dateOfBirth: "",
-      accountType: "one",
+      accountType: "STUDENT",
     },
     validationSchema: UserOnbardingSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values: FormTypes) => {
+      dispatch(setLoading(true));
+      try {
+        const account = await createAccount({
+          profileId: userId,
+          token,
+          type: values.accountType,
+        }).unwrap();
+
+        await updateProfile({
+          profileId: userId,
+          token,
+          data: {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            selectedAccountId: account.id,
+          },
+        }).unwrap();
+
+        if (user) {
+          await user.update({
+            firstName: values.firstName,
+            lastName: values.lastName,
+          });
+        }
+      } catch (err) {
+        console.error("Помилка оновлення:", err);
+      } finally {
+        dispatch(setLoading(false));
+      }
     },
   });
 
@@ -61,60 +92,44 @@ const UserOnboardingPage: FC = () => {
           <h1 className={styles.title}>{t("user-onboarding.title")}</h1>
           <p className={styles.sub_title}>{t("user-onboarding.sub-title")}</p>
           <form onSubmit={formik.handleSubmit} className={styles.form}>
-            <>
-              <Input
-                name="firstName"
-                inputType="text"
-                style={{ width: "100%" }}
-                title={t("user-onboarding.first-name.title")}
-                value={formik.values.firstName}
-                error={
-                  Boolean(formik.errors.firstName) &&
-                  Boolean(formik.touched.firstName)
-                }
-                errorText={formik.errors.firstName}
-                onBlure={formik.handleBlur}
-                onChange={formik.handleChange}
-                placeholder={t("user-onboarding.first-name.placeholder")}
-              />
-              <Input
-                name="lastName"
-                inputType="text"
-                style={{ width: "100%" }}
-                title={t("user-onboarding.last-name.title")}
-                value={formik.values.lastName}
-                error={
-                  Boolean(formik.errors.lastName) &&
-                  Boolean(formik.touched.lastName)
-                }
-                errorText={formik.errors.lastName}
-                onBlure={formik.handleBlur}
-                onChange={formik.handleChange}
-                placeholder={t("user-onboarding.last-name.placeholder")}
-              />
-              <Input
-                name="dateOfBirth"
-                inputType="date"
-                style={{ width: "100%" }}
-                title={t("user-onboarding.date-of-birth.title")}
-                value={formik.values.dateOfBirth}
-                error={
-                  Boolean(formik.errors.dateOfBirth) &&
-                  Boolean(formik.touched.dateOfBirth)
-                }
-                errorText={formik.errors.dateOfBirth}
-                onBlure={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-              <Select
-                name="accountType"
-                title={t("user-onboarding.account-type.title")}
-                style={{ width: "100%" }}
-                onChange={formik.handleChange}
-                options={accountTypeOptions}
-              />
-              <Button title="Continue" style={{ width: "80%" }} type="submit" />
-            </>
+            <Input
+              name="firstName"
+              inputType="text"
+              style={{ width: "100%" }}
+              title={t("user-onboarding.first-name.title")}
+              value={formik.values.firstName}
+              error={
+                Boolean(formik.errors.firstName) &&
+                Boolean(formik.touched.firstName)
+              }
+              errorText={formik.errors.firstName}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder={t("user-onboarding.first-name.placeholder")}
+            />
+            <Input
+              name="lastName"
+              inputType="text"
+              style={{ width: "100%" }}
+              title={t("user-onboarding.last-name.title")}
+              value={formik.values.lastName}
+              error={
+                Boolean(formik.errors.lastName) &&
+                Boolean(formik.touched.lastName)
+              }
+              errorText={formik.errors.lastName}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder={t("user-onboarding.last-name.placeholder")}
+            />
+            <Select
+              name="accountType"
+              title={t("user-onboarding.account-type.title")}
+              style={{ width: "100%" }}
+              onChange={formik.handleChange}
+              options={accountTypeOptions}
+            />
+            <Button title="Continue" style={{ width: "80%" }} type="submit" />
           </form>
         </div>
       </div>

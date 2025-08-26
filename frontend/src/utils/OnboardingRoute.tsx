@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { setLoading } from "../store/slices/appUISlice";
 
 const OnboardingRoute = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { isSignedIn, user, isLoaded } = useUser();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

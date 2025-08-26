@@ -21,7 +21,47 @@ export const profileApi = createApi({
         },
       }),
     }),
+
+    // створення профіля
+    createProfile: builder.mutation<
+      UserProfile,
+      { id: string; email: string; token: string }
+    >({
+      query: ({ id, email, token }) => ({
+        url: "create",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: { id, email },
+      }),
+    }),
+    
+    // Обновлення профілю
+    updateProfile: builder.mutation<
+      UserProfile,
+      { profileId: string; token: string; data: Partial<UserProfile> }
+    >({
+      query: ({ profileId, token, data }) => ({
+        url: "update",
+        method: "PATCH",
+        body: { profileId, data },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+
+    // Створення Акаунта
+
+    //Обновлення Акаунта
   }),
 });
 
-export const { useGetCurrentUserProfileQuery } = profileApi;
+export const {
+  useGetCurrentUserProfileQuery,
+  useCreateProfileMutation,
+  useUpdateProfileMutation,
+} = profileApi;
+
+

@@ -189,7 +189,7 @@ const ResetPasswordPage: FC = () => {
           value={formik.values.code}
           error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}
           errorText={formik.errors.code}
-          onBlure={formik.handleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           placeholder={t("reset-password.code.placeholder")}
         />
@@ -204,7 +204,7 @@ const ResetPasswordPage: FC = () => {
             Boolean(formik.touched.newPassword)
           }
           errorText={formik.errors.newPassword}
-          onBlure={formik.handleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           showPassword={showPassword}
           setShowPassword={setShowPassword}

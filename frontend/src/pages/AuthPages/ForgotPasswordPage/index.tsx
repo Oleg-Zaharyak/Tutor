@@ -88,7 +88,7 @@ const ForgotPasswordPage: FC = () => {
           value={formik.values.email}
           error={Boolean(formik.errors.email) && Boolean(formik.touched.email)}
           errorText={formik.errors.email}
-          onBlure={formik.handleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           placeholder={t("forgot-password.email.placeholder")}
         />

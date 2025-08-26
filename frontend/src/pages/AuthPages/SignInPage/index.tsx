@@ -119,7 +119,7 @@ const SignInPage: FC = () => {
             }
             errorText={formik.errors.email}
             value={formik.values.email}
-            onBlure={formik.handleBlur}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             placeholder={t("sign-in.email.placeholder")}
           />
@@ -134,7 +134,7 @@ const SignInPage: FC = () => {
               Boolean(formik.touched.password)
             }
             errorText={formik.errors.password}
-            onBlure={formik.handleBlur}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
