@@ -19,6 +19,14 @@ export const getProfileById = async (req: Request, res: Response) => {
   try {
     const profile = await prisma.profile.findUnique({
       where: { id },
+      include: {
+        accounts: {
+          select:{
+            id: true,
+            type:true
+          }
+        },
+      },
     });
 
     if (!profile) {

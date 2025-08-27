@@ -1,0 +1,35 @@
+/* ConfirmModal.module.scss */
+.overlay {
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: var(--bg-main-color);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.text {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.buttons {
+  display: flex;
+  column-gap: 10px;
+}
+
+.btn {
+  font-size: 14px;
+  padding: 2px 0;
+}

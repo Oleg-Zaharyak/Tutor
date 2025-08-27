@@ -6,46 +6,32 @@ export const accountApi = createApi({
   reducerPath: "accountApi",
   baseQuery: fetchBaseQuery({
     baseUrl: urls.account,
+    credentials: "include",
   }),
 
   endpoints: (builder) => ({
     // Список акаунтів
-    getUserAccountsList: builder.query<
-      Account[],
-      { profileId: string; token: string }
-    >({
-      query: ({ profileId, token }) => ({
+    getUserAccountsList: builder.query<Account[], { profileId: string }>({
+      query: ({ profileId }) => ({
         url: `allUserAccounts/${profileId}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
     }),
 
     // Дані акаунта по id
-    getCurrentUserAccount: builder.query<
-      Account,
-      { id: string; token: string }
-    >({
-      query: ({ id, token }) => ({
+    getCurrentUserAccount: builder.query<Account, { id: string }>({
+      query: ({ id }) => ({
         url: `${id}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
     }),
 
     // створення акаунта
     createAccount: builder.mutation<
       Account,
-      { profileId: string; type: string; token: string }
+      { profileId: string; type: string }
     >({
-      query: ({ profileId, type, token }) => ({
+      query: ({ profileId, type }) => ({
         url: "create",
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         body: { profileId, type },
       }),
     }),
@@ -53,15 +39,12 @@ export const accountApi = createApi({
     // Обновлення акаунта
     // updateProfile: builder.mutation<
     //   UserProfile,
-    //   { profileId: string; token: string; data: Partial<UserProfile> }
+    //   { profileId: string; data: Partial<UserProfile> }
     // >({
-    //   query: ({ profileId, token, data }) => ({
+    //   query: ({ profileId, data }) => ({
     //     url: "update",
     //     method: "PATCH",
     //     body: { profileId, data },
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
     //   }),
     // }),
   }),

@@ -45,7 +45,6 @@ model Profile {
 
 model Account {
   id        String        @id @default(cuid())
-  title     String
   profileId String
   type      AccountType
   status    AccountStatus @default(ACTIVE)
@@ -56,3 +55,4 @@ model Account {
 
   @@unique([profileId, type])
 }
+

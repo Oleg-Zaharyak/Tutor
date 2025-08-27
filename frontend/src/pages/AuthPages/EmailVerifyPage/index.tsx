@@ -9,7 +9,7 @@ import i18next from "i18next";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { EmailVerifySchema } from "../../../libs/schema";
-import { useAuth, useSignUp } from "@clerk/clerk-react";
+import { useSignUp } from "@clerk/clerk-react";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
 import { ClerkSignInError } from "../../../types/clerk";
@@ -19,7 +19,6 @@ const EmailVerifyPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { getToken } = useAuth();
   const [counter, setCounter] = useState(0);
   const { signUp, isLoaded, setActive } = useSignUp();
   const [createProfile] = useCreateProfileMutation();
@@ -71,13 +70,11 @@ const EmailVerifyPage: FC = () => {
         if (result.status === "complete") {
           await setActive({ session: result.createdSessionId });
           const { emailAddress, createdUserId } = result;
-          const token = await getToken();
 
-          if (emailAddress && createdUserId && token) {
+          if (emailAddress && createdUserId) {
             await createProfile({
               id: createdUserId,
               email: emailAddress,
-              token,
             }).unwrap();
           }
 

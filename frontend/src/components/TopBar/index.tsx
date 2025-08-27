@@ -7,7 +7,6 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 
 import { useUser } from "@clerk/clerk-react";
 import { TopBarProps } from "./types";
-import { useAppSelector } from "../../hooks/hooks";
 import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { toCapitalCase } from "../../utils/string";
@@ -20,20 +19,14 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const { user } = useUser();
 
-  const { token } = useAppSelector((state) => state.appUI);
-
   //Витягую дані про профіль користувача
   const { data: profileData, isLoading: isProfileLoading } =
-    useGetCurrentUserProfileQuery(
-      token && user ? { id: user.id, token } : skipToken
-    );
+    useGetCurrentUserProfileQuery(user ? { id: user.id } : skipToken);
 
   //Витягую дані про акаунт користувача
   const { data: accountData, isLoading: isAccountLoading } =
     useGetCurrentUserAccountQuery(
-      token && profileData
-        ? { id: profileData.selectedAccountId, token }
-        : skipToken
+      profileData ? { id: profileData.selectedAccountId } : skipToken
     );
 
   // Робить щоб слово починалось з великої літери

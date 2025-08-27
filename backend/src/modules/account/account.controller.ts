@@ -47,14 +47,14 @@ export const getAccountById = async (req: Request, res: Response) => {
 // Створити Акаунт
 
 export const createAccount = async (req: Request, res: Response) => {
-  const { profileId, type, title } = req.body;
+  const { profileId, type } = req.body;
 
   if (!profileId || !type)
     return res.status(400).json({ message: "Missing id or account type" });
 
   try {
     const account = await prisma.account.create({
-      data: { profileId, type, title },
+      data: { profileId, type },
     });
     res.status(201).json(account);
   } catch (error: any) {

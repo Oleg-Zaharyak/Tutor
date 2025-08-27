@@ -5,17 +5,16 @@ import {
   getProfileById,
   updateProfile,
 } from "./profile.controller";
-import { requireAuth } from "../../middleware/requireAuth";
 
 const router = Router();
 
-router.get("/", requireAuth, getAllProfiles);
-router.get("/:id", requireAuth, getProfileById);
+router.get("/", getAllProfiles);
+router.get("/:id", getProfileById);
 
 //Створення профілю
-router.post("/create", requireAuth, createProfile);
+router.post("/create", createProfile);
 
 //Оновлення профілю
-router.patch("/update", requireAuth, updateProfile);
+router.patch("/update", updateProfile);
 
 export default router;

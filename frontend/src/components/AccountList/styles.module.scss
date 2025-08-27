@@ -1,8 +1,10 @@
-.account {
+.addAccount {
   cursor: pointer;
   padding: 5px;
   border-radius: 6px;
   border: 2px solid transparent;
+  background-color: transparent;
+  color: var(--text-color);
 
   transition: background-color ease-in-out 0.2s;
 
@@ -13,6 +15,9 @@
   &:hover {
     border: 2px solid #4880ff;
   }
+  &_disabledHover {
+    border: 2px solid #4880ff;
+  }
 
   &_icon {
     width: 20px;
@@ -20,5 +25,43 @@
   }
   &_text {
     font-size: 18px;
+  }
+}
+
+.account {
+  width: 100%;
+  display: flex;
+  column-gap: 5px;
+  &_btn {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: var(--text-color);
+    border: 2px solid transparent;
+    background-color: transparent;
+
+    font-size: 14px;
+    &:hover:not(.button_active) {
+      border: 2px solid #4880ff;
+    }
+
+    &_active {
+      background-color: #4880ff;
+      border: 2px solid #4880ff;
+      color: white;
+    }
+  }
+}
+
+.accounts {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  &_title {
+    width: 100%;
+    text-align: center;
   }
 }

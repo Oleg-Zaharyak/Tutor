@@ -1,3 +1,5 @@
+import { Account } from "../accountApi/types";
+
 export interface UserProfile {
   id: string;
   email: string;
@@ -13,4 +15,5 @@ export interface UserProfile {
   createdAt: string;
   updatedAt: string;
   selectedAccountId: string;
+  accounts: Account[];
 }

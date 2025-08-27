@@ -4,14 +4,13 @@ import {
   getAccountById,
   getAllUserAccounts,
 } from "./account.controller";
-import { requireAuth } from "../../middleware/requireAuth";
 
 const router = Router();
 
-router.get("/allUserAccounts/:profileId", requireAuth, getAllUserAccounts);
-router.get("/:id", requireAuth, getAccountById);
+router.get("/allUserAccounts/:profileId", getAllUserAccounts);
+router.get("/:id", getAccountById);
 
 //Створення акаунта
-router.post("/create", requireAuth, createAccount);
+router.post("/create", createAccount);
 
 export default router;

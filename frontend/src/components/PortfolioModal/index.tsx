@@ -53,6 +53,8 @@ const PortfolioModal: FC<PortfolioModalProps> = ({
           </div>
         </div>
 
+        <div className={styles.line}></div>
+
         <div className={styles.modal_user}>
           <HiOutlineUserCircle className={styles.modal_user_img} />
           <div className={styles.modal_user_info}>
@@ -61,18 +63,17 @@ const PortfolioModal: FC<PortfolioModalProps> = ({
           </div>
         </div>
 
+        <div className={styles.line}></div>
+
         <AccountList />
+
+        
+
+        <div className={styles.line}></div>
 
         <ThemeToggle bigBtn />
 
         <LanguageToggle bigBtn />
-
-        {/* <div className={styles.modal_account}>
-          <p className={styles.modal_account_title}>Account Id</p>
-          <p className={styles.modal_account_text}>
-            {profileData?.selectedAccountId}
-          </p>
-        </div> */}
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ export type Account = {
   status: AccountStatus;
   createdAt: string;
   updatedAt: string;
-  title: string;
 };
 
 export enum AccountType {

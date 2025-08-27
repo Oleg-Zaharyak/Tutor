@@ -33,22 +33,18 @@ import {
 import UserOnboardingPage from "./pages/UserOnboardingPage";
 import { useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
-import { setToken, setUserId } from "./store/slices/appUISlice";
+import { setUserId } from "./store/slices/appUISlice";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { getToken, userId } = useAuth();
+  const { userId } = useAuth();
 
   const { theme } = useAppSelector((state) => state.theme);
   const { isLoading } = useAppSelector((state) => state.appUI);
 
   useEffect(() => {
-    (async () => {
-      const token = await getToken();
-      dispatch(setToken(token));
-      dispatch(setUserId(userId));
-    })();
-  }, [dispatch, getToken, userId]);
+    dispatch(setUserId(userId));
+  }, [dispatch, userId]);
 
   return (
     <div className={clsx(styles.container, styles[`${theme}_theme`])}>

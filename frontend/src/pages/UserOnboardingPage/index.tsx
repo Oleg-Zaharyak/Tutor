@@ -27,8 +27,9 @@ const UserOnboardingPage: FC = () => {
 
   const [updateProfile] = useUpdateProfileMutation();
   const [createAccount] = useCreateAccountMutation();
+
   const { user } = useUser();
-  const { userId, token } = useAppSelector((state) => state.appUI);
+  const { userId } = useAppSelector((state) => state.appUI);
 
   const formik = useFormik({
     initialValues: {
@@ -42,13 +43,11 @@ const UserOnboardingPage: FC = () => {
       try {
         const account = await createAccount({
           profileId: userId,
-          token,
           type: values.accountType,
         }).unwrap();
 
         await updateProfile({
           profileId: userId,
-          token,
           data: {
             firstName: values.firstName,
             lastName: values.lastName,
