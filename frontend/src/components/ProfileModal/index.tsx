@@ -10,17 +10,19 @@ import { UserProfile } from "../../store/api/profileApi/types";
 import { FC } from "react";
 import LanguageToggle from "../LanguageToggle";
 import ThemeToggle from "../ThemeToggle";
-import AccountList from "../AccountList";
+import AccountManager from "../AccountManager";
+import { useTranslation } from "react-i18next";
 
-type PortfolioModalProps = {
+type ProfileModalProps = {
   profileData: UserProfile | undefined;
   handleCloseModal: () => void;
 };
 
-const PortfolioModal: FC<PortfolioModalProps> = ({
+const ProfileModal: FC<ProfileModalProps> = ({
   profileData,
   handleCloseModal,
 }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { signOut } = useClerk();
 
@@ -33,7 +35,7 @@ const PortfolioModal: FC<PortfolioModalProps> = ({
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div className={styles.modal_btns}>
           <Button
-            title="Logout"
+            title={t("profile-modal.logout-btn")}
             styleType="outline"
             onClick={handleLogout}
             className={styles.modal_logout_btn}
@@ -65,18 +67,16 @@ const PortfolioModal: FC<PortfolioModalProps> = ({
 
         <div className={styles.line}></div>
 
-        <AccountList />
-
-        
+        <AccountManager />
 
         <div className={styles.line}></div>
 
-        <ThemeToggle bigBtn />
+        <ThemeToggle bigBtn title={t("profile-modal.change-theme")} />
 
-        <LanguageToggle bigBtn />
+        <LanguageToggle bigBtn title={t("profile-modal.change-language")} />
       </div>
     </div>
   );
 };
 
-export default PortfolioModal;
+export default ProfileModal;

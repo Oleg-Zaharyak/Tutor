@@ -18,7 +18,7 @@ import { ClerkSignInError } from "../../../types/clerk";
 
 const SignInPage: FC = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
-  const { t } = useTranslation();
+  const { t } = useTranslation("signIn");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);

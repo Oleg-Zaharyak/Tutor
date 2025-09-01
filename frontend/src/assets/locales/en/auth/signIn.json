@@ -1,0 +1,32 @@
+{
+  "sign-in": {
+    "title": "Login to Account",
+    "sub-title": "Please enter your email and password to continue",
+    "email": {
+      "title": "Email address:",
+      "placeholder": "Enter your email address",
+      "error": {
+        "invalide": "Invalid email",
+        "empty": "Enter your email address"
+      }
+    },
+    "password": {
+      "title": "Password:",
+      "placeholder": "Enter your password",
+      "error": {
+        "empty": "Enter your password"
+      }
+    },
+    "forget-password": "Forget Password?",
+    "remember-password": "Remember password?",
+    "btn-title": "Sign In",
+    "under-btn": {
+      "text": "Don’t have an account?",
+      "link": "Create Account"
+    },
+    "clerk-error": {
+      "incorrect-value": "Password or Email address is incorrect. Try again",
+      "default": "Something went wrong"
+    }
+  }
+}

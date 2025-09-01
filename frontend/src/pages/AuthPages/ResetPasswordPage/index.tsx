@@ -18,7 +18,7 @@ import PasswordResetSuccessModal from "../../../components/PasswordResetSuccessM
 import { ClerkSignInError } from "../../../types/clerk";
 
 const ResetPasswordPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("resetPassword");
   const { signIn } = useSignIn();
   const { isLoaded, setActive } = useSignUp();
 

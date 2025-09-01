@@ -1,0 +1,40 @@
+{
+  "user-onboarding": {
+    "title": "Welcome",
+    "sub-title": "Please enter your information to continue",
+    "first-name": {
+      "title": "First name",
+      "placeholder": "Enter your first name",
+      "error": {
+        "min": "Minimum length 2 characters",
+        "required": "First name is required"
+      }
+    },
+    "last-name": {
+      "title": "Last name",
+      "placeholder": "Enter your last name",
+      "error": {
+        "min": "Minimum length 2 characters",
+        "required": "Last name is required"
+      }
+    },
+    "date-of-birth": {
+      "title": "Date of Birth",
+      "error": {
+        "max": "Birth date cannot be in the future",
+        "required": "Date of birth is required"
+      }
+    },
+    "account-type": {
+      "title": "Account type",
+      "types": {
+        "student": "Student",
+        "teacher": "Teacher"
+      },
+      "error": {
+        "invalide": "Invalid account type",
+        "required": "Account type is required"
+      }
+    }
+  }
+}

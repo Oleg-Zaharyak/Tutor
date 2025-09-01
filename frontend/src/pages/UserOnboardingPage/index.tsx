@@ -15,21 +15,22 @@ import LanguageToggle from "../../components/LanguageToggle";
 import ThemeToggle from "../../components/ThemeToggle";
 
 import { useUpdateProfileMutation } from "../../store/api/profileApi";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch } from "../../hooks/hooks";
 import { FormTypes } from "./types";
 import { useUser } from "@clerk/clerk-react";
 import { setLoading } from "../../store/slices/appUISlice";
 import { useCreateAccountMutation } from "../../store/api/accountApi";
 
 const UserOnboardingPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("userOnboarding");
   const dispatch = useAppDispatch();
 
   const [updateProfile] = useUpdateProfileMutation();
   const [createAccount] = useCreateAccountMutation();
 
   const { user } = useUser();
-  const { userId } = useAppSelector((state) => state.appUI);
+
+  const userId = user?.id || "";
 
   const formik = useFormik({
     initialValues: {

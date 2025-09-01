@@ -16,7 +16,7 @@ import { ClerkSignInError } from "../../../types/clerk";
 import { useCreateProfileMutation } from "../../../store/api/profileApi";
 
 const EmailVerifyPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("emailVerify");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [counter, setCounter] = useState(0);
@@ -139,8 +139,6 @@ const EmailVerifyPage: FC = () => {
       } else {
         formik.setErrors({ code: t("email-verify.clerk-error.default") });
       }
-    } else {
-      formik.setErrors({ code: t("email-verify.clerk-error.default") });
     }
   });
 
@@ -171,11 +169,11 @@ const EmailVerifyPage: FC = () => {
           />
           {counter ? (
             <div className={styles.counter}>
-              {t("reset-password.resend-code-timer-text", { counter })}
+              {t("email-verify.resend-code-timer-text", { counter })}
             </div>
           ) : (
             <div className={styles.resend_button} onClick={handleResendCode}>
-              {t("reset-password.resend-code-btn-title")}
+              {t("email-verify.resend-code-btn-title")}
             </div>
           )}
         </div>

@@ -7,14 +7,15 @@ import {
 import styles from "./styles.module.scss";
 import { FiPlus } from "react-icons/fi";
 import { useUser } from "@clerk/clerk-react";
-import { toCapitalCase } from "../../utils/string";
 import clsx from "clsx";
 import { useState } from "react";
 import ConfirmModal from "../ConfirmModal";
 import { setLoading } from "../../store/slices/appUISlice";
 import { useCreateAccountMutation } from "../../store/api/accountApi";
+import { useTranslation } from "react-i18next";
 
-const AccountList = () => {
+const AccountManager = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { user } = useUser();
 
@@ -30,8 +31,8 @@ const AccountList = () => {
   const accounts = profileData?.accounts || [];
   const activeAccountId = profileData?.selectedAccountId;
   const accountId = profileData?.id || "";
-  const addAccountType =
-    profileData?.accounts[0].type === "STUDENT" ? "TEACHER" : "STUDENT";
+  const accountType = profileData?.accounts[0].type;
+  const addAccountType = accountType === "STUDENT" ? "TEACHER" : "STUDENT";
 
   const handleCreateAccount = async () => {
     dispatch(setLoading(true));
@@ -88,14 +89,20 @@ const AccountList = () => {
         )}
       >
         <div className={styles.addAccount_text}>
-          {`Add ${toCapitalCase(addAccountType)} account`}
+          {t(
+            `profile-modal.account-section.${accountType?.toLowerCase()}.add-btn`
+          )}
         </div>
         <FiPlus className={styles.addAccount_icon} />
         {isOpen ? (
           <ConfirmModal
             onClose={() => setIsOpen(false)}
             onConfirm={handleCreateAccount}
-            text="Ти впевнений, що хочеш додати акаунт?"
+            title={t(
+              "profile-modal.account-section.confirm-modal.title.add-account"
+            )}
+            cancelText={t("profile-modal.account-section.confirm-modal.no")}
+            confirmText={t("profile-modal.account-section.confirm-modal.yes")}
           />
         ) : null}
       </button>
@@ -104,7 +111,9 @@ const AccountList = () => {
 
   return (
     <div className={styles.accounts}>
-      <div className={styles.accounts_title}>Accounts</div>
+      <div className={styles.accounts_title}>
+        {t("profile-modal.account-section.title")}
+      </div>
       <div className={styles.account}>
         {accounts.map((item) => (
           <button
@@ -115,14 +124,20 @@ const AccountList = () => {
               item.id === activeAccountId && styles.account_btn_active
             )}
           >
-            {toCapitalCase(item.type)}
+            {t(
+              `profile-modal.account-section.${item.type.toLowerCase()}.title`
+            )}
           </button>
         ))}
         {isOpen ? (
           <ConfirmModal
             onClose={() => setIsOpen(false)}
             onConfirm={handleChangeAccount}
-            text="Ти впевнений, що хочеш змінити акаунт?"
+            title={t(
+              "profile-modal.account-section.confirm-modal.title.change-account"
+            )}
+            cancelText={t("profile-modal.account-section.confirm-modal.no")}
+            confirmText={t("profile-modal.account-section.confirm-modal.yes")}
           />
         ) : null}
       </div>
@@ -130,4 +145,4 @@ const AccountList = () => {
   );
 };
 
-export default AccountList;
+export default AccountManager;

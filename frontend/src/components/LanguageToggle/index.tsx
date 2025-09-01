@@ -5,9 +5,13 @@ import { useTranslation } from "react-i18next";
 
 type LanguageToggleProps = {
   bigBtn?: boolean;
+  title?: string;
 };
 
-const LanguageToggle: FC<LanguageToggleProps> = ({ bigBtn = false }) => {
+const LanguageToggle: FC<LanguageToggleProps> = ({
+  bigBtn = false,
+  title = "Change language",
+}) => {
   const { t } = useTranslation();
 
   const hangleChangeLanguage = () => {
@@ -19,9 +23,7 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ bigBtn = false }) => {
       className={bigBtn ? styles.language_bigBtn : styles.language_btn}
       onClick={hangleChangeLanguage}
     >
-      {bigBtn && (
-        <div className={styles.language_bigBtn_text}>Change language</div>
-      )}
+      {bigBtn && <div className={styles.language_bigBtn_text}>{title}</div>}
       {t("language-name")}
     </button>
   );

@@ -16,7 +16,7 @@ import { setLoading } from "../../../store/slices/appUISlice";
 import { ClerkSignInError } from "../../../types/clerk";
 
 const SignUpPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("signUp");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { signUp, isLoaded } = useSignUp();

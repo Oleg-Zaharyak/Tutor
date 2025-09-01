@@ -1,0 +1,55 @@
+{
+  "language-name": "Укр.",
+
+  "not-found": {
+    "title": "404",
+    "sub-title": "Oops... page not found",
+    "btn-title": "Back to Home"
+  },
+
+  "profile-modal": {
+    "account-section": {
+      "title": "Accounts",
+      "student": {
+        "title": "Student",
+        "add-btn": "Add Teacher account"
+      },
+      "teacher": {
+        "title": "Teacher",
+        "add-btn": "Add Student account"
+      },
+      "confirm-modal": {
+        "title": {
+          "add-account": "Are you sure you want to add an account?",
+          "change-account": "Are you sure you want to change your account?"
+        },
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "change-theme": "Change theme",
+    "change-language": "Change language",
+    "logout-btn": "Logout"
+  },
+
+  "top-bar": {
+    "profile": {
+      "student": "Student",
+      "teacher": "Teacher"
+    }
+  },
+
+  "menu": {
+    "title-dashboard": "Dashboard",
+    "title-student": "Students",
+    "title-statistic": "Statistic",
+    "title-chats": "Chats",
+    "title-whiteboards": "Whiteboards",
+    "title-calendar": "Calendar",
+    "title-files": "Files",
+    "title-quizzes": "Quizzes",
+    "title-settings": "Settings",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  }
+}

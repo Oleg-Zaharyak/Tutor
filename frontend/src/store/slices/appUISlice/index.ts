@@ -6,7 +6,6 @@ const savedExpandMenu = localStorage.getItem("expandMenu");
 const initialState: UIState = {
   expandMenu: savedExpandMenu ? JSON.parse(savedExpandMenu) : false,
   isLoading: false,
-  userId: "",
 };
 
 const appUISlice = createSlice({
@@ -20,12 +19,9 @@ const appUISlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    setUserId: (state, action) => {
-      state.userId = action.payload;
-    },
   },
 });
 
-export const { toggleExpandMenu, setLoading, setUserId } = appUISlice.actions;
+export const { toggleExpandMenu, setLoading } = appUISlice.actions;
 
 export default appUISlice.reducer;

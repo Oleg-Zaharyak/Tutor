@@ -9,13 +9,15 @@ import { useUser } from "@clerk/clerk-react";
 import { TopBarProps } from "./types";
 import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { toCapitalCase } from "../../utils/string";
 import ProfileSkeleton from "./profileSkeleton";
 import { useGetCurrentUserAccountQuery } from "../../store/api/accountApi";
-import PortfolioModal from "../PortfolioModal";
+import ProfileModal from "../ProfileModal";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
+  const { t } = useTranslation();
+
   const [showProfileModal, setShowProfileModal] = useState(false);
   const { user } = useUser();
 
@@ -30,7 +32,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
     );
 
   // Робить щоб слово починалось з великої літери
-  const selectedAccount = accountData?.type && toCapitalCase(accountData?.type);
+  const selectedAccount = accountData?.type && accountData?.type;
 
   // Закривання модалки профілю
   const handleCloseModal = () => {
@@ -60,14 +62,16 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
             <HiOutlineUserCircle className={styles.profile_img} />
             <div className={styles.profile_info}>
               <p className={styles.profile_name}>{profileData?.fullName}</p>
-              <p className={styles.profile_role}>{selectedAccount}</p>
+              <p className={styles.profile_role}>
+                {t(`top-bar.profile.${selectedAccount?.toLowerCase()}`)}
+              </p>
             </div>
           </div>
         ) : (
           <ProfileSkeleton />
         )}
         {showProfileModal && (
-          <PortfolioModal
+          <ProfileModal
             profileData={profileData}
             handleCloseModal={handleCloseModal}
           />

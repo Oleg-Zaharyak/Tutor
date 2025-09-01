@@ -1,24 +1,21 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-
-import translationEN from "./assets/locales/en/translation.json";
-import translationUK from "./assets/locales/uk/translation.json";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-const resources = {
-  en: {
-    translation: translationEN,
-  },
-  uk: {
-    translation: translationUK,
-  },
-};
+// Англ
+import { en } from "./assets/locales/en/index";
+
+// Укр
+import { uk } from "./assets/locales/uk/index";
+
+const resources = { en, uk };
 
 i18n
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
     resources,
+    defaultNS: "common", // дефолтний namespace
     interpolation: {
       escapeValue: false,
     },

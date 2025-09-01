@@ -1,0 +1,55 @@
+{
+  "language-name": "Eng.",
+
+  "not-found": {
+    "title": "404",
+    "sub-title": "Ой... сторінку не знайдено",
+    "btn-title": "Повернутись на Головну"
+  },
+
+  "profile-modal": {
+    "account-section": {
+      "title": "Акаунти",
+      "student": {
+        "title": "Учень",
+        "add-btn": "Додати акаунт Вчителя"
+      },
+      "teacher": {
+        "title": "Вчитель",
+        "add-btn": "Додати акаунт Учня"
+      },
+      "confirm-modal": {
+        "title": {
+          "add-account": "Ти впевнений, що хочеш додати акаунт?",
+          "change-account": "Ти впевнений, що хочеш змінити акаунт?"
+        },
+        "yes": "Так",
+        "no": "Ні"
+      }
+    },
+    "change-theme": "Змінити тему",
+    "change-language": "Змінити мову",
+    "logout-btn": "Вийти"
+  },
+
+  "top-bar": {
+    "profile": {
+      "student": "Учень",
+      "teacher": "Вчитель"
+    }
+  },
+
+  "menu": {
+    "title-dashboard": "Головна",
+    "title-student": "Учні",
+    "title-statistic": "Статистика",
+    "title-chats": "Чати",
+    "title-whiteboards": "Дошки",
+    "title-calendar": "Календар",
+    "title-files": "Файли",
+    "title-quizzes": "Вікторини",
+    "title-settings": "Налаштування",
+    "expand": "Розгорнути",
+    "collapse": "Згорнути"
+  }
+}

@@ -18,7 +18,7 @@ import { setLoading } from "../../../store/slices/appUISlice";
 import { ClerkSignInError } from "../../../types/clerk";
 
 const ForgotPasswordPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("forgotPassword");
   const { signIn, isLoaded } = useSignIn();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

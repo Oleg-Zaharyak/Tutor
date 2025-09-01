@@ -5,9 +5,13 @@ import styles from "./styles.module.scss";
 
 type ThemeToggleProps = {
   bigBtn?: boolean;
+  title?: string;
 };
 
-const ThemeToggle: FC<ThemeToggleProps> = ({ bigBtn = false }) => {
+const ThemeToggle: FC<ThemeToggleProps> = ({
+  bigBtn = false,
+  title = "Change theme",
+}) => {
   const dispatch = useAppDispatch();
   const { theme } = useAppSelector((state) => state.theme);
 
@@ -20,7 +24,7 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ bigBtn = false }) => {
       className={bigBtn ? styles.theme_bigBtn : styles.theme_btn}
       onClick={hangleToggleTheme}
     >
-      {bigBtn && <div className={styles.theme_bigBtn_text}>Change theme</div>}
+      {bigBtn && <div className={styles.theme_bigBtn_text}>{title}</div>}
       {theme === "light" ? "🌙" : "☀️"}
     </button>
   );

@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { useTranslation } from "react-i18next";
 
 const PasswordResetSuccessModal = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("resetPassword");
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
