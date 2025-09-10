@@ -1,14 +1,9 @@
 import { FC } from "react";
 import styles from "./styles.module.scss";
 import Button from "../Button";
+import { ConfirmModalProps } from "./types";
 
-interface ConfirmModalProps {
-  onClose: () => void;
-  onConfirm: () => void;
-  confirmText?: string;
-  cancelText?: string;
-  title: string;
-}
+import clsx from "clsx";
 
 const ConfirmModal: FC<ConfirmModalProps> = ({
   onClose,
@@ -16,10 +11,15 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
   title,
   cancelText = "No",
   confirmText = "Yes",
+  showTwoButton = true,
+  className,
 }) => {
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={clsx(styles.modal, className)}
+        onClick={(e) => e.stopPropagation()}
+      >
         <p className={styles.text}>{title}</p>
         <div className={styles.buttons}>
           <Button
@@ -28,12 +28,14 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
             onClick={onClose}
             className={styles.btn}
           />
-          <Button
-            title={confirmText}
-            styleType="outline"
-            onClick={onConfirm}
-            className={styles.btn}
-          />
+          {showTwoButton && (
+            <Button
+              title={confirmText}
+              styleType="outline"
+              onClick={onConfirm}
+              className={styles.btn}
+            />
+          )}
         </div>
       </div>
     </div>

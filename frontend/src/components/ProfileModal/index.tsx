@@ -1,22 +1,17 @@
 import styles from "./styles.module.scss";
 import Button from "../Button";
+import { ProfileModalProps } from "./types";
 import { useClerk } from "@clerk/clerk-react";
 
 import { GoGear } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import { UserProfile } from "../../store/api/profileApi/types";
 import { FC } from "react";
 import LanguageToggle from "../LanguageToggle";
 import ThemeToggle from "../ThemeToggle";
 import AccountManager from "../AccountManager";
 import { useTranslation } from "react-i18next";
-
-type ProfileModalProps = {
-  profileData: UserProfile | undefined;
-  handleCloseModal: () => void;
-};
 
 const ProfileModal: FC<ProfileModalProps> = ({
   profileData,

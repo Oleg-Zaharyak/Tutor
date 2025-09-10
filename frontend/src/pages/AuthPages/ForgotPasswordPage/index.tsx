@@ -7,7 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FC, useState } from "react";
 import i18next from "i18next";
 
-import { ForgotPasswordSchema } from "../../../libs/schema";
+import { ForgotPasswordSchema } from "./schema";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
@@ -50,7 +50,7 @@ const ForgotPasswordPage: FC = () => {
           clerkErrorsInfo = clerkErr;
 
           setErrors({
-            email: t("forgot-password.clerk-error.default"),
+            email: t("clerk-error.default"),
           });
           console.log("Error", clerkErr.errors);
         }
@@ -69,7 +69,7 @@ const ForgotPasswordPage: FC = () => {
       setClerkErrors(clerkErrors);
 
       formik.setErrors({
-        email: t("forgot-password.clerk-error.default"),
+        email: t("clerk-error.default"),
       });
       console.log("Error", clerkErrors.errors);
     }
@@ -77,29 +77,29 @@ const ForgotPasswordPage: FC = () => {
 
   return (
     <>
-      <h1 className={styles.title}>{t("forgot-password.title")}</h1>
-      <p className={styles.sub_title}>{t("forgot-password.sub-title")}</p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.sub_title}>{t("sub-title")}</p>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
         <Input
           name="email"
           inputType="text"
           style={{ width: "100%" }}
-          title={t("forgot-password.email.title")}
+          title={t("email.title")}
           value={formik.values.email}
           error={Boolean(formik.errors.email) && Boolean(formik.touched.email)}
           errorText={formik.errors.email}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          placeholder={t("forgot-password.email.placeholder")}
+          placeholder={t("email.placeholder")}
         />
         <div className={styles.buttons_container}>
           <Button
-            title={t("forgot-password.send-btn-title")}
+            title={t("send-btn-title")}
             style={{ width: "80%" }}
             type="submit"
           />
           <NavLink className={styles.back_button} to={"/sign-in"}>
-            {t("forgot-password.back-btn-title")}
+            {t("back-btn-title")}
           </NavLink>
         </div>
       </form>

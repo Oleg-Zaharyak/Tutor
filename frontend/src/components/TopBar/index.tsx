@@ -19,7 +19,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const { t } = useTranslation();
 
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   //Витягую дані про профіль користувача
   const { data: profileData, isLoading: isProfileLoading } =
@@ -52,7 +52,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
         Logo
       </div>
       <div className={styles.right_container}>
-        {!isProfileLoading && !isAccountLoading ? (
+        {!isProfileLoading && !isAccountLoading && isLoaded ? (
           <div
             onClick={handleCloseModal}
             className={clsx(styles.profile, {

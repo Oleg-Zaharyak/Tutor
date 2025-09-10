@@ -12,14 +12,14 @@ const OnboardingRoute = () => {
     dispatch(setLoading(!isLoaded));
   }, [isLoaded, dispatch]);
 
-  if (!isLoaded) return null;
+  if (!isLoaded) return <Outlet />;
 
   // Якщо не авторизований — редірект на sign-in
-  if (!isSignedIn) return <Navigate to="/sign-in" />;
+  if (!isSignedIn && isLoaded) return <Navigate to="/sign-in" />;
 
   // Якщо профіль уже заповнений — редірект на dashboard
   const isProfileFilled = !!user?.firstName && !!user?.lastName;
-  if (isProfileFilled) return <Navigate to="/dashboard" />;
+  if (isProfileFilled) return <Navigate to="/dashboard/home" />;
 
   // Інакше показуємо onboarding
   return <Outlet />;

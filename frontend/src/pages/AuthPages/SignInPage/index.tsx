@@ -9,7 +9,7 @@ import i18next from "i18next";
 import Input from "../../../components/Input";
 import Checkbox from "../../../components/CkeckBox";
 import Button from "../../../components/Button";
-import { SignInSchema } from "../../../libs/schema";
+import { SignInSchema } from "./schema";
 
 import { useSignIn } from "@clerk/clerk-react";
 import { setLoading } from "../../../store/slices/appUISlice";
@@ -48,7 +48,7 @@ const SignInPage: FC = () => {
         } else {
           setErrors({
             email: " ",
-            password: t("sign-in.clerk-error.default"),
+            password: t("clerk-error.default"),
           });
           console.log("Не завершено:", result);
         }
@@ -67,13 +67,13 @@ const SignInPage: FC = () => {
           if (emailError || passwordError) {
             setErrors({
               email: " ",
-              password: t("sign-in.clerk-error.incorrect-value"),
+              password: t("clerk-error.incorrect-value"),
             });
           }
         } else {
           setErrors({
             email: " ",
-            password: t("sign-in.clerk-error.default"),
+            password: t("clerk-error.default"),
           });
         }
       } finally {
@@ -98,22 +98,22 @@ const SignInPage: FC = () => {
       if (emailError || passwordError) {
         formik.setErrors({
           email: " ",
-          password: t("sign-in.clerk-error.incorrect-value"),
+          password: t("clerk-error.incorrect-value"),
         });
       }
     }
   });
   return (
     <>
-      <h1 className={styles.title}>{t("sign-in.title")}</h1>
-      <p className={styles.sub_title}>{t("sign-in.sub-title")}</p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.sub_title}>{t("sub-title")}</p>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
         <div className={styles.inputs_container}>
           <Input
             name="email"
             inputType="text"
             style={{ width: "100%" }}
-            title={t("sign-in.email.title")}
+            title={t("email.title")}
             error={
               Boolean(formik.errors.email) && Boolean(formik.touched.email)
             }
@@ -121,12 +121,12 @@ const SignInPage: FC = () => {
             value={formik.values.email}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            placeholder={t("sign-in.email.placeholder")}
+            placeholder={t("email.placeholder")}
           />
           <Input
             name="password"
             inputType="password"
-            title={t("sign-in.password.title")}
+            title={t("password.title")}
             style={{ width: "100%" }}
             value={formik.values.password}
             error={
@@ -138,12 +138,12 @@ const SignInPage: FC = () => {
             onChange={formik.handleChange}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
-            placeholder={t("sign-in.password.placeholder")}
+            placeholder={t("password.placeholder")}
           />
         </div>
         <div className={styles.middle_buttons}>
           <Checkbox
-            title={t("sign-in.remember-password")}
+            title={t("remember-password")}
             name="rememberPassword"
             onChange={formik.handleChange}
           />
@@ -151,20 +151,16 @@ const SignInPage: FC = () => {
             className={styles.middle_buttons_link}
             to={"/forgot-password"}
           >
-            {t("sign-in.forget-password")}
+            {t("forget-password")}
           </NavLink>
         </div>
-        <Button
-          title={t("sign-in.btn-title")}
-          style={{ width: "80%" }}
-          type="submit"
-        />
+        <Button title={t("btn-title")} style={{ width: "80%" }} type="submit" />
         <div className={styles.bottom_container}>
           <span className={styles.bottom_container_text}>
-            {t("sign-in.under-btn.text")}
+            {t("under-btn.text")}
           </span>
           <NavLink className={styles.bottom_container_link} to={"/sign-up"}>
-            {t("sign-in.under-btn.link")}
+            {t("under-btn.link")}
           </NavLink>
         </div>
       </form>

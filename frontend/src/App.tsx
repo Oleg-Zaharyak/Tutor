@@ -1,6 +1,6 @@
 import styles from "./App.module.scss";
 import clsx from "clsx";
-import {  useAppSelector } from "./hooks/hooks";
+import { useAppSelector } from "./hooks/hooks";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import PrivateRoute from "./utils/PrivateRoute";
@@ -31,6 +31,9 @@ import {
   DashboardLoyaut,
 } from "./pages/DashboardPages";
 import UserOnboardingPage from "./pages/UserOnboardingPage";
+import SecuritySettings from "./pages/DashboardPages/Settings/Security";
+import AccountSettings from "./pages/DashboardPages/Settings/Account";
+import ProfileSettings from "./pages/DashboardPages/Settings/Profile";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
@@ -55,7 +58,8 @@ function App() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<DashboardLoyaut />}>
-            <Route index element={<Main />} />
+            <Route index element={<Navigate to="home" replace />} />
+            <Route path="home" element={<Main />} />
             <Route path="students" element={<Students />} />
             <Route path="calendar" element={<Calendar />} />
             <Route path="chats" element={<Chat />} />
@@ -63,7 +67,12 @@ function App() {
             <Route path="statistic" element={<Statistic />} />
             <Route path="files" element={<Files />} />
             <Route path="quizzes" element={<Quizzes />} />
-            <Route path="settings" element={<Settings />} />
+            <Route path="settings" element={<Settings />}>
+              <Route index element={<Navigate to="profile" replace />} />
+              <Route path="profile" element={<ProfileSettings />} />
+              <Route path="account" element={<AccountSettings />} />
+              <Route path="security" element={<SecuritySettings />} />
+            </Route>
           </Route>
         </Route>
 

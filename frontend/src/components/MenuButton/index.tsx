@@ -5,9 +5,19 @@ import clsx from "clsx";
 import { Tooltip } from "react-tooltip";
 import { MenuButtonProps } from "./types";
 
-const MenuButton: FC<MenuButtonProps> = ({ title, url, Icon, expandMenu }) => {
-  const activeButtonClassName = clsx(styles.button, styles.button_active);
-  const buttonClassName = clsx(styles.button);
+const MenuButton: FC<MenuButtonProps> = ({
+  title,
+  url,
+  Icon,
+  expandMenu,
+  className,
+}) => {
+  const activeButtonClassName = clsx(
+    styles.button,
+    styles.button_active,
+    className
+  );
+  const buttonClassName = clsx(styles.button, className);
 
   return (
     <>
@@ -16,7 +26,7 @@ const MenuButton: FC<MenuButtonProps> = ({ title, url, Icon, expandMenu }) => {
         data-tooltip-content={title}
         to={url}
         className={(isActive) =>
-          isActive && window.location.pathname === url
+          isActive && window.location.pathname.includes(url)
             ? activeButtonClassName
             : buttonClassName
         }

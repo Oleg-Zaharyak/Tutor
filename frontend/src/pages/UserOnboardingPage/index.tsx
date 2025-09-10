@@ -10,7 +10,7 @@ import i18next from "i18next";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
-import { UserOnbardingSchema } from "../../libs/schema";
+import { UserOnbardingSchema } from "./schema";
 import LanguageToggle from "../../components/LanguageToggle";
 import ThemeToggle from "../../components/ThemeToggle";
 
@@ -76,11 +76,11 @@ const UserOnboardingPage: FC = () => {
 
   const accountTypeOptions = [
     {
-      title: t("user-onboarding.account-type.types.student"),
+      title: t("account-type.types.student"),
       value: "STUDENT",
     },
     {
-      title: t("user-onboarding.account-type.types.teacher"),
+      title: t("account-type.types.teacher"),
       value: "TEACHER",
     },
   ];
@@ -89,14 +89,14 @@ const UserOnboardingPage: FC = () => {
     <div className={styles.container}>
       <div className={clsx(styles.wrapper)}>
         <div className={clsx(styles.block)}>
-          <h1 className={styles.title}>{t("user-onboarding.title")}</h1>
-          <p className={styles.sub_title}>{t("user-onboarding.sub-title")}</p>
+          <h1 className={styles.title}>{t("title")}</h1>
+          <p className={styles.sub_title}>{t("sub-title")}</p>
           <form onSubmit={formik.handleSubmit} className={styles.form}>
             <Input
               name="firstName"
               inputType="text"
               style={{ width: "100%" }}
-              title={t("user-onboarding.first-name.title")}
+              title={t("first-name.title")}
               value={formik.values.firstName}
               error={
                 Boolean(formik.errors.firstName) &&
@@ -105,13 +105,13 @@ const UserOnboardingPage: FC = () => {
               errorText={formik.errors.firstName}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              placeholder={t("user-onboarding.first-name.placeholder")}
+              placeholder={t("first-name.placeholder")}
             />
             <Input
               name="lastName"
               inputType="text"
               style={{ width: "100%" }}
-              title={t("user-onboarding.last-name.title")}
+              title={t("last-name.title")}
               value={formik.values.lastName}
               error={
                 Boolean(formik.errors.lastName) &&
@@ -120,11 +120,11 @@ const UserOnboardingPage: FC = () => {
               errorText={formik.errors.lastName}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              placeholder={t("user-onboarding.last-name.placeholder")}
+              placeholder={t("last-name.placeholder")}
             />
             <Select
               name="accountType"
-              title={t("user-onboarding.account-type.title")}
+              title={t("account-type.title")}
               style={{ width: "100%" }}
               onChange={formik.handleChange}
               options={accountTypeOptions}

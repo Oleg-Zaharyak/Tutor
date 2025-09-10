@@ -9,7 +9,7 @@ import i18next from "i18next";
 import Input from "../../../components/Input";
 import Checkbox from "../../../components/CkeckBox";
 import Button from "../../../components/Button";
-import { SignUpSchema } from "../../../libs/schema";
+import { SignUpSchema } from "./schema";
 import { useSignUp } from "@clerk/clerk-react";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
@@ -58,7 +58,7 @@ const SignUpPage: FC = () => {
           );
           if (emailError) {
             setErrors({
-              email: t("sign-up.clerk-error.incorrect-value"),
+              email: t("clerk-error.incorrect-value"),
             });
           } else {
             console.log("Error", clerkErr.errors);
@@ -67,7 +67,7 @@ const SignUpPage: FC = () => {
           setErrors({
             email: "",
             password: "",
-            confirmPassword: t("sign-up.clerk-error.default"),
+            confirmPassword: t("clerk-error.default"),
           });
         }
       } finally {
@@ -87,7 +87,7 @@ const SignUpPage: FC = () => {
       );
       if (emailError) {
         formik.setErrors({
-          email: t("sign-up.clerk-error.incorrect-value"),
+          email: t("clerk-error.incorrect-value"),
         });
       } else {
         console.log("Error", clerkErrors.errors);
@@ -97,15 +97,15 @@ const SignUpPage: FC = () => {
 
   return (
     <>
-      <h1 className={styles.title}>{t("sign-up.title")}</h1>
-      <p className={styles.sub_title}>{t("sign-up.sub-title")}</p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.sub_title}>{t("sub-title")}</p>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
         <div className={styles.inputs_container}>
           <Input
             name="email"
             inputType="text"
             style={{ width: "100%" }}
-            title={t("sign-up.email.title")}
+            title={t("email.title")}
             value={formik.values.email}
             error={
               Boolean(formik.errors.email) && Boolean(formik.touched.email)
@@ -113,12 +113,12 @@ const SignUpPage: FC = () => {
             errorText={formik.errors.email}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            placeholder={t("sign-up.email.placeholder")}
+            placeholder={t("email.placeholder")}
           />
           <Input
             name="password"
             inputType="password"
-            title={t("sign-up.password.title")}
+            title={t("password.title")}
             style={{ width: "100%" }}
             value={formik.values.password}
             error={
@@ -130,12 +130,12 @@ const SignUpPage: FC = () => {
             onBlur={formik.handleBlur}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
-            placeholder={t("sign-up.password.placeholder")}
+            placeholder={t("password.placeholder")}
           />
           <Input
             name="confirmPassword"
             inputType="password"
-            title={t("sign-up.confirm-password.title")}
+            title={t("confirm-password.title")}
             style={{ width: "100%" }}
             error={
               Boolean(formik.errors.confirmPassword) &&
@@ -147,12 +147,12 @@ const SignUpPage: FC = () => {
             onBlur={formik.handleBlur}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
-            placeholder={t("sign-up.confirm-password.placeholder")}
+            placeholder={t("confirm-password.placeholder")}
           />
         </div>
         <div className={styles.middle_buttons}>
           <Checkbox
-            title={t("sign-up.acceptTerms")}
+            title={t("acceptTerms")}
             name="acceptTerms"
             onChange={formik.handleChange}
             error={
@@ -161,17 +161,13 @@ const SignUpPage: FC = () => {
             }
           />
         </div>
-        <Button
-          title={t("sign-up.btn-title")}
-          style={{ width: "80%" }}
-          type="submit"
-        />
+        <Button title={t("btn-title")} style={{ width: "80%" }} type="submit" />
         <div className={styles.bottom_container}>
           <span className={styles.bottom_container_text}>
-            {t("sign-up.under-btn.text")}
+            {t("under-btn.text")}
           </span>
           <NavLink className={styles.bottom_container_link} to={"/sign-in"}>
-            {t("sign-up.under-btn.link")}
+            {t("under-btn.link")}
           </NavLink>
         </div>
       </form>

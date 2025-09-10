@@ -1,0 +1,38 @@
+{
+  "title": "Settings",
+  "security": {
+    "title": "Security",
+    "form": {
+      "title": "Change password",
+      "old-password": {
+        "title": "Old password",
+        "placeholder": "Enter your old password",
+        "error": {
+          "required": "Old password is required",
+          "incorrect": "Your old password is incorrect."
+        }
+      },
+      "new-password": {
+        "title": "New password",
+        "placeholder": "Enter your new password",
+        "error": {
+          "required": "New password is required",
+          "min": "Password must contain more than 8 characters",
+          "max": "Password must be no longer than 25 characters",
+          "invalide": "Password must contain 1 upper case letter, 1 lower case letter, 1 numeric digit"
+        }
+      },
+      "btn-title": "Change"
+    },
+    "confirm-modal": {
+      "title": "Your password has been successfully changed.",
+      "btn-title": "Ok"
+    }
+  },
+  "profile": {
+    "title": "Profile"
+  },
+  "account": {
+    "title": "Account"
+  }
+}

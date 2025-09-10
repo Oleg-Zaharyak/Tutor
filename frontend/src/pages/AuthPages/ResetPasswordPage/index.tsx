@@ -11,7 +11,7 @@ import { useSignIn, useSignUp } from "@clerk/clerk-react";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setLoading } from "../../../store/slices/appUISlice";
 
-import { ResetPasswordSchema } from "../../../libs/schema";
+import { ResetPasswordSchema } from "./schema";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import PasswordResetSuccessModal from "../../../components/PasswordResetSuccessModal";
@@ -103,7 +103,7 @@ const ResetPasswordPage: FC = () => {
         } else {
           setErrors({
             code: " ",
-            newPassword: t("reset-password.clerk-error.default"),
+            newPassword: t("clerk-error.default"),
           });
         }
       } catch (err) {
@@ -121,22 +121,22 @@ const ResetPasswordPage: FC = () => {
 
           if (codeError) {
             setErrors({
-              code: t("reset-password.clerk-error.invalide"),
+              code: t("clerk-error.invalide"),
             });
           } else if (expiredCode) {
             setErrors({
-              code: t("reset-password.clerk-error.expired"),
+              code: t("clerk-error.expired"),
             });
           } else {
             setErrors({
               code: " ",
-              newPassword: t("reset-password.clerk-error.default"),
+              newPassword: t("clerk-error.default"),
             });
           }
         } else {
           setErrors({
             code: " ",
-            newPassword: t("reset-password.clerk-error.default"),
+            newPassword: t("clerk-error.default"),
           });
         }
       } finally {
@@ -162,42 +162,42 @@ const ResetPasswordPage: FC = () => {
 
       if (codeError) {
         formik.setErrors({
-          code: t("reset-password.clerk-error.invalide"),
+          code: t("clerk-error.invalide"),
         });
       } else if (expiredCode) {
         formik.setErrors({
-          code: t("reset-password.clerk-error.expired"),
+          code: t("clerk-error.expired"),
         });
       } else {
         formik.setErrors({
           code: " ",
-          newPassword: t("reset-password.clerk-error.default"),
+          newPassword: t("clerk-error.default"),
         });
       }
     }
   });
   return (
     <>
-      <h1 className={styles.title}>{t("reset-password.title")}</h1>
-      <p className={styles.sub_title}>{t("reset-password.sub-title")}</p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.sub_title}>{t("sub-title")}</p>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
         <Input
           name="code"
           inputType="text"
           style={{ width: "100%" }}
-          title={t("reset-password.code.title")}
+          title={t("code.title")}
           value={formik.values.code}
           error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}
           errorText={formik.errors.code}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          placeholder={t("reset-password.code.placeholder")}
+          placeholder={t("code.placeholder")}
         />
         <Input
           name="newPassword"
           inputType="password"
           style={{ width: "100%" }}
-          title={t("reset-password.new-password.title")}
+          title={t("new-password.title")}
           value={formik.values.newPassword}
           error={
             Boolean(formik.errors.newPassword) &&
@@ -208,21 +208,21 @@ const ResetPasswordPage: FC = () => {
           onChange={formik.handleChange}
           showPassword={showPassword}
           setShowPassword={setShowPassword}
-          placeholder={t("reset-password.new-password.placeholder")}
+          placeholder={t("new-password.placeholder")}
         />
         <div className={styles.buttons_container}>
           <Button
-            title={t("reset-password.reset-btn-title")}
+            title={t("reset-btn-title")}
             style={{ width: "80%" }}
             type="submit"
           />
           {counter ? (
             <div className={styles.counter}>
-              {t("reset-password.resend-code-timer-text", { counter })}
+              {t("resend-code-timer-text", { counter })}
             </div>
           ) : (
             <div className={styles.resend_button} onClick={handleResendCode}>
-              {t("reset-password.resend-code-btn-title")}
+              {t("resend-code-btn-title")}
             </div>
           )}
         </div>

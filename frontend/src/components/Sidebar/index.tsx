@@ -26,7 +26,7 @@ import { LuFileSpreadsheet, LuLayoutDashboard } from "react-icons/lu";
 const menuItems = [
   {
     titleKey: "menu.title-dashboard",
-    url: "/dashboard",
+    url: "/dashboard/home",
     Icon: LuLayoutDashboard,
   },
   {
@@ -64,7 +64,11 @@ const menuItems = [
     url: "/dashboard/quizzes",
     Icon: IoGameControllerOutline,
   },
-  { titleKey: "menu.title-settings", url: "/dashboard/settings", Icon: GoGear },
+  {
+    titleKey: "menu.title-settings",
+    url: "/dashboard/settings",
+    Icon: GoGear,
+  },
 ];
 
 export const Sidebar: FC = () => {

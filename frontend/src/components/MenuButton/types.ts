@@ -5,4 +5,5 @@ export type MenuButtonProps = {
   url: string;
   Icon?: IconType;
   expandMenu?: boolean;
+  className?: string;
 };

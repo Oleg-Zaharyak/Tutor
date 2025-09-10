@@ -12,10 +12,12 @@ const PrivateRoute = () => {
     dispatch(setLoading(!isLoaded));
   }, [isLoaded, dispatch]);
 
-  if (!isLoaded) return null;
+  if (!isLoaded) {
+    return <Outlet />; // або спіннер
+  }
 
   // Якщо не авторизований — редірект на sign-in
-  if (!isSignedIn) return <Navigate to="/sign-in" />;
+  if (!isSignedIn && isLoaded) return <Navigate to="/sign-in" />;
 
   // Якщо авторизований, але не має імені або прізвища — редірект на onboarding
   const isProfileFilled = !!user?.firstName && !!user?.lastName;
