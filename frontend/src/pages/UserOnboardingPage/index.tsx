@@ -56,12 +56,7 @@ const UserOnboardingPage: FC = () => {
           },
         }).unwrap();
 
-        if (user) {
-          await user.update({
-            firstName: values.firstName,
-            lastName: values.lastName,
-          });
-        }
+        await user?.reload();
       } catch (err) {
         console.error("Помилка оновлення:", err);
       } finally {

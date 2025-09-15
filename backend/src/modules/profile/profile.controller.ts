@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../../prismaClient";
+import { clerkClient } from "@clerk/express";
 
 // Отримати всіх користувачів
 export const getAllProfiles = async (req: Request, res: Response) => {
@@ -21,10 +22,10 @@ export const getProfileById = async (req: Request, res: Response) => {
       where: { id },
       include: {
         accounts: {
-          select:{
+          select: {
             id: true,
-            type:true
-          }
+            type: true,
+          },
         },
       },
     });
@@ -78,6 +79,15 @@ export const updateProfile = async (req: Request, res: Response) => {
       data.fullName = `${data.firstName ?? oldProfile?.firstName ?? ""} ${
         data.lastName ?? oldProfile?.lastName ?? ""
       }`.trim();
+    }
+
+    const payload = {
+      ...(data.firstName ? { firstName: data.firstName.trim() } : {}),
+      ...(data.lastName ? { lastName: data.lastName.trim() } : {}),
+    };
+
+    if (Object.keys(payload).length) {
+      await clerkClient.users.updateUser(profileId, payload);
     }
 
     const updatedProfile = await prisma.profile.update({
