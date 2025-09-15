@@ -43,7 +43,10 @@ const SignInPage: FC = () => {
         });
 
         if (result.status === "complete") {
-          await setActive({ session: result.createdSessionId });
+          await setActive({
+            session: result.createdSessionId,
+          });
+
           navigate("/dashboard");
         } else {
           setErrors({

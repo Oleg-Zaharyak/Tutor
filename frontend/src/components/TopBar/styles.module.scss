@@ -19,7 +19,7 @@
 
 .right_container {
   width: calc(100% - 240px);
-  padding: 13px 30px 13px 13px;
+  padding: 13px 15px 13px 13px;
   display: flex;
   justify-content: flex-end;
   column-gap: 10px;
@@ -135,8 +135,15 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .menu_button {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .left_container,
+  .right_container {
+    width: auto;
   }
 }
