@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  pointer-events: none;
+  row-gap: 11px;
+}
+
+.textarea {
+  resize: none;
+  height: 100%;
+  border: 2px solid var(--input-border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  background-color: var(--bg-input-color);
+  outline: none;
+  pointer-events: auto;
+  transition: all 0.3s ease-in-out;
+  padding: 12px;
+  font-size: 16px;
+
+  &::placeholder {
+    color: var(--input-placeholder-text);
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &:hover:not(:disabled),
+  &:focus-visible {
+    border-color: var(--input-border-hover-color);
+  }
+}

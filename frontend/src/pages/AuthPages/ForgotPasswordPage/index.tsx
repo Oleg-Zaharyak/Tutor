@@ -83,7 +83,7 @@ const ForgotPasswordPage: FC = () => {
         <Input
           name="email"
           inputType="text"
-          style={{ width: "100%" }}
+          containerClassName={styles.input}
           title={t("email.title")}
           value={formik.values.email}
           error={Boolean(formik.errors.email) && Boolean(formik.touched.email)}

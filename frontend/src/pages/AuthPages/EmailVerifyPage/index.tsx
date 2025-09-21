@@ -152,7 +152,7 @@ const EmailVerifyPage: FC = () => {
           <Input
             name="code"
             inputType="text"
-            style={{ width: "100%" }}
+            containerClassName={styles.input}
             title={t("code.title")}
             value={formik.values.code}
             error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}

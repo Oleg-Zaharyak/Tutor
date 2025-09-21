@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 
-const ProfileSkeleton = () => {
+export const ProfileSkeleton = () => {
   return (
     <div className={styles.skeleton}>
       <div className={styles.skeleton_img}></div>
@@ -11,5 +11,3 @@ const ProfileSkeleton = () => {
     </div>
   );
 };
-
-export default ProfileSkeleton;

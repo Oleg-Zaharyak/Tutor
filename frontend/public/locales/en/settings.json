@@ -30,7 +30,53 @@
     }
   },
   "profile": {
-    "title": "Profile"
+    "title": "Profile",
+
+    "cancel-btn-title": "Cancel",
+    "update-btn-title": "Update",
+    "ptrofile-created": "Created:",
+
+    "first-name": {
+      "title": "First name",
+      "placeholder": "Enter your first name",
+      "error": {
+        "min": "Minimum length 2 characters"
+      }
+    },
+    "last-name": {
+      "title": "Last name",
+      "placeholder": "Enter your last name",
+      "error": {
+        "min": "Minimum length 2 characters"
+      }
+    },
+    "date-of-birth": {
+      "title": "Date of Birth",
+      "error": {
+        "max": "Birth date cannot be in the future"
+      }
+    },
+    "address": {
+      "title": "Address",
+      "placeholder": "Add your address",
+      "error": {
+        "min": "Minimum length 2 characters"
+      }
+    },
+    "phone-number": {
+      "title": "Phone number",
+      "placeholder": "Add your phone number",
+      "error": {
+        "min": "Minimum length 2 characters"
+      }
+    },
+    "add-info": {
+      "title": "Additional info",
+      "placeholder": "Enter information about you",
+      "error": {
+        "min": "Minimum length 2 characters"
+      }
+    }
   },
   "account": {
     "title": "Account"

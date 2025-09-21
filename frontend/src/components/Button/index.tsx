@@ -8,11 +8,17 @@ const Button: FC<ButtonProps> = ({
   title,
   type = "button",
   styleType = "filled",
+  size = "big",
   className,
   disabled = false,
   onClick,
 }) => {
-  const customClassName = clsx(styles.button, styles[styleType], className);
+  const customClassName = clsx(
+    styles.button,
+    styles[size],
+    styles[styleType],
+    className
+  );
   return (
     <button
       className={customClassName}

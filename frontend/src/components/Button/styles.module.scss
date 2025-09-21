@@ -1,15 +1,37 @@
 .button {
   cursor: pointer;
-  width: 100%;
   font-family: "Nunito-700";
-  font-size: 20px;
-  padding: 15px;
-  border-radius: 8px;
   border: 2px solid #4880ff;
   outline: none;
   transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
+// button size
+.big {
+  width: 100%;
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.medium {
+  font-size: 14px;
+  padding: 8.5px 17px;
+  border-radius: 6px;
+}
+
+.small {
+  padding: 2px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border-width: 1px;
+}
+
+// button styles
 .filled {
   color: #fff;
   background-color: #4880ff;
@@ -37,6 +59,23 @@
   &:disabled {
     border-color: #6f9aff;
     color: #6f9aff;
+  }
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.warning {
+  color: #f52525;
+  background-color: transparent;
+  border-color: #f52525;
+  &:hover:not(:disabled) {
+    color: #fff;
+    background-color: #f52525;
+  }
+  &:disabled {
+    border-color: #f85656;
+    color: #f85656;
   }
   &:active:not(:disabled) {
     transform: scale(0.95);

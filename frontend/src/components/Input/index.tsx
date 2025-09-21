@@ -7,11 +7,14 @@ import { InputsProps } from "./types";
 const Input: FC<InputsProps> = ({
   name,
   value,
+  size = "big",
   title,
   error,
   errorText,
-  inputType,
-  style,
+  inputType = "text",
+  containerClassName,
+  inputClassName,
+  lableClassName,
   disabled = false,
   placeholder,
   showPassword = false,
@@ -22,8 +25,11 @@ const Input: FC<InputsProps> = ({
   const inputId = useId();
 
   return (
-    <div className={styles.container} style={{ ...style }}>
-      <label className={styles.lable} htmlFor={inputId}>
+    <div className={clsx(styles.container, containerClassName)}>
+      <label
+        className={clsx(styles.lable, styles[`${size}_label`], lableClassName)}
+        htmlFor={inputId}
+      >
         {title}
       </label>
       <input
@@ -31,7 +37,12 @@ const Input: FC<InputsProps> = ({
         value={value}
         disabled={disabled}
         placeholder={placeholder}
-        className={clsx(styles.input, error && styles.input_error)}
+        className={clsx(
+          styles.input,
+          styles[`${size}_input`],
+          error && styles.input_error,
+          inputClassName
+        )}
         type={!showPassword ? inputType : "text"}
         id={inputId}
         onBlur={onBlur}

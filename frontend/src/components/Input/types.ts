@@ -1,11 +1,14 @@
-import { ChangeEvent, Dispatch, SetStateAction, FocusEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, FocusEvent, HTMLInputTypeAttribute } from "react";
 
 export type InputsProps = {
   title: string;
   name?: string;
-  inputType: string;
+  size?: "big" | "medium" | "small";
+  inputType?: HTMLInputTypeAttribute;
   value?: string;
-  style?: object;
+  containerClassName?: string;
+  inputClassName?: string;
+  lableClassName?: string;
   error?: boolean;
   errorText?: string;
   disabled?: boolean;

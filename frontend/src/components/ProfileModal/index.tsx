@@ -31,9 +31,9 @@ const ProfileModal: FC<ProfileModalProps> = ({
         <div className={styles.modal_btns}>
           <Button
             title={t("profile-modal.logout-btn")}
-            styleType="outline"
+            styleType="warning"
             onClick={handleLogout}
-            className={styles.modal_logout_btn}
+            size="small"
           />
           <div>
             <GoGear

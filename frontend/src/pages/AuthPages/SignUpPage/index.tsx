@@ -95,60 +95,60 @@ const SignUpPage: FC = () => {
     }
   });
 
+  const commonConfig = {
+    containerClassName: styles.input,
+    onChange: formik.handleChange,
+    onBlur: formik.handleBlur,
+  };
+
+  const inputsConfig = [
+    {
+      name: "email",
+      inputType: "text",
+      placeholder: t("email.placeholder"),
+      title: t("email.title"),
+      value: formik.values.email,
+      error: Boolean(formik.errors.email) && Boolean(formik.touched.email),
+      errorText: formik.errors.email,
+    },
+    {
+      name: "password",
+      inputType: "password",
+      title: t("password.title"),
+      value: formik.values.password,
+      error:
+        Boolean(formik.errors.password) && Boolean(formik.touched.password),
+
+      errorText: formik.errors.password,
+      showPassword: showPassword,
+      setShowPassword: setShowPassword,
+      placeholder: t("password.placeholder"),
+    },
+    {
+      name: "confirmPassword",
+      inputType: "password",
+      title: t("confirm-password.title"),
+      error:
+        Boolean(formik.errors.confirmPassword) &&
+        Boolean(formik.touched.confirmPassword),
+
+      errorText: formik.errors.confirmPassword,
+      value: formik.values.confirmPassword,
+      showPassword: showPassword,
+      setShowPassword: setShowPassword,
+      placeholder: t("confirm-password.placeholder"),
+    },
+  ];
+
   return (
     <>
       <h1 className={styles.title}>{t("title")}</h1>
       <p className={styles.sub_title}>{t("sub-title")}</p>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
         <div className={styles.inputs_container}>
-          <Input
-            name="email"
-            inputType="text"
-            style={{ width: "100%" }}
-            title={t("email.title")}
-            value={formik.values.email}
-            error={
-              Boolean(formik.errors.email) && Boolean(formik.touched.email)
-            }
-            errorText={formik.errors.email}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            placeholder={t("email.placeholder")}
-          />
-          <Input
-            name="password"
-            inputType="password"
-            title={t("password.title")}
-            style={{ width: "100%" }}
-            value={formik.values.password}
-            error={
-              Boolean(formik.errors.password) &&
-              Boolean(formik.touched.password)
-            }
-            errorText={formik.errors.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            showPassword={showPassword}
-            setShowPassword={setShowPassword}
-            placeholder={t("password.placeholder")}
-          />
-          <Input
-            name="confirmPassword"
-            inputType="password"
-            title={t("confirm-password.title")}
-            style={{ width: "100%" }}
-            error={
-              Boolean(formik.errors.confirmPassword) &&
-              Boolean(formik.touched.confirmPassword)
-            }
-            errorText={formik.errors.confirmPassword}
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            showPassword={showPassword}
-            setShowPassword={setShowPassword}
-            placeholder={t("confirm-password.placeholder")}
-          />
+          {inputsConfig.map((item) => (
+            <Input {...commonConfig} {...item} />
+          ))}
         </div>
         <div className={styles.middle_buttons}>
           <Checkbox

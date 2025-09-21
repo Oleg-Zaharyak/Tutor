@@ -17,13 +17,6 @@
       "required": "Last name is required"
     }
   },
-  "date-of-birth": {
-    "title": "Date of Birth",
-    "error": {
-      "max": "Birth date cannot be in the future",
-      "required": "Date of birth is required"
-    }
-  },
   "account-type": {
     "title": "Account type",
     "types": {

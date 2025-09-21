@@ -184,7 +184,7 @@ const ResetPasswordPage: FC = () => {
         <Input
           name="code"
           inputType="text"
-          style={{ width: "100%" }}
+          containerClassName={styles.input}
           title={t("code.title")}
           value={formik.values.code}
           error={Boolean(formik.errors.code) && Boolean(formik.touched.code)}
@@ -196,7 +196,7 @@ const ResetPasswordPage: FC = () => {
         <Input
           name="newPassword"
           inputType="password"
-          style={{ width: "100%" }}
+          containerClassName={styles.input}
           title={t("new-password.title")}
           value={formik.values.newPassword}
           error={

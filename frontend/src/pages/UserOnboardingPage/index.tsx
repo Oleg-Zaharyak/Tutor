@@ -90,7 +90,7 @@ const UserOnboardingPage: FC = () => {
             <Input
               name="firstName"
               inputType="text"
-              style={{ width: "100%" }}
+              containerClassName={styles.input}
               title={t("first-name.title")}
               value={formik.values.firstName}
               error={
@@ -105,7 +105,7 @@ const UserOnboardingPage: FC = () => {
             <Input
               name="lastName"
               inputType="text"
-              style={{ width: "100%" }}
+              containerClassName={styles.input}
               title={t("last-name.title")}
               value={formik.values.lastName}
               error={

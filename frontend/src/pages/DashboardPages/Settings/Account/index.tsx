@@ -16,9 +16,9 @@ const AccountSettings = () => {
     profileData ? { id: profileData.selectedAccountId } : skipToken
   );
 
-  console.log(accountData);
+  // console.log(accountData);
 
-  return <div>Account</div>;
+  return <div>{accountData?.id}</div>;
 };
 
 export default AccountSettings;

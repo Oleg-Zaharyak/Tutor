@@ -101,7 +101,7 @@ const SecuritySettings = () => {
           onChange={formik.handleChange}
           showPassword={showPassword}
           setShowPassword={setShowPassword}
-          style={{ width: "100%" }}
+          containerClassName={styles.input}
           error={
             Boolean(formik.errors.oldPassword) &&
             Boolean(formik.touched.oldPassword)
@@ -119,7 +119,7 @@ const SecuritySettings = () => {
           onChange={formik.handleChange}
           showPassword={showPassword}
           setShowPassword={setShowPassword}
-          style={{ width: "100%" }}
+          containerClassName={styles.input}
           error={
             Boolean(formik.errors.newPassword) &&
             Boolean(formik.touched.newPassword)

@@ -9,7 +9,7 @@ import { useUser } from "@clerk/clerk-react";
 import { TopBarProps } from "./types";
 import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import ProfileSkeleton from "./profileSkeleton";
+import { ProfileSkeleton } from "./skeleton";
 import { useGetCurrentUserAccountQuery } from "../../store/api/accountApi";
 import ProfileModal from "../ProfileModal";
 import clsx from "clsx";
@@ -22,7 +22,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const { user, isLoaded } = useUser();
 
   //Витягую дані про профіль користувача
-  const { data: profileData, isLoading: isProfileLoading } =
+  const { data: profileData, isLoading: isProfileDataLoading } =
     useGetCurrentUserProfileQuery(user ? { id: user.id } : skipToken);
 
   //Витягую дані про акаунт користувача
@@ -52,7 +52,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
         Logo
       </div>
       <div className={styles.right_container}>
-        {!isProfileLoading && !isAccountLoading && isLoaded ? (
+        {!isProfileDataLoading && !isAccountLoading && isLoaded ? (
           <div
             onClick={handleCloseModal}
             className={clsx(styles.profile, {

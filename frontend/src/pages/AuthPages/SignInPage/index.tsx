@@ -115,7 +115,7 @@ const SignInPage: FC = () => {
           <Input
             name="email"
             inputType="text"
-            style={{ width: "100%" }}
+            containerClassName={styles.input}
             title={t("email.title")}
             error={
               Boolean(formik.errors.email) && Boolean(formik.touched.email)
@@ -130,7 +130,7 @@ const SignInPage: FC = () => {
             name="password"
             inputType="password"
             title={t("password.title")}
-            style={{ width: "100%" }}
+            containerClassName={styles.input}
             value={formik.values.password}
             error={
               Boolean(formik.errors.password) &&

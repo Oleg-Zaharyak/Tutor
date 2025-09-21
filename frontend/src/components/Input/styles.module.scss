@@ -1,19 +1,46 @@
 .container {
   display: flex;
   flex-direction: column;
-  font-size: 18px;
   position: relative;
   pointer-events: none;
   row-gap: 11px;
+}
+
+.big {
+  &_label {
+    font-size: 18px;
+  }
+  &_input {
+    font-size: 18px;
+    padding: 16px;
+  }
+}
+
+.medium {
+  &_label {
+    font-size: 16px;
+  }
+  &_input {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+.small {
+  &_label {
+    font-size: 14px;
+  }
+  &_input {
+    font-size: 14px;
+    padding: 8.5px;
+  }
 }
 
 .input {
   border: 2px solid var(--input-border-color);
   border-radius: 8px;
   color: var(--text-color);
-  padding: 16px;
   background-color: var(--bg-input-color);
-  font-size: inherit;
   outline: none;
   pointer-events: auto;
   transition: all 0.3s ease-in-out;
@@ -21,7 +48,10 @@
   &::placeholder {
     color: var(--input-placeholder-text);
   }
-  &:hover,
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &:hover:not(:disabled),
   &:focus-visible {
     border-color: var(--input-border-hover-color);
   }
