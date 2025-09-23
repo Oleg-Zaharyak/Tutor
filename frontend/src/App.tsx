@@ -21,6 +21,7 @@ import {
 import {
   Main,
   Students,
+  Teachers,
   Calendar,
   Chat,
   Whiteboards,
@@ -34,6 +35,8 @@ import UserOnboardingPage from "./pages/UserOnboardingPage";
 import SecuritySettings from "./pages/DashboardPages/Settings/Security";
 import AccountSettings from "./pages/DashboardPages/Settings/Account";
 import ProfileSettings from "./pages/DashboardPages/Settings/Profile";
+import RoleGuard from "./utils/RoleGuard";
+// import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
@@ -60,7 +63,22 @@ function App() {
           <Route path="/dashboard" element={<DashboardLoyaut />}>
             <Route index element={<Navigate to="home" replace />} />
             <Route path="home" element={<Main />} />
-            <Route path="students" element={<Students />} />
+            <Route
+              path="students"
+              element={
+                <RoleGuard allow={["TEACHER"]} fallback="/dashboard/home">
+                  <Students />
+                </RoleGuard>
+              }
+            />
+            <Route
+              path="teachers"
+              element={
+                <RoleGuard allow={["STUDENT"]} fallback="/dashboard/home">
+                  <Teachers />
+                </RoleGuard>
+              }
+            />
             <Route path="calendar" element={<Calendar />} />
             <Route path="chats" element={<Chat />} />
             <Route path="whiteboards" element={<Whiteboards />} />
@@ -76,8 +94,8 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/user-onboarding" element={<UserOnboardingPage />} />
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="*" element={<Navigate to="dashboard" />} />
       </Routes>
       {isLoading && <Loader />}
     </div>

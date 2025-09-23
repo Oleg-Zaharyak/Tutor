@@ -1,6 +1,7 @@
 export { default as DashboardLoyaut } from "./DashboardLoyaut";
 export { default as Main } from "./Main";
 export { default as Students } from "./Students";
+export { default as Teachers } from "./Teachers";
 export { default as Calendar } from "./Calendar";
 export { default as Chat } from "./Chat";
 export { default as Whiteboards } from "./Whiteboards";

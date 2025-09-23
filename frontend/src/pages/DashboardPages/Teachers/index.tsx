@@ -2,21 +2,21 @@ import { useTranslation } from "react-i18next";
 import Button from "../../../components/Button";
 import styles from "./styles.module.scss";
 import { useState } from "react";
-import { LayoutType } from "../../../components/LayoutToggle/types";
-import LayoutToggle from "../../../components/LayoutToggle";
-import AccountConnectionModal from "../../../components/AccountConnectionModal";
+import { setLoading } from "../../../store/slices/appUISlice";
+import { useAppDispatch } from "../../../hooks/hooks";
 import { useUser } from "@clerk/clerk-react";
 import { useGetCurrentUserProfileQuery } from "../../../store/api/profileApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { setLoading } from "../../../store/slices/appUISlice";
 import {
   useCreateAccountConnectionMutation,
   useGetConnectedAccountProfileListQuery,
 } from "../../../store/api/connectionApi";
+import AccountConnectionModal from "../../../components/AccountConnectionModal";
+import LayoutToggle from "../../../components/LayoutToggle";
+import { LayoutType } from "../../../components/LayoutToggle/types";
 
-const Students = () => {
-  const { t } = useTranslation("students");
+const Teachers = () => {
+  const { t } = useTranslation("teachers");
   const dispatch = useAppDispatch();
 
   const { user } = useUser();
@@ -31,8 +31,6 @@ const Students = () => {
       profileData ? { accountId: profileData.selectedAccountId } : skipToken
     );
 
-  console.log(connectedAccountListData);
-
   const [createAccountConnection] = useCreateAccountConnectionMutation();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -41,6 +39,8 @@ const Students = () => {
   const handleToggleModal = () => {
     setIsOpenModal((prev) => !prev);
   };
+
+  console.log(connectedAccountListData);
 
   const handleAddStudent = async (targetEmail: string) => {
     dispatch(setLoading(true));
@@ -88,4 +88,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Teachers;

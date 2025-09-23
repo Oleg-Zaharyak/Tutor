@@ -13,7 +13,11 @@ const AuthRoute = () => {
     dispatch(setLoading(!isLoaded));
   }, [isLoaded, dispatch]);
 
-  return isSignedIn ? <Navigate to="/dashboard/home" /> : <Outlet />;
+  return isSignedIn && isLoaded ? (
+    <Navigate to="/dashboard/home" />
+  ) : (
+    <Outlet />
+  );
 };
 
 export default AuthRoute;
