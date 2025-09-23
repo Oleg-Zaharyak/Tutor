@@ -4,14 +4,12 @@ import clsx from "clsx";
 import { ButtonProps } from "./types";
 
 const Button: FC<ButtonProps> = ({
-  style,
   title,
   type = "button",
   styleType = "filled",
   size = "big",
   className,
-  disabled = false,
-  onClick,
+  ...props
 }) => {
   const customClassName = clsx(
     styles.button,
@@ -20,13 +18,7 @@ const Button: FC<ButtonProps> = ({
     className
   );
   return (
-    <button
-      className={customClassName}
-      disabled={disabled}
-      type={type}
-      style={style}
-      onClick={onClick}
-    >
+    <button className={customClassName} type={type} {...props}>
       {title}
     </button>
   );

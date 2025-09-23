@@ -120,7 +120,7 @@ const UserOnboardingPage: FC = () => {
             <Select
               name="accountType"
               title={t("account-type.title")}
-              style={{ width: "100%" }}
+              containerStyle={{ width: "100%" }}
               onChange={formik.handleChange}
               options={accountTypeOptions}
             />

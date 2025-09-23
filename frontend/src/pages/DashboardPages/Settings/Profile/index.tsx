@@ -2,6 +2,7 @@ import styles from "./styles.module.scss";
 
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 import { formatDate } from "../../../../utils/date";
 
 import Input from "../../../../components/Input";
@@ -18,7 +19,7 @@ import {
 import { skipToken } from "@reduxjs/toolkit/query";
 import { useAppDispatch } from "../../../../hooks/hooks";
 import { setLoading } from "../../../../store/slices/appUISlice";
-// import { ProfileSettingsSchema } from "./schema";
+import { ProfileSettingsSchema } from "./schema";
 
 const ProfileSettings = () => {
   const { user, isLoaded } = useUser();
@@ -44,7 +45,7 @@ const ProfileSettings = () => {
       phoneNumber: profileData?.phoneNumber || "",
       bio: profileData?.bio || "",
     },
-    // validationSchema: ProfileSettingsSchema,
+    validationSchema: ProfileSettingsSchema,
     onSubmit: async (values) => {
       dispatch(setLoading(true));
       const changedValues = Object.fromEntries(
@@ -77,8 +78,12 @@ const ProfileSettings = () => {
     },
   });
 
+  i18next.on("languageChanged", async () => {
+    await formik.validateForm();
+  });
+
   const commonConfig = {
-    size: "medium" as const,
+    inputSize: "medium" as const,
     onBlur: formik.handleBlur,
     onChange: formik.handleChange,
   };
@@ -107,7 +112,6 @@ const ProfileSettings = () => {
       name: "birthDate",
       inputType: "date",
       title: t("profile.date-of-birth.title"),
-      placeholder: t("profile.date-of-birth.placeholder"),
       value: formik.values.birthDate,
       containerClassName: styles.birthDate,
       inputClassName: styles.birthDate_input,
@@ -117,6 +121,7 @@ const ProfileSettings = () => {
     },
     {
       name: "phoneNumber",
+      inputtype: "tel",
       title: t("profile.phone-number.title"),
       placeholder: t("profile.phone-number.placeholder"),
       value: formik.values.phoneNumber,
@@ -132,10 +137,8 @@ const ProfileSettings = () => {
       placeholder: t("profile.address.placeholder"),
       value: formik.values.address,
       containerClassName: styles.address,
-      error:
-        Boolean(formik.errors.phoneNumber) &&
-        Boolean(formik.touched.phoneNumber),
-      errorText: formik.errors.phoneNumber,
+      error: Boolean(formik.errors.address) && Boolean(formik.touched.address),
+      errorText: formik.errors.address,
     },
   ];
 
@@ -159,7 +162,7 @@ const ProfileSettings = () => {
         )}
         <div className={styles.inputs}>
           {inputsConfig.map((item) => (
-            <Input {...commonConfig} {...item} />
+            <Input key={item.name} {...commonConfig} {...item} />
           ))}
           <Textarea
             name="bio"

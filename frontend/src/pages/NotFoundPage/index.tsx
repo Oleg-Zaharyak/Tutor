@@ -21,7 +21,7 @@ const NotFoundPage: FC = () => {
           title={t("not-found.btn-title")}
           style={{ width: "80%" }}
           type="button"
-          onClick={() => navigation("/dashboard")}
+          onClick={() => navigation("/dashboard/home")}
         />
       </div>
     </div>

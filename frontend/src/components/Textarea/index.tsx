@@ -4,16 +4,11 @@ import { TextareaProps } from "./types";
 import clsx from "clsx";
 
 const Input: FC<TextareaProps> = ({
-  name,
-  value,
   title,
   containerClassName,
   inputClassName,
   lableClassName,
-  disabled = false,
-  placeholder,
-  onBlur,
-  onChange,
+  ...props
 }) => {
   const inputId = useId();
 
@@ -23,14 +18,9 @@ const Input: FC<TextareaProps> = ({
         {title}
       </label>
       <textarea
-        name={name}
-        value={value}
-        disabled={disabled}
-        placeholder={placeholder}
         className={clsx(styles.textarea, inputClassName)}
         id={inputId}
-        onBlur={onBlur}
-        onChange={onChange}
+        {...props}
       ></textarea>
     </div>
   );

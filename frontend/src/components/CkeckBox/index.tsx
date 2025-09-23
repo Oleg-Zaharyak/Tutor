@@ -3,23 +3,15 @@ import styles from "./styles.module.scss";
 import clsx from "clsx";
 import { CheckboxProps } from "./types";
 
-const Checkbox: FC<CheckboxProps> = ({
-  title,
-  name,
-  value,
-  error = false,
-  onChange,
-}) => {
+const Checkbox: FC<CheckboxProps> = ({ title, error = false, ...props }) => {
   const inputId = useId();
   return (
     <div className={styles.checkbox_wrapper_4}>
       <input
         className={styles.inp_cbx}
         id={inputId}
-        name={name}
-        value={value}
         type="checkbox"
-        onChange={onChange}
+        {...props}
       />
       <label className={styles.cbx} htmlFor={inputId}>
         <span>

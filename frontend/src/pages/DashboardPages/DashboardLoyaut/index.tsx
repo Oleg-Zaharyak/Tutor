@@ -41,7 +41,7 @@ const DashboardLoyaut: FC = () => {
         <Sidebar />
       </div>
       <div className={styles.main}>
-        <Outlet></Outlet>
+        <Outlet />
       </div>
     </div>
   );

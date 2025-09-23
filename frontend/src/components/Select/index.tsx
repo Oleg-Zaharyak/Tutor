@@ -4,26 +4,24 @@ import clsx from "clsx";
 import { SelectProps } from "./types";
 
 const Select: FC<SelectProps> = ({
-  name,
   title,
   error,
   errorText,
   options,
-  style,
+  containerStyle,
   defaultOptionTitle,
-  onChange,
+  ...props
 }) => {
   const selectId = useId();
   return (
-    <div className={styles.container} style={{ ...style }}>
+    <div className={styles.container} style={{ ...containerStyle }}>
       <label className={styles.lable} htmlFor={selectId}>
         {title}
       </label>
       <select
-        onChange={onChange}
-        name={name}
         className={clsx(styles.select, error && styles.select_error)}
         id={selectId}
+        {...props}
       >
         {defaultOptionTitle && <option value="">{defaultOptionTitle}</option>}
         {options.map((item) => (

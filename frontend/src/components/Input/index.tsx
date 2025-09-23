@@ -5,9 +5,7 @@ import clsx from "clsx";
 import { InputsProps } from "./types";
 
 const Input: FC<InputsProps> = ({
-  name,
-  value,
-  size = "big",
+  inputSize = "big",
   title,
   error,
   errorText,
@@ -15,38 +13,30 @@ const Input: FC<InputsProps> = ({
   containerClassName,
   inputClassName,
   lableClassName,
-  disabled = false,
-  placeholder,
   showPassword = false,
   setShowPassword,
-  onBlur,
-  onChange,
+  ...props
 }) => {
   const inputId = useId();
 
   return (
     <div className={clsx(styles.container, containerClassName)}>
       <label
-        className={clsx(styles.lable, styles[`${size}_label`], lableClassName)}
+        className={clsx(styles.lable, styles[`${inputSize}_label`], lableClassName)}
         htmlFor={inputId}
       >
         {title}
       </label>
       <input
-        name={name}
-        value={value}
-        disabled={disabled}
-        placeholder={placeholder}
         className={clsx(
           styles.input,
-          styles[`${size}_input`],
+          styles[`${inputSize}_input`],
           error && styles.input_error,
           inputClassName
         )}
         type={!showPassword ? inputType : "text"}
         id={inputId}
-        onBlur={onBlur}
-        onChange={onChange}
+        {...props}
       />
       {inputType === "password" ? (
         showPassword ? (
