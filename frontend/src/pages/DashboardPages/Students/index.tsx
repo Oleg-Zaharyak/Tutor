@@ -8,17 +8,10 @@ import AccountConnectionModal from "../../../components/AccountConnectionModal";
 import { useUser } from "@clerk/clerk-react";
 import { useGetCurrentUserProfileQuery } from "../../../store/api/profileApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { setLoading } from "../../../store/slices/appUISlice";
-import {
-  useCreateAccountConnectionMutation,
-  useGetConnectedAccountProfileListQuery,
-} from "../../../store/api/connectionApi";
+import { useGetConnectedAccountProfileListQuery } from "../../../store/api/connectionApi";
 
 const Students = () => {
   const { t } = useTranslation("students");
-  const dispatch = useAppDispatch();
-
   const { user } = useUser();
 
   //Витягую дані про профіль користувача
@@ -33,32 +26,11 @@ const Students = () => {
 
   console.log(connectedAccountListData);
 
-  const [createAccountConnection] = useCreateAccountConnectionMutation();
-
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [layout, setLayout] = useState<LayoutType>("grid");
 
   const handleToggleModal = () => {
     setIsOpenModal((prev) => !prev);
-  };
-
-  const handleAddStudent = async (targetEmail: string) => {
-    dispatch(setLoading(true));
-    const currentAccountId = profileData?.selectedAccountId;
-    if (!currentAccountId) return;
-
-    try {
-      await createAccountConnection({
-        currentAccountId,
-        targetEmail,
-      }).unwrap();
-
-      setIsOpenModal(false);
-    } catch (error) {
-      console.error("Error adding student:", error);
-    } finally {
-      dispatch(setLoading(false));
-    }
   };
 
   return (
@@ -76,12 +48,11 @@ const Students = () => {
         <LayoutToggle value={layout} onChange={setLayout} />
       </div>
       <div className={styles.content}></div>
-      {isOpenModal && (
+      {isOpenModal && profileData?.selectedAccountId && (
         <AccountConnectionModal
-          title="Add new Student"
-          btnTitle="Add student"
+          accountId={profileData?.selectedAccountId}
+          accountType="TEACHER"
           onClose={handleToggleModal}
-          onConfirm={handleAddStudent}
         />
       )}
     </div>

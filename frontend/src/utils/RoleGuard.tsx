@@ -16,5 +16,6 @@ export default function RoleGuard({
   if (!accountType || !allow.includes(accountType)) {
     return <Navigate to={fallback} replace />;
   }
+  
   return <>{children}</>;
 }

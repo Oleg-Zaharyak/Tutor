@@ -1,6 +1,5 @@
 export type AccountConnectionModalProps = {
-  title: string;
-  btnTitle: string;
+  accountType: "STUDENT" | "TEACHER";
   onClose: () => void;
-  onConfirm: (email: string) => void;
+  accountId: string;
 };

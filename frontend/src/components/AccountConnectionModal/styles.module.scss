@@ -8,14 +8,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .modal {
+  width: 400px;
   position: relative;
   min-width: 300px;
   border: 2px solid var(--bg-secondary-color);
   background-color: var(--bg-main-color);
-  padding: 25px;
+  padding: 40px 25px 25px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -24,6 +26,12 @@
   &_title {
     text-align: center;
     font-size: 18px;
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
   }
 
   &_btns_close {

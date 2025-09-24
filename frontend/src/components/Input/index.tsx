@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import clsx from "clsx";
 import { InputsProps } from "./types";
+import { useMask } from "@react-input/mask";
 
 const Input: FC<InputsProps> = ({
   inputSize = "big",
@@ -19,10 +20,19 @@ const Input: FC<InputsProps> = ({
 }) => {
   const inputId = useId();
 
+  const inputRef = useMask({
+    mask: "+38 (___) __-__-___",
+    replacement: { _: /\d/ },
+  });
+
   return (
     <div className={clsx(styles.container, containerClassName)}>
       <label
-        className={clsx(styles.lable, styles[`${inputSize}_label`], lableClassName)}
+        className={clsx(
+          styles.lable,
+          styles[`${inputSize}_label`],
+          lableClassName
+        )}
         htmlFor={inputId}
       >
         {title}
@@ -34,6 +44,7 @@ const Input: FC<InputsProps> = ({
           error && styles.input_error,
           inputClassName
         )}
+        {...(inputType === "tel" ? { ref: inputRef } : {})}
         type={!showPassword ? inputType : "text"}
         id={inputId}
         {...props}

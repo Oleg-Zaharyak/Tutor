@@ -52,5 +52,24 @@
     "title-settings": "Settings",
     "expand": "Expand",
     "collapse": "Collapse"
+  },
+
+  "account-connection-modal": {
+    "title": {
+      "TEACHER": "Enter student email",
+      "STUDENT": "Enter teacher email"
+    },
+    "email": {
+      "title": "Email",
+      "placeholder": "Enter email",
+      "error": {
+        "invalide": "Invalid email",
+        "required": "Email is required"
+      }
+    },
+    "btn-title": {
+      "TEACHER": "Add student",
+      "STUDENT": "Add teacher"
+    }
   }
 }

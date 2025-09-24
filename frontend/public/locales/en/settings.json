@@ -65,7 +65,7 @@
     },
     "phone-number": {
       "title": "Phone number",
-      "placeholder": "Add your phone number",
+      "placeholder": "+38 (___) __-__-___",
       "error": {
         "min": "Minimum length 2 characters"
       }

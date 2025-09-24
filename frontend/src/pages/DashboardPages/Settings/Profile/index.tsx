@@ -121,7 +121,7 @@ const ProfileSettings = () => {
     },
     {
       name: "phoneNumber",
-      inputtype: "tel",
+      inputType: "tel",
       title: t("profile.phone-number.title"),
       placeholder: t("profile.phone-number.placeholder"),
       value: formik.values.phoneNumber,

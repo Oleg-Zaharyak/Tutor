@@ -1,0 +1,10 @@
+{
+  "account-connection": {
+    "account-not-exist": "Current account not found",
+    "connect-profile-not-exist": "No profile found with this email address.",
+    "connect-account-not-exist": "This profile does not have an account of the required type.",
+    "same-profile": "Cannot connect accounts from the same profile",
+    "connection-exist": "This profile has already been added.",
+    "default": "Something went wrong"
+  }
+}

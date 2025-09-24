@@ -4,8 +4,6 @@ import { Account, Profile, StudentTeacher } from "@prisma/client";
 
 interface ConnectedAccount {
   connection: StudentTeacher;
-  account: Account;
-  profile: Profile;
 }
 
 //Витягнути список профілів користувачів які приконекчені
@@ -29,14 +27,10 @@ export const getConnectedAccounts = async (req: Request, res: Response) => {
     if (account.type === "TEACHER") {
       connectedAccounts = account.students.map((relation) => ({
         connection: relation, // сам конекшин
-        account: relation.student, // акаунт студента
-        profile: relation.student.profile, // профіль студента
       }));
     } else if (account.type === "STUDENT") {
       connectedAccounts = account.teachers.map((relation) => ({
         connection: relation, // сам конекшин
-        account: relation.teacher, // акаунт вчителя
-        profile: relation.teacher.profile, // профіль вчителя
       }));
     }
 
@@ -58,12 +52,10 @@ export const connectAccounts = async (req: Request, res: Response) => {
   });
 
   if (!currentAccount)
-    return res
-      .status(404)
-      .json({
-        error_message: "Current account not found",
-        error_code: "account_not_exist",
-      });
+    return res.status(404).json({
+      error_message: "Current account not found",
+      error_code: "account-not-exist",
+    });
 
   // Перевірка чи існує профіль з таким емейлом
   const targetProfile = await prisma.profile.findUnique({
@@ -73,7 +65,7 @@ export const connectAccounts = async (req: Request, res: Response) => {
   if (!targetProfile) {
     return res.status(404).json({
       error_message: `Профіль з email ${targetEmail} не знайдено`,
-      error_code: "connect_profile_not_exist",
+      error_code: "connect-profile-not-exist",
     });
   }
 
@@ -88,7 +80,7 @@ export const connectAccounts = async (req: Request, res: Response) => {
   if (!targetAccount) {
     return res.status(404).json({
       error_message: `У профілю ${targetEmail} немає акаунта потрібного типу`,
-      error_code: "connect_account_not_exist",
+      error_code: "connect-account-not-exist",
     });
   }
 
@@ -96,7 +88,7 @@ export const connectAccounts = async (req: Request, res: Response) => {
   if (currentAccount.profileId === targetAccount.profileId) {
     return res.status(400).json({
       error_message: "Cannot connect accounts from the same profile",
-      error_code: "same_profile",
+      error_code: "same-profile",
     });
   }
 
