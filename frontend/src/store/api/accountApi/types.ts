@@ -1,11 +1,11 @@
-export type Account = {
+export interface Account {
   id: string;
   profileId: string;
   type: AccountType;
   status: AccountStatus;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 export enum AccountType {
   STUDENT = "STUDENT",

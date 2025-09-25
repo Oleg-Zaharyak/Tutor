@@ -21,7 +21,7 @@ const Input: FC<InputsProps> = ({
   const inputId = useId();
 
   const inputRef = useMask({
-    mask: "+38 (___) __-__-___",
+    mask: "+38(___)__-__-___",
     replacement: { _: /\d/ },
   });
 

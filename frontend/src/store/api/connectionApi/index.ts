@@ -14,7 +14,7 @@ export const connectionApi = createApi({
     // Список всіх конекшенів
 
     getConnectedAccountProfileList: builder.query<
-      ConnectedAccount,
+      ConnectedAccount[],
       { accountId: string }
     >({
       query: ({ accountId }) => ({

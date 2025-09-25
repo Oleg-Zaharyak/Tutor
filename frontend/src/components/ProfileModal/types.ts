@@ -1,7 +1,7 @@
-import { UserProfile } from "../../store/api/profileApi/types";
+import { Profile } from "../../store/api/profileApi/types";
 
 
 export type ProfileModalProps = {
-  profileData: UserProfile | undefined;
+  profileData: Profile | undefined;
   handleCloseModal: () => void;
 };

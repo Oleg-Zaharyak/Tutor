@@ -1,17 +1,18 @@
 import { Account } from "../accountApi/types";
-import { UserProfile } from "../profileApi/types";
+import { Profile } from "../profileApi/types";
 
+export interface AccountWithProfile extends Account {
+  profile: Profile;
+}
 export interface StudentTeacher {
   id: string;
   studentId: string;
   teacherId: string;
-  student: Account;
-  teacher: Account;
+  student: AccountWithProfile;
+  teacher: AccountWithProfile;
   createdAt: string;
 }
 
 export interface ConnectedAccount {
   connection: StudentTeacher;
-  account: Account;
-  profile: UserProfile;
 }

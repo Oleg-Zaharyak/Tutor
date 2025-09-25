@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { urls } from "../../../constants/endpointsApi";
-import { UserProfile } from "./types";
+import { Profile } from "./types";
 
 export const profileApi = createApi({
   reducerPath: "profileApi",
@@ -12,7 +12,7 @@ export const profileApi = createApi({
 
   endpoints: (builder) => ({
     // Дані профіля по id
-    getCurrentUserProfile: builder.query<UserProfile, { id: string }>({
+    getCurrentUserProfile: builder.query<Profile, { id: string }>({
       query: ({ id }) => ({
         url: `${id}`,
       }),
@@ -20,7 +20,7 @@ export const profileApi = createApi({
     }),
 
     // створення профіля
-    createProfile: builder.mutation<UserProfile, { id: string; email: string }>(
+    createProfile: builder.mutation<Profile, { id: string; email: string }>(
       {
         query: ({ id, email }) => ({
           url: "create",
@@ -32,8 +32,8 @@ export const profileApi = createApi({
 
     // Обновлення профілю
     updateProfile: builder.mutation<
-      UserProfile,
-      { profileId: string; data: Partial<UserProfile> }
+    Profile,
+      { profileId: string; data: Partial<Profile> }
     >({
       query: ({ profileId, data }) => ({
         url: "update",

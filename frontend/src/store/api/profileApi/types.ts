@@ -1,6 +1,6 @@
 import { Account } from "../accountApi/types";
 
-export interface UserProfile {
+export interface Profile {
   id: string;
   email: string;
   firstName: string;
