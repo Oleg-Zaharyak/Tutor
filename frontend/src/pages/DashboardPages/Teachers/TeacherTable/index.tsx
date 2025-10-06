@@ -1,5 +1,7 @@
+import { useTranslation } from "react-i18next";
 import { Table } from "../../../../components/Table";
 import { ConnectedAccount } from "../../../../store/api/connectionApi/types";
+import Button from "../../../../components/Button";
 // import styles from "./styles.module.scss";
 
 export const TeacherTable = ({
@@ -9,34 +11,36 @@ export const TeacherTable = ({
   teacherList?: ConnectedAccount[];
   isLoading?: boolean;
 }) => {
+  const { t } = useTranslation("teachers");
+
   const studentColumns = [
     {
       key: "firstName",
-      label: "Name",
+      label: t("table-label.firstName"),
       render: (item: ConnectedAccount) =>
-        item.connection.teacher.profile?.firstName ?? "-",
+        item.connection.teacher?.profile.firstName ?? "-",
     },
     {
       key: "lastName",
-      label: "Last Name",
+      label: t("table-label.lastName"),
       render: (item: ConnectedAccount) =>
-        item.connection.teacher.profile?.lastName ?? "-",
+        item.connection.teacher?.profile.lastName ?? "-",
     },
     {
       key: "phone",
-      label: "Phone number",
+      label: t("table-label.phoneNumber"),
       render: (item: ConnectedAccount) =>
-        item.connection.teacher.profile?.phoneNumber ?? "-",
+        item.connection.teacher?.profile.phoneNumber ?? "-",
     },
     {
       key: "email",
-      label: "Email",
+      label: t("table-label.email"),
       render: (item: ConnectedAccount) =>
-        item.connection.teacher.profile?.email ?? "-",
+        item.connection.teacher?.profile.email ?? "-",
     },
     {
       key: "createdAt",
-      label: "Teacher Added",
+      label: t("table-label.added"),
       render: (item: ConnectedAccount) =>
         item.connection.createdAt
           ? new Date(item.connection.createdAt).toLocaleDateString()
@@ -44,8 +48,10 @@ export const TeacherTable = ({
     },
     {
       key: "action",
-      label: "Action",
-      render: () => "More info",
+      label: "",
+      render: () => (
+        <Button styleType="outline" size="small" title={t("table-label.btn")} />
+      ),
     },
   ];
 

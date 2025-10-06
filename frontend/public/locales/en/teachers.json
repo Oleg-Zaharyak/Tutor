@@ -1,4 +1,18 @@
 {
   "title": "Teachers",
-  "add-btn-title": "Add teacher"
+  "add-btn-title": "Add teacher",
+
+  "table-label": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "added": "Connected",
+    "btn": "More Info"
+  },
+
+  "grid": {
+    "message-btn": "Message",
+    "more-info-btn": "More info"
+  }
 }

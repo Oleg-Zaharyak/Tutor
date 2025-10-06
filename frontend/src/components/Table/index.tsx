@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { TableSkeleton } from "./skeleton";
+import { useTranslation } from "react-i18next";
 
 type Column<T> = {
   key: string;
@@ -15,6 +16,7 @@ type TableProps<T> = {
 };
 
 export const Table = <T,>({ data, columns, isLoading }: TableProps<T>) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -58,7 +60,7 @@ export const Table = <T,>({ data, columns, isLoading }: TableProps<T>) => {
                   colSpan={columns.length}
                   style={{ textAlign: "center" }}
                 >
-                  No data
+                  {t("no-data")}
                 </td>
               </tr>
             )}

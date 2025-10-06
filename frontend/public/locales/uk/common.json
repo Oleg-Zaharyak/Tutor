@@ -1,6 +1,8 @@
 {
   "language-name": "Eng.",
 
+  "no-data": "Нема даних",
+
   "not-found": {
     "title": "404",
     "sub-title": "Ой... сторінку не знайдено",

@@ -105,8 +105,8 @@ const ProfileSettings = () => {
       value: formik.values.lastName,
       containerClassName: styles.lastName,
       error:
-        Boolean(formik.errors.firstName) && Boolean(formik.touched.firstName),
-      errorText: formik.errors.firstName,
+        Boolean(formik.errors.lastName) && Boolean(formik.touched.lastName),
+      errorText: formik.errors.lastName,
     },
     {
       name: "birthDate",

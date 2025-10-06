@@ -67,7 +67,7 @@
       "title": "Phone number",
       "placeholder": "+38 (___) __-__-___",
       "error": {
-        "min": "Minimum length 2 characters"
+        "length": "Invalid phone number"
       }
     },
     "add-info": {

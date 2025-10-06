@@ -123,6 +123,10 @@ const SignInPage: FC = () => {
             errorText={formik.errors.email}
             value={formik.values.email}
             onBlur={formik.handleBlur}
+            onFocus={() => {
+              formik.setFieldTouched("email", false); // скидаємо touched
+              formik.setFieldError("email", ""); // прибираємо помилку
+            }}
             onChange={formik.handleChange}
             placeholder={t("email.placeholder")}
           />
@@ -138,6 +142,10 @@ const SignInPage: FC = () => {
             }
             errorText={formik.errors.password}
             onBlur={formik.handleBlur}
+            onFocus={() => {
+              formik.setFieldTouched("password", false); // скидаємо touched
+              formik.setFieldError("password", ""); // прибираємо помилку
+            }}
             onChange={formik.handleChange}
             showPassword={showPassword}
             setShowPassword={setShowPassword}

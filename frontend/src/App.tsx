@@ -66,7 +66,7 @@ function App() {
             <Route
               path="students"
               element={
-                <RoleGuard allow={["TEACHER"]} fallback="/dashboard/home">
+                <RoleGuard allow={["TEACHER"]} fallback="/dashboard/teachers">
                   <Students />
                 </RoleGuard>
               }
@@ -74,7 +74,7 @@ function App() {
             <Route
               path="teachers"
               element={
-                <RoleGuard allow={["STUDENT"]} fallback="/dashboard/home">
+                <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
                   <Teachers />
                 </RoleGuard>
               }

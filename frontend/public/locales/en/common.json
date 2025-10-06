@@ -1,6 +1,8 @@
 {
   "language-name": "Укр.",
 
+  "no-data": "No data",
+
   "not-found": {
     "title": "404",
     "sub-title": "Oops... page not found",

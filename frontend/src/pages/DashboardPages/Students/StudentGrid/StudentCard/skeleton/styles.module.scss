@@ -1,0 +1,25 @@
+.skeleton_block {
+  height: 285.5px;
+  border-radius: 10px;
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite ease-in-out;
+
+  @media (max-width: 1360px) and (min-width: 1201px),
+    (max-width: 1090px) and (min-width: 1025px),
+    (max-width: 860px) and (min-width: 771px),
+    (max-width: 600px) and (min-width: 526px) {
+    height: 345.5px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

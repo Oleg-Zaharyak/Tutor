@@ -11,11 +11,12 @@ import { skipToken } from "@reduxjs/toolkit/query";
 import { useGetConnectedAccountProfileListQuery } from "../../../store/api/connectionApi";
 import { StudentGrid } from "./StudentGrid";
 import { StudentTable } from "./StudentTable";
+import clsx from "clsx";
 
 const LAYOUT_KEY = "students_layout";
 
 const Students = () => {
-  const { t } = useTranslation("students");
+  const { t } = useTranslation(["common", "students"]);
   const { user, isLoaded } = useUser();
 
   //Витягую дані про профіль користувача
@@ -47,13 +48,16 @@ const Students = () => {
     setIsOpenModal((prev) => !prev);
   };
 
+  const isDataLoading =
+    isConnectedAccountListDataLoading || isProfileLoading || !isLoaded;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.header_text}>{t("title")}</h1>
+        <h1 className={styles.header_text}>{t("title", { ns: "students" })}</h1>
         <Button
           onClick={handleToggleModal}
-          title={t("add-btn-title")}
+          title={t("add-btn-title", { ns: "students" })}
           size="medium"
           styleType="outline"
         />
@@ -61,27 +65,30 @@ const Students = () => {
       <div className={styles.filter_container}>
         <LayoutToggle value={layout} onChange={setLayout} />
       </div>
-      <div className={styles.content}>
-        {/* {connectedAccountListData && connectedAccountListData.length !== 0 ? ( */}
-        <>
-          {layout === "grid" && <StudentGrid />}
-          {layout === "table" && (
-            <StudentTable
+      {layout === "grid" &&
+        ((connectedAccountListData && connectedAccountListData.length !== 0) ||
+        isDataLoading ? (
+          <div className={clsx(styles.content, styles.content_grid)}>
+            <StudentGrid
               studentList={connectedAccountListData}
-              isLoading={
-                isConnectedAccountListDataLoading ||
-                isProfileLoading ||
-                !isLoaded
-              }
+              isLoading={isDataLoading}
             />
-          )}
-        </>
-        {/* ) : (
-          <div className={styles.content_empty}>
-            <div className={styles.content_empty_text}>No data.</div>
           </div>
-        )} */}
-      </div>
+        ) : (
+          <div className={styles.content_empty}>
+            <div className={styles.content_empty_text}>
+              {t("no-data", { ns: "common" })}
+            </div>
+          </div>
+        ))}
+      {layout === "table" && (
+        <div className={clsx(styles.content, styles.content_table)}>
+          <StudentTable
+            studentList={connectedAccountListData}
+            isLoading={isDataLoading}
+          />
+        </div>
+      )}
       {isOpenModal && profileData?.selectedAccountId && (
         <AccountConnectionModal
           accountId={profileData?.selectedAccountId}

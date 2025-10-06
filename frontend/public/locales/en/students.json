@@ -1,4 +1,18 @@
 {
   "title": "Students",
-  "add-btn-title": "Add student"
+  "add-btn-title": "Add student",
+
+  "table-label": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "added": "Connected",
+    "btn": "More Info"
+  },
+
+  "grid": {
+    "message-btn": "Message",
+    "more-info-btn": "More info"
+  }
 }

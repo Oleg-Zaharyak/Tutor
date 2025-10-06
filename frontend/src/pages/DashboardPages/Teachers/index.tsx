@@ -11,11 +11,12 @@ import LayoutToggle from "../../../components/LayoutToggle";
 import { LayoutType } from "../../../components/LayoutToggle/types";
 import { TeacherTable } from "./TeacherTable";
 import { TeacherGrid } from "./TeacherGrid";
+import clsx from "clsx";
 
 const LAYOUT_KEY = "teachers_layout";
 
 const Teachers = () => {
-  const { t } = useTranslation("teachers");
+  const { t } = useTranslation(["common", "teachers"]);
   const { user, isLoaded } = useUser();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -47,15 +48,16 @@ const Teachers = () => {
     setIsOpenModal((prev) => !prev);
   };
 
-  console.log(isConnectedAccountListDataLoading, isProfileLoading, !isLoaded);
+  const isDataLoading =
+    isConnectedAccountListDataLoading || isProfileLoading || !isLoaded;
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.header_text}>{t("title")}</h1>
+        <h1 className={styles.header_text}>{t("title", { ns: "teachers" })}</h1>
         <Button
           onClick={handleToggleModal}
-          title={t("add-btn-title")}
+          title={t("add-btn-title", { ns: "teachers" })}
           size="medium"
           styleType="outline"
         />
@@ -63,27 +65,31 @@ const Teachers = () => {
       <div className={styles.filter_container}>
         <LayoutToggle value={layout} onChange={setLayout} />
       </div>
-      <div className={styles.content}>
-        {/* {connectedAccountListData && connectedAccountListData.length !== 0 ? ( */}
-        <>
-          {layout === "grid" && <TeacherGrid />}
-          {layout === "table" && (
-            <TeacherTable
+
+      {layout === "grid" &&
+        ((connectedAccountListData && connectedAccountListData.length !== 0) ||
+        isDataLoading ? (
+          <div className={clsx(styles.content, styles.content_grid)}>
+            <TeacherGrid
               teacherList={connectedAccountListData}
-              isLoading={
-                isConnectedAccountListDataLoading ||
-                isProfileLoading ||
-                !isLoaded
-              }
+              isLoading={isDataLoading}
             />
-          )}
-        </>
-        {/* ) : (
-          <div className={styles.content_empty}>
-            <div className={styles.content_empty_text}>No data.</div>
           </div>
-        )} */}
-      </div>
+        ) : (
+          <div className={styles.content_empty}>
+            <div className={styles.content_empty_text}>
+              {t("no-data", { ns: "common" })}
+            </div>
+          </div>
+        ))}
+      {layout === "table" && (
+        <div className={clsx(styles.content, styles.content_table)}>
+          <TeacherTable
+            teacherList={connectedAccountListData}
+            isLoading={isDataLoading}
+          />
+        </div>
+      )}
       {isOpenModal && profileData?.selectedAccountId && (
         <AccountConnectionModal
           accountId={profileData?.selectedAccountId}

@@ -4,6 +4,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import clsx from "clsx";
 import { InputsProps } from "./types";
 import { useMask } from "@react-input/mask";
+import { telInputMask } from "../../constants/variables";
 
 const Input: FC<InputsProps> = ({
   inputSize = "big",
@@ -21,7 +22,7 @@ const Input: FC<InputsProps> = ({
   const inputId = useId();
 
   const inputRef = useMask({
-    mask: "+38(___)__-__-___",
+    mask: telInputMask,
     replacement: { _: /\d/ },
   });
 

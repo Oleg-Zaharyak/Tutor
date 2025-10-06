@@ -1,4 +1,18 @@
 {
   "title": "Учні",
-  "add-btn-title": "Додати учня"
+  "add-btn-title": "Додати учня",
+
+  "table-label": {
+    "firstName": "Імʼя",
+    "lastName": "Прізвище",
+    "phoneNumber": "Номер Телефону",
+    "email": "Електронна адреса",
+    "added": "Додано",
+    "btn": "Більше інформації"
+  },
+
+  "grid": {
+    "message-btn": "Написати",
+    "more-info-btn": "Більше"
+  }
 }

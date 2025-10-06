@@ -1,4 +1,18 @@
 {
   "title": "Вчителі",
-  "add-btn-title": "Додати вчителя"
+  "add-btn-title": "Додати вчителя",
+
+  "table-label": {
+    "firstName": "Імʼя",
+    "lastName": "Прізвище",
+    "phoneNumber": "Номер Телефону",
+    "email": "Електронна адреса",
+    "added": "Додано",
+    "btn": "Більше інформації"
+  },
+
+  "grid": {
+    "message-btn": "Написати",
+    "more-info-btn": "Більше"
+  }
 }
