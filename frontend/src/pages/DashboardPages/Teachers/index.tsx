@@ -2,9 +2,6 @@ import { useTranslation } from "react-i18next";
 import Button from "../../../components/Button";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
-import { useUser } from "@clerk/clerk-react";
-import { useGetCurrentUserProfileQuery } from "../../../store/api/profileApi";
-import { skipToken } from "@reduxjs/toolkit/query";
 import { useGetConnectedAccountProfileListQuery } from "../../../store/api/connectionApi";
 import AccountConnectionModal from "../../../components/AccountConnectionModal";
 import LayoutToggle from "../../../components/LayoutToggle";
@@ -13,25 +10,19 @@ import { TeacherTable } from "./TeacherTable";
 import { TeacherGrid } from "./TeacherGrid";
 import clsx from "clsx";
 
-const LAYOUT_KEY = "teachers_layout";
+const LAYOUT_KEY = "selected_layout";
 
 const Teachers = () => {
   const { t } = useTranslation(["common", "teachers"]);
-  const { user, isLoaded } = useUser();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [layout, setLayout] = useState<LayoutType>("grid");
 
-  //Витягую дані про профіль користувача
-  const { data: profileData, isLoading: isProfileLoading } =
-    useGetCurrentUserProfileQuery(user ? { id: user.id } : skipToken);
-
   const {
     data: connectedAccountListData,
     isLoading: isConnectedAccountListDataLoading,
-  } = useGetConnectedAccountProfileListQuery(
-    profileData ? { accountId: profileData.selectedAccountId } : skipToken
-  );
+    isFetching: isConnectedAccountListDataFetching,
+  } = useGetConnectedAccountProfileListQuery();
 
   useEffect(() => {
     const savedLayout = localStorage.getItem(LAYOUT_KEY) as LayoutType | null;
@@ -49,7 +40,7 @@ const Teachers = () => {
   };
 
   const isDataLoading =
-    isConnectedAccountListDataLoading || isProfileLoading || !isLoaded;
+    isConnectedAccountListDataFetching || isConnectedAccountListDataLoading;
 
   return (
     <div className={styles.container}>
@@ -90,9 +81,8 @@ const Teachers = () => {
           />
         </div>
       )}
-      {isOpenModal && profileData?.selectedAccountId && (
+      {isOpenModal && (
         <AccountConnectionModal
-          accountId={profileData?.selectedAccountId}
           accountType="STUDENT"
           onClose={handleToggleModal}
         />

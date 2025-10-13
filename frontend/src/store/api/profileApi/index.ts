@@ -11,41 +11,47 @@ export const profileApi = createApi({
   tagTypes: ["Profile"],
 
   endpoints: (builder) => ({
-    // Дані профіля по id
-    getCurrentUserProfile: builder.query<Profile, { id: string }>({
-      query: ({ id }) => ({
-        url: `${id}`,
+    // Дані профіля
+    getCurrentUserProfile: builder.query<Profile, void>({
+      query: () => ({
+        url: "getCurrentUserProfile",
       }),
       providesTags: ["Profile"],
     }),
 
     // створення профіля
-    createProfile: builder.mutation<Profile, { id: string; email: string }>(
-      {
-        query: ({ id, email }) => ({
-          url: "create",
-          method: "POST",
-          body: { id, email },
-        }),
-      }
-    ),
+    createProfile: builder.mutation<Profile, { id: string; email: string }>({
+      query: ({ id, email }) => ({
+        url: "createNewProfile",
+        method: "POST",
+        body: { id, email },
+      }),
+    }),
 
     // Обновлення профілю
-    updateProfile: builder.mutation<
-    Profile,
-      { profileId: string; data: Partial<Profile> }
-    >({
-      query: ({ profileId, data }) => ({
-        url: "update",
+    updateProfile: builder.mutation<Profile, { data: Partial<Profile> }>({
+      query: ({ data }) => ({
+        url: "updateUserProfile",
         method: "PATCH",
-        body: { profileId, data },
+        body: { data },
       }),
       invalidatesTags: ["Profile"],
     }),
 
     // Створення Акаунта
 
-    //Обновлення Акаунта
+    //Оновлення фото профілю
+    uploadProfileAvatar: builder.mutation<
+      { message: string; path: string },
+      FormData
+    >({
+      query: (formData) => ({
+        url: `${urls.uploads}/uploadAvatar`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
   }),
 });
 
@@ -53,4 +59,5 @@ export const {
   useGetCurrentUserProfileQuery,
   useCreateProfileMutation,
   useUpdateProfileMutation,
+  useUploadProfileAvatarMutation,
 } = profileApi;

@@ -9,27 +9,26 @@ import Input from "../../../../components/Input";
 import Button from "../../../../components/Button";
 import Textarea from "../../../../components/Textarea";
 import { CreatedAtSkeleton, MainUserInfoSkeleton } from "./skeleton";
-import { HiOutlineUserCircle } from "react-icons/hi";
 
-import { useUser } from "@clerk/clerk-react";
+import { useAppDispatch } from "../../../../hooks/hooks";
+import { setLoading } from "../../../../store/slices/appUISlice";
+import { ProfileSettingsSchema } from "./schema";
+import { UserPhoto } from "./UserPhoto";
+import { useState } from "react";
+import UploadPhotoModal from "./UploadPhotoModal";
 import {
   useGetCurrentUserProfileQuery,
   useUpdateProfileMutation,
 } from "../../../../store/api/profileApi";
-import { skipToken } from "@reduxjs/toolkit/query";
-import { useAppDispatch } from "../../../../hooks/hooks";
-import { setLoading } from "../../../../store/slices/appUISlice";
-import { ProfileSettingsSchema } from "./schema";
 
 const ProfileSettings = () => {
-  const { user, isLoaded } = useUser();
   const { t } = useTranslation("settings");
   const dispatch = useAppDispatch();
 
-  const userId = user?.id || "";
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
   const { data: profileData, isLoading: isProfileDataLoading } =
-    useGetCurrentUserProfileQuery(user ? { id: user.id } : skipToken);
+    useGetCurrentUserProfileQuery();
 
   const [updateProfile] = useUpdateProfileMutation();
 
@@ -67,7 +66,6 @@ const ProfileSettings = () => {
 
       try {
         await updateProfile({
-          profileId: userId,
           data: changedValues,
         }).unwrap();
       } catch (err) {
@@ -145,9 +143,20 @@ const ProfileSettings = () => {
   return (
     <form onSubmit={formik.handleSubmit} className={styles.form}>
       <div className={styles.content}>
-        {!isProfileDataLoading && isLoaded ? (
+        {!isProfileDataLoading ? (
           <div className={styles.top_container}>
-            <HiOutlineUserCircle className={styles.user_avatar} />
+            <div className={styles.user_avatar}>
+              <UserPhoto
+                url={profileData?.avatarUrl}
+                onEdit={() => setIsPhotoModalOpen(true)}
+              />
+              {isPhotoModalOpen && (
+                <UploadPhotoModal
+                  url={profileData?.avatarUrl}
+                  onClose={() => setIsPhotoModalOpen(false)}
+                />
+              )}
+            </div>
             <div className={styles.user_field}>
               <div className={styles.user_field_name}>
                 {profileData?.fullName}
@@ -180,7 +189,7 @@ const ProfileSettings = () => {
           <div className={styles.meta_lable}>
             {t("profile.ptrofile-created")}
           </div>
-          {!isProfileDataLoading && isLoaded ? (
+          {!isProfileDataLoading ? (
             <div className={styles.meta_value}>
               {profileData && formatDate(profileData?.createdAt)}
             </div>

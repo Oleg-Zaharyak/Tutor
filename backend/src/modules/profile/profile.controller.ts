@@ -15,7 +15,7 @@ export const getAllProfiles = async (req: Request, res: Response) => {
 
 // Отримати профіль по id
 export const getProfileById = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = (req as any).auth?.userId;
 
   try {
     const profile = await prisma.profile.findUnique({
@@ -61,7 +61,8 @@ export const createProfile = async (req: Request, res: Response) => {
 };
 // Обновити профіль
 export const updateProfile = async (req: Request, res: Response) => {
-  const { profileId, data } = req.body;
+  const { data } = req.body;
+  const profileId = (req as any).auth?.userId;
 
   if (!profileId) {
     return res.status(400).json({ message: "Missing profileId" });

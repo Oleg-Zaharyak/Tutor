@@ -14,7 +14,6 @@ import { ApiError } from "../../types/apiError";
 
 const AccountConnectionModal: FC<AccountConnectionModalProps> = ({
   accountType,
-  accountId,
   onClose,
 }) => {
   const { t } = useTranslation(["common", "endpointErrors"]);
@@ -30,7 +29,6 @@ const AccountConnectionModal: FC<AccountConnectionModalProps> = ({
       dispatch(setLoading(true));
       try {
         await createAccountConnection({
-          currentAccountId: accountId,
           targetEmail: values.email,
         }).unwrap();
 

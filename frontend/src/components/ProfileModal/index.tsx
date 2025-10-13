@@ -12,6 +12,7 @@ import LanguageToggle from "../LanguageToggle";
 import ThemeToggle from "../ThemeToggle";
 import AccountManager from "../AccountManager";
 import { useTranslation } from "react-i18next";
+import { API_BASE_URL } from "../../constants/endpointsApi";
 
 const ProfileModal: FC<ProfileModalProps> = ({
   profileData,
@@ -53,7 +54,14 @@ const ProfileModal: FC<ProfileModalProps> = ({
         <div className={styles.line}></div>
 
         <div className={styles.modal_user}>
-          <HiOutlineUserCircle className={styles.modal_user_img} />
+          {profileData?.avatarUrl ? (
+            <img
+              src={`${API_BASE_URL}${profileData?.avatarUrl}`}
+              className={styles.modal_user_img}
+            />
+          ) : (
+            <HiOutlineUserCircle className={styles.modal_user_img} />
+          )}
           <div className={styles.modal_user_info}>
             <p className={styles.modal_user_name}>{profileData?.fullName}</p>
             <p className={styles.modal_user_email}>{profileData?.email}</p>

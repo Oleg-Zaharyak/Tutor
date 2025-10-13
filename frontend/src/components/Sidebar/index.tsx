@@ -14,14 +14,16 @@ import {
 } from "react-icons/tb";
 
 import MenuButtonSkeleton from "./skeleton";
-import { useAccountType } from "../../hooks/useAccountType";
 import { menuItems } from "../../constants/menuItems";
+import { useGetCurrentUserAccountQuery } from "../../store/api/accountApi";
 
 export const Sidebar: FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { expandMenu } = useAppSelector((state) => state.appUI);
-  const { accountType, isLoading } = useAccountType();
+
+  const { data: accountData, isLoading } = useGetCurrentUserAccountQuery();
+  const accountType = accountData?.type;
 
   const hangleCollapseMenu = useCallback(
     () => dispatch(toggleExpandMenu()),

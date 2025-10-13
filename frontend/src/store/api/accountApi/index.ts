@@ -8,32 +8,33 @@ export const accountApi = createApi({
     baseUrl: urls.account,
     credentials: "include",
   }),
+  tagTypes: ["Account"],
 
   endpoints: (builder) => ({
     // Список акаунтів
-    getUserAccountsList: builder.query<Account[], { profileId: string }>({
-      query: ({ profileId }) => ({
-        url: `allUserAccounts/${profileId}`,
+    getUserAccountsList: builder.query<Account[], void>({
+      query: () => ({
+        url: "getAllUserAccounts",
       }),
+      providesTags: ["Account"],
     }),
 
     // Дані акаунта по id
-    getCurrentUserAccount: builder.query<Account, { id: string }>({
-      query: ({ id }) => ({
-        url: `${id}`,
+    getCurrentUserAccount: builder.query<Account, void>({
+      query: () => ({
+        url: "getCurrentUserAccount",
       }),
+      providesTags: ["Account"],
     }),
 
     // створення акаунта
-    createAccount: builder.mutation<
-      Account,
-      { profileId: string; type: string }
-    >({
-      query: ({ profileId, type }) => ({
-        url: "create",
+    createAccount: builder.mutation<Account, { type: string }>({
+      query: ({ type }) => ({
+        url: "createNewAccount",
         method: "POST",
-        body: { profileId, type },
+        body: { type },
       }),
+      invalidatesTags: ["Account"],
     }),
 
     // Обновлення акаунта

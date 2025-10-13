@@ -37,6 +37,14 @@
     "update-btn-title": "Обновити",
     "ptrofile-created": "Створено:",
 
+    "upload-avatar": {
+      "file-input": {
+        "title": "Вибрати фото",
+        "file-loaded-title": "Змінити фото"
+      },
+      "btn-title": "Зберегти"
+    },
+
     "first-name": {
       "title": "Імʼя",
       "placeholder": "Введіть ваше імʼя",

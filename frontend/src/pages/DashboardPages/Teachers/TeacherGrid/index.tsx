@@ -21,9 +21,9 @@ export const TeacherGrid: FC<TeacherGridProps> = ({
         teacherList &&
         teacherList.map((item) => (
           <TeacherCard
-            key={item.connection.teacher.id}
-            fullName={item.connection.teacher.profile.fullName}
-            email={item.connection.teacher.profile.email}
+            key={item.connection?.teacher?.id}
+            fullName={item.connection?.teacher?.profile.fullName}
+            email={item.connection?.teacher?.profile.email}
           />
         ))
       )}

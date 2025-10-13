@@ -5,30 +5,21 @@ import { useEffect, useState } from "react";
 import { LayoutType } from "../../../components/LayoutToggle/types";
 import LayoutToggle from "../../../components/LayoutToggle";
 import AccountConnectionModal from "../../../components/AccountConnectionModal";
-import { useUser } from "@clerk/clerk-react";
-import { useGetCurrentUserProfileQuery } from "../../../store/api/profileApi";
-import { skipToken } from "@reduxjs/toolkit/query";
 import { useGetConnectedAccountProfileListQuery } from "../../../store/api/connectionApi";
 import { StudentGrid } from "./StudentGrid";
 import { StudentTable } from "./StudentTable";
 import clsx from "clsx";
 
-const LAYOUT_KEY = "students_layout";
+const LAYOUT_KEY = "selected_layout";
 
 const Students = () => {
   const { t } = useTranslation(["common", "students"]);
-  const { user, isLoaded } = useUser();
-
-  //Витягую дані про профіль користувача
-  const { data: profileData, isLoading: isProfileLoading } =
-    useGetCurrentUserProfileQuery(user ? { id: user.id } : skipToken);
 
   const {
     data: connectedAccountListData,
     isLoading: isConnectedAccountListDataLoading,
-  } = useGetConnectedAccountProfileListQuery(
-    profileData ? { accountId: profileData.selectedAccountId } : skipToken
-  );
+    isFetching: isConnectedAccountListDataFetching,
+  } = useGetConnectedAccountProfileListQuery();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [layout, setLayout] = useState<LayoutType>("grid");
@@ -49,7 +40,7 @@ const Students = () => {
   };
 
   const isDataLoading =
-    isConnectedAccountListDataLoading || isProfileLoading || !isLoaded;
+    isConnectedAccountListDataFetching || isConnectedAccountListDataLoading;
 
   return (
     <div className={styles.container}>
@@ -89,9 +80,8 @@ const Students = () => {
           />
         </div>
       )}
-      {isOpenModal && profileData?.selectedAccountId && (
+      {isOpenModal && (
         <AccountConnectionModal
-          accountId={profileData?.selectedAccountId}
           accountType="TEACHER"
           onClose={handleToggleModal}
         />

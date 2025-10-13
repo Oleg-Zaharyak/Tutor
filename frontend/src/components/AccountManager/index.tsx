@@ -1,36 +1,39 @@
-import { skipToken } from "@reduxjs/toolkit/query";
 import { useAppDispatch } from "../../hooks/hooks";
-import {
-  useGetCurrentUserProfileQuery,
-  useUpdateProfileMutation,
-} from "../../store/api/profileApi";
+
 import styles from "./styles.module.scss";
 import { FiPlus } from "react-icons/fi";
-import { useUser } from "@clerk/clerk-react";
+
 import clsx from "clsx";
 import { useState } from "react";
 import ConfirmModal from "../ConfirmModal";
 import { setLoading } from "../../store/slices/appUISlice";
-import { useCreateAccountMutation } from "../../store/api/accountApi";
+import {
+  useCreateAccountMutation,
+  useGetCurrentUserAccountQuery,
+} from "../../store/api/accountApi";
 import { useTranslation } from "react-i18next";
+import {
+  useGetCurrentUserProfileQuery,
+  useUpdateProfileMutation,
+} from "../../store/api/profileApi";
+import { useGetConnectedAccountProfileListQuery } from "../../store/api/connectionApi";
 
 const AccountManager = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { user } = useUser();
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [updateProfile] = useUpdateProfileMutation();
   const [createAccount] = useCreateAccountMutation();
 
-  const { data: profileData } = useGetCurrentUserProfileQuery(
-    user ? { id: user.id } : skipToken
-  );
+  const { data: profileData } = useGetCurrentUserProfileQuery();
+  const { refetch: refetchAccountData } = useGetCurrentUserAccountQuery();
+  const { refetch: refetchConnectionData } =
+    useGetConnectedAccountProfileListQuery();
 
   const accounts = profileData?.accounts || [];
   const activeAccountId = profileData?.selectedAccountId;
-  const accountId = profileData?.id || "";
   const accountType = profileData?.accounts[0].type;
   const addAccountType = accountType === "STUDENT" ? "TEACHER" : "STUDENT";
 
@@ -38,16 +41,17 @@ const AccountManager = () => {
     dispatch(setLoading(true));
     try {
       const account = await createAccount({
-        profileId: accountId,
         type: addAccountType,
       }).unwrap();
 
       await updateProfile({
-        profileId: accountId,
         data: {
           selectedAccountId: account.id,
         },
       }).unwrap();
+
+      await refetchAccountData();
+      await refetchConnectionData();
     } catch (err) {
       console.error("Помилка оновлення:", err);
     } finally {
@@ -60,11 +64,13 @@ const AccountManager = () => {
     dispatch(setLoading(true));
     try {
       await updateProfile({
-        profileId: accountId,
         data: {
           selectedAccountId: selectedId,
         },
       }).unwrap();
+
+      await refetchAccountData();
+      await refetchConnectionData();
     } catch (err) {
       console.error("Помилка оновлення:", err);
     } finally {

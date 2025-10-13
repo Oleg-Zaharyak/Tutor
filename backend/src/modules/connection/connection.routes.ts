@@ -3,9 +3,9 @@ import { connectAccounts, getConnectedAccounts } from "./connection.controller";
 
 const router = Router();
 
-router.get("/getAllConnectedAccounts/:accountId", getConnectedAccounts);
+router.get("/getAllConnectedAccounts", getConnectedAccounts);
 
 //Створення конекшина
-router.post("/create", connectAccounts);
+router.post("/createNewConnection", connectAccounts);
 
 export default router;

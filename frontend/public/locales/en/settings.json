@@ -36,6 +36,14 @@
     "update-btn-title": "Update",
     "ptrofile-created": "Created:",
 
+    "upload-avatar": {
+      "file-input": {
+        "title": "Choose photo",
+        "file-loaded-title": "Change photo"
+      },
+      "btn-title": "Save"
+    },
+
     "first-name": {
       "title": "First name",
       "placeholder": "Enter your first name",

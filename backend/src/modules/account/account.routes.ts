@@ -1,16 +1,16 @@
 import { Router } from "express";
 import {
   createAccount,
-  getAccountById,
+  getCurrentAccount,
   getAllUserAccounts,
 } from "./account.controller";
 
 const router = Router();
 
-router.get("/allUserAccounts/:profileId", getAllUserAccounts);
-router.get("/:id", getAccountById);
+router.get("/getAllUserAccounts", getAllUserAccounts);
+router.get("/getCurrentUserAccount", getCurrentAccount);
 
 //Створення акаунта
-router.post("/create", createAccount);
+router.post("/createNewAccount", createAccount);
 
 export default router;

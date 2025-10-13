@@ -13,12 +13,9 @@ export const connectionApi = createApi({
   endpoints: (builder) => ({
     // Список всіх конекшенів
 
-    getConnectedAccountProfileList: builder.query<
-      ConnectedAccount[],
-      { accountId: string }
-    >({
-      query: ({ accountId }) => ({
-        url: `getAllConnectedAccounts/${accountId}`,
+    getConnectedAccountProfileList: builder.query<ConnectedAccount[], void>({
+      query: () => ({
+        url: "getAllConnectedAccounts",
       }),
       providesTags: ["Connections"],
     }),
@@ -27,14 +24,13 @@ export const connectionApi = createApi({
     createAccountConnection: builder.mutation<
       StudentTeacher,
       {
-        currentAccountId: string;
         targetEmail: string;
       }
     >({
-      query: ({ currentAccountId, targetEmail }) => ({
-        url: "create",
+      query: ({ targetEmail }) => ({
+        url: "createNewConnection",
         method: "POST",
-        body: { currentAccountId, targetEmail },
+        body: { targetEmail },
       }),
       invalidatesTags: ["Connections"],
     }),

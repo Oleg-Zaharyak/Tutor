@@ -5,31 +5,27 @@ import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
 
-import { useUser } from "@clerk/clerk-react";
 import { TopBarProps } from "./types";
-import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
 import { useGetCurrentUserAccountQuery } from "../../store/api/accountApi";
-import { skipToken } from "@reduxjs/toolkit/query";
 import { ProfileSkeleton } from "./skeleton";
 import ProfileModal from "../ProfileModal";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import { API_BASE_URL } from "../../constants/endpointsApi";
+import { useGetCurrentUserProfileQuery } from "../../store/api/profileApi";
 
 const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
   const { t } = useTranslation();
 
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const { user, isLoaded } = useUser();
 
   //Витягую дані про профіль користувача
   const { data: profileData, isLoading: isProfileDataLoading } =
-    useGetCurrentUserProfileQuery(user ? { id: user.id } : skipToken);
+    useGetCurrentUserProfileQuery();
 
   //Витягую дані про акаунт користувача
   const { data: accountData, isLoading: isAccountLoading } =
-    useGetCurrentUserAccountQuery(
-      profileData ? { id: profileData.selectedAccountId } : skipToken
-    );
+    useGetCurrentUserAccountQuery();
 
   // Робить щоб слово починалось з великої літери
   const selectedAccount = accountData?.type && accountData?.type;
@@ -52,14 +48,21 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
         Logo
       </div>
       <div className={styles.right_container}>
-        {!isProfileDataLoading && !isAccountLoading && isLoaded ? (
+        {!isProfileDataLoading && !isAccountLoading ? (
           <div
             onClick={handleCloseModal}
             className={clsx(styles.profile, {
               [styles.profile_active]: showProfileModal,
             })}
           >
-            <HiOutlineUserCircle className={styles.profile_img} />
+            {profileData?.avatarUrl ? (
+              <img
+                src={`${API_BASE_URL}${profileData?.avatarUrl}`}
+                className={styles.profile_img}
+              />
+            ) : (
+              <HiOutlineUserCircle className={styles.profile_img} />
+            )}
             <div className={styles.profile_info}>
               <p className={styles.profile_name}>{profileData?.fullName}</p>
               <p className={styles.profile_role}>

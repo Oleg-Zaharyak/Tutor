@@ -21,9 +21,9 @@ export const StudentGrid: FC<StudentGridProps> = ({
         studentList &&
         studentList.map((item) => (
           <StudentCard
-            key={item.connection.student.id}
-            fullName={item.connection.student.profile.fullName}
-            email={item.connection.student.profile.email}
+            key={item.connection?.student?.id}
+            fullName={item.connection?.student?.profile.fullName}
+            email={item.connection?.student?.profile.email}
           />
         ))
       )}

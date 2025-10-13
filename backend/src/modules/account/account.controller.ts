@@ -3,7 +3,11 @@ import prisma from "../../prismaClient";
 
 // Отримати всіх користувачів
 export const getAllUserAccounts = async (req: Request, res: Response) => {
-  const { profileId } = req.params;
+  const profileId = (req as any).auth?.userId;
+
+  if (!profileId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
   try {
     const accounts = await prisma.account.findMany({
@@ -25,12 +29,36 @@ export const getAllUserAccounts = async (req: Request, res: Response) => {
 };
 
 // Отримати профіль по id
-export const getAccountById = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
+export const getCurrentAccount = async (req: Request, res: Response) => {
   try {
+    const profileId = (req as any).auth?.userId;
+
+    if (!profileId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // Знаходимо профіль з вибраним акаунтом
+    const profile = await prisma.profile.findUnique({
+      where: { id: profileId },
+      include: {
+        accounts: true,
+      },
+    });
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    if (!profile.selectedAccountId) {
+      return res.status(400).json({ message: "No selected account" });
+    }
+
+    // Дістаємо акаунт за selectedAccountId
     const account = await prisma.account.findUnique({
-      where: { id },
+      where: { id: profile.selectedAccountId },
+      include: {
+        profile: true,
+      },
     });
 
     if (!account) {
@@ -39,7 +67,7 @@ export const getAccountById = async (req: Request, res: Response) => {
 
     res.json(account);
   } catch (error) {
-    console.error("Error fetching account by ID:", error);
+    console.error("Error fetching selected account:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -47,12 +75,13 @@ export const getAccountById = async (req: Request, res: Response) => {
 // Створити Акаунт
 
 export const createAccount = async (req: Request, res: Response) => {
-  const { profileId, type } = req.body;
-
-  if (!profileId || !type)
-    return res.status(400).json({ message: "Missing id or account type" });
-
   try {
+    const profileId = (req as any).auth?.userId;
+    const { type } = req.body;
+
+    if (!profileId || !type)
+      return res.status(400).json({ message: "Missing id or account type" });
+
     const account = await prisma.account.create({
       data: { profileId, type },
     });
@@ -65,5 +94,3 @@ export const createAccount = async (req: Request, res: Response) => {
 };
 
 // Обновити Акаунт
-
-

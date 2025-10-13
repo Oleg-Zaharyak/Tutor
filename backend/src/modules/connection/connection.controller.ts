@@ -9,9 +9,27 @@ interface ConnectedAccount {
 //Витягнути список профілів користувачів які приконекчені
 
 export const getConnectedAccounts = async (req: Request, res: Response) => {
-  const { accountId } = req.params;
-
   try {
+    const profileId = (req as any).auth?.userId;
+
+    if (!profileId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // Знаходимо профіль з вибраним акаунтом
+    const profile = await prisma.profile.findUnique({
+      where: { id: profileId },
+      include: {
+        accounts: true,
+      },
+    });
+
+    if (!profile || !profile.selectedAccountId) {
+      return res.status(404).json({ message: "Selected account not found" });
+    }
+
+    const accountId = profile.selectedAccountId;
+
     const account = await prisma.account.findUnique({
       where: { id: accountId },
       include: {
@@ -44,77 +62,102 @@ export const getConnectedAccounts = async (req: Request, res: Response) => {
 // Створення конекшина
 
 export const connectAccounts = async (req: Request, res: Response) => {
-  const { currentAccountId, targetEmail } = req.body;
+  try {
+    // 1️⃣ Отримуємо профіль користувача (через Clerk або JWT)
+    const profileId = (req as any).auth?.userId;
 
-  // Перевірка акаунта
-  const currentAccount = await prisma.account.findUnique({
-    where: { id: currentAccountId },
-  });
-
-  if (!currentAccount)
-    return res.status(404).json({
-      error_message: "Current account not found",
-      error_code: "account-not-exist",
+    // 2️⃣ Витягуємо selectedAccountId з профілю
+    const profile = await prisma.profile.findUnique({
+      where: { id: profileId },
+      select: {
+        selectedAccountId: true,
+      },
     });
 
-  // Перевірка чи існує профіль з таким емейлом
-  const targetProfile = await prisma.profile.findUnique({
-    where: { email: targetEmail },
-  });
+    if (!profile || !profile.selectedAccountId) {
+      return res.status(400).json({
+        error_message: "Selected account not found for this profile",
+        error_code: "no-selected-account",
+      });
+    }
 
-  if (!targetProfile) {
-    return res.status(404).json({
-      error_message: `Профіль з email ${targetEmail} не знайдено`,
-      error_code: "connect-profile-not-exist",
+    const currentAccountId = profile.selectedAccountId;
+    const { targetEmail } = req.body;
+
+    // 3️⃣ Перевіряємо, чи існує поточний акаунт
+    const currentAccount = await prisma.account.findUnique({
+      where: { id: currentAccountId },
     });
+
+    if (!currentAccount) {
+      return res.status(404).json({
+        error_message: "Current account not found",
+        error_code: "account-not-exist",
+      });
+    }
+
+    // 4️⃣ Шукаємо профіль з targetEmail
+    const targetProfile = await prisma.profile.findUnique({
+      where: { email: targetEmail },
+    });
+
+    if (!targetProfile) {
+      return res.status(404).json({
+        error_message: `Профіль з email ${targetEmail} не знайдено`,
+        error_code: "connect-profile-not-exist",
+      });
+    }
+
+    // 5️⃣ Шукаємо акаунт протилежного типу
+    const targetAccount = await prisma.account.findFirst({
+      where: {
+        profileId: targetProfile.id,
+        type: currentAccount.type === "TEACHER" ? "STUDENT" : "TEACHER",
+      },
+    });
+
+    if (!targetAccount) {
+      return res.status(404).json({
+        error_message: `У профілю ${targetEmail} немає акаунта потрібного типу`,
+        error_code: "connect-account-not-exist",
+      });
+    }
+
+    // 6️⃣ Забороняємо конекшн між акаунтами одного профілю
+    if (currentAccount.profileId === targetAccount.profileId) {
+      return res.status(400).json({
+        error_message: "Cannot connect accounts from the same profile",
+        error_code: "same-profile",
+      });
+    }
+
+    // 7️⃣ Перевіряємо, чи конекшн уже існує
+    const studentId =
+      currentAccount.type === "TEACHER" ? targetAccount.id : currentAccount.id;
+    const teacherId =
+      currentAccount.type === "TEACHER" ? currentAccount.id : targetAccount.id;
+
+    const existingConnection = await prisma.studentTeacher.findUnique({
+      where: { studentId_teacherId: { studentId, teacherId } },
+    });
+
+    if (existingConnection) {
+      return res.status(400).json({
+        error_message: "Connection already exists",
+        error_code: "connection-exist",
+      });
+    }
+
+    // 8️⃣ Створюємо новий конекшн
+    const connection = await prisma.studentTeacher.create({
+      data: { studentId, teacherId },
+    });
+
+    return res.status(201).json(connection);
+  } catch (error) {
+    console.error("Error connecting accounts:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-
-  // Перевірка чи існує потрібний акаунт
-  const targetAccount = await prisma.account.findFirst({
-    where: {
-      profileId: targetProfile.id,
-      type: currentAccount.type === "TEACHER" ? "STUDENT" : "TEACHER",
-    },
-  });
-
-  if (!targetAccount) {
-    return res.status(404).json({
-      error_message: `У профілю ${targetEmail} немає акаунта потрібного типу`,
-      error_code: "connect-account-not-exist",
-    });
-  }
-
-  // Перевірка чи не конектиться акаунти одного профілю
-  if (currentAccount.profileId === targetAccount.profileId) {
-    return res.status(400).json({
-      error_message: "Cannot connect accounts from the same profile",
-      error_code: "same-profile",
-    });
-  }
-
-  // Перевірка, чи вже існує конекшин
-  const studentId =
-    currentAccount.type === "TEACHER" ? targetAccount.id : currentAccount.id;
-  const teacherId =
-    currentAccount.type === "TEACHER" ? currentAccount.id : targetAccount.id;
-
-  const existingConnection = await prisma.studentTeacher.findUnique({
-    where: { studentId_teacherId: { studentId, teacherId } },
-  });
-
-  if (existingConnection) {
-    return res.status(400).json({
-      error_message: "Connection already exists",
-      error_code: "connection-exist",
-    });
-  }
-
-  // Створення конекшина
-  const connection = await prisma.studentTeacher.create({
-    data: { studentId, teacherId },
-  });
-
-  return res.status(201).json(connection);
 };
 
 // Видалення конекшина

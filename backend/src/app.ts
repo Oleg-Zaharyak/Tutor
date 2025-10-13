@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 import cookieParser from "cookie-parser";
 import routes from "./routes";
 import { clerkMiddleware, requireAuth, getAuth } from "@clerk/express";
@@ -32,6 +33,10 @@ app.get("/api/health", (_req, res) => {
 });
 // ваші бізнес-рути
 app.use("/api", routes);
+
+//  доступ до папки з фото
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
+
 // глобальний обробник помилок (щоб бачити першопричину замість 500)
 app.use((err: any, _req: any, res: any, _next: any) => {
   const status = err?.statusCode || 500;

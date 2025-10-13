@@ -14,12 +14,12 @@ import { UserOnbardingSchema } from "./schema";
 import LanguageToggle from "../../components/LanguageToggle";
 import ThemeToggle from "../../components/ThemeToggle";
 
-import { useUpdateProfileMutation } from "../../store/api/profileApi";
 import { useAppDispatch } from "../../hooks/hooks";
 import { FormTypes } from "./types";
 import { useUser } from "@clerk/clerk-react";
 import { setLoading } from "../../store/slices/appUISlice";
 import { useCreateAccountMutation } from "../../store/api/accountApi";
+import { useUpdateProfileMutation } from "../../store/api/profileApi";
 
 const UserOnboardingPage: FC = () => {
   const { t } = useTranslation("userOnboarding");
@@ -29,8 +29,6 @@ const UserOnboardingPage: FC = () => {
   const [createAccount] = useCreateAccountMutation();
 
   const { user } = useUser();
-
-  const userId = user?.id || "";
 
   const formik = useFormik({
     initialValues: {
@@ -43,12 +41,10 @@ const UserOnboardingPage: FC = () => {
       dispatch(setLoading(true));
       try {
         const account = await createAccount({
-          profileId: userId,
           type: values.accountType,
         }).unwrap();
 
         await updateProfile({
-          profileId: userId,
           data: {
             firstName: values.firstName,
             lastName: values.lastName,
