@@ -15,7 +15,15 @@ export const connectionApi = createApi({
 
     getConnectedAccountProfileList: builder.query<ConnectedAccount[], void>({
       query: () => ({
-        url: "getAllConnectedAccounts",
+        url: "getAllConnections",
+      }),
+      providesTags: ["Connections"],
+    }),
+
+    // Витягування конекшина по ід
+    getConnectionById: builder.query<ConnectedAccount, string>({
+      query: (connectionId) => ({
+        url: `getConnections/${connectionId}`, // відповідає бекенд ендпоїнту /api/connections/:id
       }),
       providesTags: ["Connections"],
     }),
@@ -39,5 +47,6 @@ export const connectionApi = createApi({
 
 export const {
   useGetConnectedAccountProfileListQuery,
+  useGetConnectionByIdQuery,
   useCreateAccountConnectionMutation,
 } = connectionApi;

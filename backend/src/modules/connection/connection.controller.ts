@@ -1,10 +1,59 @@
 import { Request, Response } from "express";
 import prisma from "../../prismaClient";
-import { Account, Profile, StudentTeacher } from "@prisma/client";
+import { StudentTeacher } from "@prisma/client";
 
 interface ConnectedAccount {
   connection: StudentTeacher;
 }
+
+export const getConnectionById = async (req: Request, res: Response) => {
+  try {
+    const profileId = (req as any).auth?.userId; // id поточного профілю
+    const connectionId = req.params.connectionId; // витягуємо id конекшина з URL
+
+    if (!profileId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // Знаходимо профіль з вибраним акаунтом
+    const profile = await prisma.profile.findUnique({
+      where: { id: profileId },
+      include: { accounts: true },
+    });
+
+    if (!profile || !profile.selectedAccountId) {
+      return res.status(404).json({ message: "Selected account not found" });
+    }
+
+    const accountId = profile.selectedAccountId;
+
+    const account = await prisma.account.findUnique({
+      where: { id: accountId },
+      include: {
+        students: { include: { student: { include: { profile: true } } } },
+        teachers: { include: { teacher: { include: { profile: true } } } },
+      },
+    });
+
+    if (!account) return res.status(404).json({ message: "Account not found" });
+
+    let connection;
+
+    if (account.type === "TEACHER") {
+      connection = account.students.find((rel) => rel.id === connectionId);
+    } else if (account.type === "STUDENT") {
+      connection = account.teachers.find((rel) => rel.id === connectionId);
+    }
+
+    if (!connection)
+      return res.status(404).json({ message: "Connection not found" });
+
+    return res.json(connection);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 //Витягнути список профілів користувачів які приконекчені
 
