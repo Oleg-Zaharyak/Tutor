@@ -97,6 +97,7 @@ const ForgotPasswordPage: FC = () => {
             title={t("send-btn-title")}
             style={{ width: "80%" }}
             type="submit"
+            
           />
           <NavLink className={styles.back_button} to={"/sign-in"}>
             {t("back-btn-title")}

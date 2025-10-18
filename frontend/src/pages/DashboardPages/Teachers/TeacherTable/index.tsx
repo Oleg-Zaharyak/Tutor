@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Table } from "../../../../components/Table";
 import { ConnectedAccount } from "../../../../store/api/connectionApi/types";
 import Button from "../../../../components/Button";
+import { ButtonStyles } from "../../../../components/Button/types";
 // import styles from "./styles.module.scss";
 
 export const TeacherTable = ({
@@ -50,7 +51,11 @@ export const TeacherTable = ({
       key: "action",
       label: "",
       render: () => (
-        <Button styleType="outline" size="small" title={t("table-label.btn")} />
+        <Button
+          buttonStyle={ButtonStyles.OUTLINE}
+          title={t("table-label.btn")}
+          small
+        />
       ),
     },
   ];

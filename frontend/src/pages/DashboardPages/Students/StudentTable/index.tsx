@@ -2,7 +2,8 @@ import { useTranslation } from "react-i18next";
 import { Table } from "../../../../components/Table";
 import { ConnectedAccount } from "../../../../store/api/connectionApi/types";
 import Button from "../../../../components/Button";
-// import styles from "./styles.module.scss";
+import { useNavigate } from "react-router-dom";
+import { ButtonStyles } from "../../../../components/Button/types";
 
 export const StudentTable = ({
   studentList,
@@ -12,6 +13,7 @@ export const StudentTable = ({
   isLoading?: boolean;
 }) => {
   const { t } = useTranslation("students");
+  const navigate = useNavigate();
 
   const studentColumns = [
     {
@@ -49,8 +51,13 @@ export const StudentTable = ({
     {
       key: "action",
       label: "",
-      render: () => (
-        <Button styleType="outline" size="small" title={t("table-label.btn")} />
+      render: (item: ConnectedAccount) => (
+        <Button
+          title={t("table-label.btn")}
+          onClick={() => navigate(`/dashboard/students/${item.connection?.id}`)}
+          buttonStyle={ButtonStyles.OUTLINE}
+          small
+        />
       ),
     },
   ];

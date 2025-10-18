@@ -7,9 +7,10 @@ import { MenuButtonProps } from "./types";
 
 const MenuButton: FC<MenuButtonProps> = ({
   title,
+  type = "nav",
+  showTooltip = false,
   url,
   Icon,
-  expandMenu,
   className,
 }) => {
   const activeButtonClassName = clsx(
@@ -26,15 +27,17 @@ const MenuButton: FC<MenuButtonProps> = ({
         data-tooltip-content={title}
         to={url}
         className={(isActive) =>
-          isActive && window.location.pathname.includes(url)
-            ? activeButtonClassName
+          type === "nav"
+            ? isActive && window.location.pathname.includes(url)
+              ? activeButtonClassName
+              : buttonClassName
             : buttonClassName
         }
       >
         {Icon ? <Icon className={styles.icon} /> : null}
         {title}
       </NavLink>
-      {expandMenu && (
+      {showTooltip && (
         <Tooltip className={styles.tooltip} id={title} place="right" />
       )}
     </>

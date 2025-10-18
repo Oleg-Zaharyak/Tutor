@@ -9,6 +9,7 @@ import { LayoutType } from "../../../components/LayoutToggle/types";
 import { TeacherTable } from "./TeacherTable";
 import { TeacherGrid } from "./TeacherGrid";
 import clsx from "clsx";
+import { ButtonStyles } from "../../../components/Button/types";
 
 const LAYOUT_KEY = "selected_layout";
 
@@ -49,8 +50,8 @@ const Teachers = () => {
         <Button
           onClick={handleToggleModal}
           title={t("add-btn-title", { ns: "teachers" })}
-          size="medium"
-          styleType="outline"
+          buttonStyle={ButtonStyles.OUTLINE}
+          medium
         />
       </div>
       <div className={styles.filter_container}>

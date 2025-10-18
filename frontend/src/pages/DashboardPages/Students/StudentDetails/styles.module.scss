@@ -1,0 +1,71 @@
+.container {
+  padding: 20px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  color: var(--text-color);
+  min-height: 100%;
+}
+
+.header {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  column-gap: 10px;
+}
+
+.back_btn {
+  width: max-content;
+  padding: 8px 10px;
+  min-height: 40px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  background-color: var(--bg-secondary-color);
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.user_content {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.top_container {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.user {
+  &_img {
+    width: 100px;
+    height: 100px;
+  }
+
+  &_avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &_field {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    &_name {
+      font-size: 18px;
+    }
+    &_email {
+      font-size: 16px;
+    }
+  }
+}

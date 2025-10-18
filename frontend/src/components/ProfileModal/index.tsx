@@ -13,6 +13,7 @@ import ThemeToggle from "../ThemeToggle";
 import AccountManager from "../AccountManager";
 import { useTranslation } from "react-i18next";
 import { API_BASE_URL } from "../../constants/endpointsApi";
+import { ButtonStyles } from "../Button/types";
 
 const ProfileModal: FC<ProfileModalProps> = ({
   profileData,
@@ -26,15 +27,16 @@ const ProfileModal: FC<ProfileModalProps> = ({
   const handleLogout = async () => {
     await signOut();
   };
+
   return (
     <div onClick={handleCloseModal} className={styles.modal_wrapper}>
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div className={styles.modal_btns}>
           <Button
             title={t("profile-modal.logout-btn")}
-            styleType="warning"
             onClick={handleLogout}
-            size="small"
+            buttonStyle={ButtonStyles.WARNING}
+            small
           />
           <div>
             <GoGear

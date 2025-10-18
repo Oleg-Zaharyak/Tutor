@@ -76,6 +76,7 @@ const AccountManager = () => {
     } finally {
       setIsOpen(false);
       dispatch(setLoading(false));
+      
     }
   };
 

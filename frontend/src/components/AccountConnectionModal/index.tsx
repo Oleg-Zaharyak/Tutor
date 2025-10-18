@@ -88,7 +88,7 @@ const AccountConnectionModal: FC<AccountConnectionModalProps> = ({
           />
           <Button
             type="submit"
-            size="medium"
+            medium
             title={t(`account-connection-modal.btn-title.${accountType}`, {
               ns: "common",
             })}

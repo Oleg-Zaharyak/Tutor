@@ -14,5 +14,9 @@
   "grid": {
     "message-btn": "Написати",
     "more-info-btn": "Більше"
+  },
+
+  "details": {
+    "back-btn": "Назад"
   }
 }

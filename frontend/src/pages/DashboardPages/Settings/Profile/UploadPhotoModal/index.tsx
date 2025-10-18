@@ -7,6 +7,7 @@ import FileInput from "../../../../../components/FileInput";
 import { useTranslation } from "react-i18next";
 import { API_BASE_URL } from "../../../../../constants/endpointsApi";
 import { useUploadProfileAvatarMutation } from "../../../../../store/api/profileApi";
+import { ButtonStyles } from "../../../../../components/Button/types";
 
 type UploadPhotoModalProps = {
   url: string | undefined;
@@ -72,11 +73,11 @@ const UploadPhotoModal: FC<UploadPhotoModalProps> = ({ url, onClose }) => {
           )}
         />
         <Button
-          styleType="outline"
           title={t("profile.upload-avatar.btn-title")}
-          size="medium"
           className={styles.save_btn}
           onClick={handleClick}
+          buttonStyle={ButtonStyles.OUTLINE}
+          medium
         />
       </div>
     </div>

@@ -7,7 +7,7 @@ import {
 import { TbChalkboard } from "react-icons/tb";
 import { GoGear } from "react-icons/go";
 import { MdOutlineQueryStats } from "react-icons/md";
-import { LuFileSpreadsheet, LuLayoutDashboard } from "react-icons/lu";
+import { LuFileSpreadsheet, LuLayoutDashboard, LuListTodo } from "react-icons/lu";
 
 export const menuItems = [
   {
@@ -32,6 +32,12 @@ export const menuItems = [
     titleKey: "menu.title-calendar",
     url: "/dashboard/calendar",
     Icon: IoCalendarOutline,
+    hasAccess: ["STUDENT", "TEACHER"],
+  },
+  {
+    titleKey: "menu.title-todolist",
+    url: "/dashboard/todolist",
+    Icon: LuListTodo,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {

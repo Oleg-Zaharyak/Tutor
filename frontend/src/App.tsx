@@ -21,13 +21,16 @@ import {
 import {
   Main,
   Students,
+  StudentDetails,
   Teachers,
+  TeacherDetails,
   Calendar,
   Chat,
   Whiteboards,
   Statistic,
   Files,
   Quizzes,
+  ToDoList,
   Settings,
   DashboardLoyaut,
 } from "./pages/DashboardPages";
@@ -36,6 +39,7 @@ import SecuritySettings from "./pages/DashboardPages/Settings/Security";
 import AccountSettings from "./pages/DashboardPages/Settings/Account";
 import ProfileSettings from "./pages/DashboardPages/Settings/Profile";
 import RoleGuard from "./utils/RoleGuard";
+
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -72,6 +76,14 @@ function App() {
               }
             />
             <Route
+              path="students/:connectionId"
+              element={
+                <RoleGuard allow={["TEACHER"]} fallback="/dashboard/teachers">
+                  <StudentDetails />
+                </RoleGuard>
+              }
+            />
+            <Route
               path="teachers"
               element={
                 <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
@@ -79,8 +91,17 @@ function App() {
                 </RoleGuard>
               }
             />
+            <Route
+              path="teachers/:connectionId"
+              element={
+                <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
+                  <TeacherDetails />
+                </RoleGuard>
+              }
+            />
             <Route path="calendar" element={<Calendar />} />
             <Route path="chats" element={<Chat />} />
+            <Route path="todolist" element={<ToDoList />} />
             <Route path="whiteboards" element={<Whiteboards />} />
             <Route path="statistic" element={<Statistic />} />
             <Route path="files" element={<Files />} />

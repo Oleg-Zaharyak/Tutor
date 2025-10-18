@@ -9,6 +9,7 @@ import { useGetConnectedAccountProfileListQuery } from "../../../store/api/conne
 import { StudentGrid } from "./StudentGrid";
 import { StudentTable } from "./StudentTable";
 import clsx from "clsx";
+import { ButtonStyles } from "../../../components/Button/types";
 
 const LAYOUT_KEY = "selected_layout";
 
@@ -49,8 +50,8 @@ const Students = () => {
         <Button
           onClick={handleToggleModal}
           title={t("add-btn-title", { ns: "students" })}
-          size="medium"
-          styleType="outline"
+          buttonStyle={ButtonStyles.OUTLINE}
+          medium
         />
       </div>
       <div className={styles.filter_container}>

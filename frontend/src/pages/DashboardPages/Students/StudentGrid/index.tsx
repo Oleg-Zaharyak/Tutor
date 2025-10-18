@@ -24,6 +24,8 @@ export const StudentGrid: FC<StudentGridProps> = ({
             key={item.connection?.student?.id}
             fullName={item.connection?.student?.profile.fullName}
             email={item.connection?.student?.profile.email}
+            connectionId={item.connection?.id}
+            url={item.connection?.student?.profile.avatarUrl}
           />
         ))
       )}

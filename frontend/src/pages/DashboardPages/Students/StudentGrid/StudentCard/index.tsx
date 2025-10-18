@@ -2,32 +2,54 @@ import { FC } from "react";
 import styles from "./styles.module.scss";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import Button from "../../../../../components/Button";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { API_BASE_URL } from "../../../../../constants/endpointsApi";
+import { ButtonStyles } from "../../../../../components/Button/types";
 
 type StudentCardProps = {
   fullName: string;
   email: string;
+  url: string;
+  connectionId: string;
 };
 
-const StudentCard: FC<StudentCardProps> = ({ fullName, email }) => {
+const StudentCard: FC<StudentCardProps> = ({
+  fullName,
+  email,
+  url,
+  connectionId,
+}) => {
+  const navigate = useNavigate();
+  const { t } = useTranslation("students");
+
   return (
     <div className={styles.container}>
-      <div className={styles.info}>
-        <HiOutlineUserCircle className={styles.info_img} />
-        <div className={styles.info_fullName}>{fullName}</div>
-        <div className={styles.info_email}>{email}</div>
+      <div className={styles.user}>
+        {url ? (
+          <img src={`${API_BASE_URL}${url}`} className={styles.user_avatar} />
+        ) : (
+          <HiOutlineUserCircle className={styles.user_img} />
+        )}
+        <div className={styles.user_fullName}>{fullName}</div>
+        <div className={styles.user_email}>{email}</div>
       </div>
       <div className={styles.buttons}>
         <Button
           className={styles.button}
-          styleType="outline"
-          size="medium"
-          title="Message"
+          title={t("grid.message-btn")}
+          buttonStyle={ButtonStyles.OUTLINE}
+          onClick={() => navigate("/dashboard/chats")}
+          medium
         />
         <Button
           className={styles.button}
-          styleType="outline"
-          size="medium"
-          title="More info"
+          title={t("grid.more-info-btn")}
+          onClick={() => {
+            navigate(`/dashboard/students/${connectionId}`);
+          }}
+          buttonStyle={ButtonStyles.OUTLINE}
+          medium
         />
       </div>
     </div>

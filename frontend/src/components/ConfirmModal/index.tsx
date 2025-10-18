@@ -4,6 +4,7 @@ import Button from "../Button";
 import { ConfirmModalProps } from "./types";
 
 import clsx from "clsx";
+import { ButtonStyles } from "../Button/types";
 
 const ConfirmModal: FC<ConfirmModalProps> = ({
   onClose,
@@ -24,16 +25,18 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
         <div className={styles.buttons}>
           <Button
             title={cancelText}
-            styleType="outline"
             onClick={onClose}
             className={styles.btn}
+            buttonStyle={ButtonStyles.OUTLINE}
+            big
           />
           {showTwoButton && (
             <Button
               title={confirmText}
-              styleType="outline"
               onClick={onConfirm}
               className={styles.btn}
+              buttonStyle={ButtonStyles.OUTLINE}
+              big
             />
           )}
         </div>

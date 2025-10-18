@@ -20,6 +20,7 @@ import {
   useGetCurrentUserProfileQuery,
   useUpdateProfileMutation,
 } from "../../../../store/api/profileApi";
+import { ButtonStyles } from "../../../../components/Button/types";
 
 const ProfileSettings = () => {
   const { t } = useTranslation("settings");
@@ -201,15 +202,15 @@ const ProfileSettings = () => {
           <div className={styles.buttons}>
             <Button
               title={t("profile.cancel-btn-title")}
-              styleType="warning"
-              size="medium"
+              medium
               onClick={() => formik.resetForm()}
+              buttonStyle={ButtonStyles.WARNING}
             />
             <Button
               title={t("profile.update-btn-title")}
-              styleType="outline"
               type="submit"
-              size="medium"
+              buttonStyle={ButtonStyles.OUTLINE}
+              medium
             />
           </div>
         )}

@@ -165,7 +165,11 @@ const SignInPage: FC = () => {
             {t("forget-password")}
           </NavLink>
         </div>
-        <Button title={t("btn-title")} style={{ width: "80%" }} type="submit" />
+        <Button
+          title={t("btn-title")}
+          style={{ width: "80%" }}
+          type="submit"
+        />
         <div className={styles.bottom_container}>
           <span className={styles.bottom_container_text}>
             {t("under-btn.text")}

@@ -14,5 +14,9 @@
   "grid": {
     "message-btn": "Message",
     "more-info-btn": "More info"
+  },
+
+  "details": {
+    "back-btn": "Back"
   }
 }

@@ -43,7 +43,7 @@ export const Sidebar: FC = () => {
                   title={t(titleKey)}
                   url={url}
                   Icon={Icon}
-                  expandMenu={expandMenu}
+                  showTooltip={expandMenu}
                 />
               ))
           ) : (
