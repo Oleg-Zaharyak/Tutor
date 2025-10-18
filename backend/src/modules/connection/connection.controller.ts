@@ -210,3 +210,62 @@ export const connectAccounts = async (req: Request, res: Response) => {
 };
 
 // Видалення конекшина
+
+export const deleteConnectionById = async (req: Request, res: Response) => {
+  try {
+    const profileId = (req as any).auth?.userId;
+    const { connectionId } = req.params;
+
+    if (!profileId) return res.status(401).json({ message: "Unauthorized" });
+    if (!connectionId) return res.status(400).json({ message: "Connection ID is required" });
+
+    // 1️⃣ Витягуємо профіль і selectedAccountId
+    const profile = await prisma.profile.findUnique({
+      where: { id: profileId },
+      select: { selectedAccountId: true },
+    });
+
+    if (!profile?.selectedAccountId) {
+      return res.status(404).json({ message: "Selected account not found" });
+    }
+
+    const accountId = profile.selectedAccountId;
+
+    // 2️⃣ Витягуємо акаунт по selectedAccountId
+    const account = await prisma.account.findUnique({
+      where: { id: accountId },
+      select: { id: true, type: true },
+    });
+
+    if (!account) return res.status(404).json({ message: "Account not found" });
+
+    // 3️⃣ Перевіряємо чи існує конекшин у цьому акаунті
+    let connectionExists = false;
+
+    if (account.type === "TEACHER") {
+      connectionExists = !!(await prisma.studentTeacher.findFirst({
+        where: { id: connectionId, teacherId: account.id },
+      }));
+    } else if (account.type === "STUDENT") {
+      connectionExists = !!(await prisma.studentTeacher.findFirst({
+        where: { id: connectionId, studentId: account.id },
+      }));
+    }
+
+    if (!connectionExists) {
+      return res.status(404).json({ message: "Connection not found in your account" });
+    }
+
+    // 4️⃣ Видаляємо конекшин
+    await prisma.studentTeacher.delete({
+      where: { id: connectionId },
+    });
+
+    return res.status(200).json({ message: "Connection deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
