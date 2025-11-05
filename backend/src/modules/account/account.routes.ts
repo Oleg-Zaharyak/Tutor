@@ -7,10 +7,10 @@ import {
 
 const router = Router();
 
-router.get("/getAllUserAccounts", getAllUserAccounts);
-router.get("/getCurrentUserAccount", getCurrentAccount);
+router.get("/", getAllUserAccounts);
+router.get("/current", getCurrentAccount);
 
 //Створення акаунта
-router.post("/createNewAccount", createAccount);
+router.post("/", createAccount);
 
 export default router;

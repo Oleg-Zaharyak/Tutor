@@ -9,13 +9,13 @@ import {
 const router = Router();
 
 router.get("/", getAllProfiles);
-router.get("/getCurrentUserProfile", getProfileById);
+router.get("/current", getProfileById);
 // router.get("/profile", getProfileById);
 
 //Створення профілю
-router.post("/createNewProfile", createProfile);
+router.post("/", createProfile);
 
 //Оновлення профілю
-router.patch("/updateUserProfile", updateProfile);
+router.patch("/", updateProfile);
 
 export default router;

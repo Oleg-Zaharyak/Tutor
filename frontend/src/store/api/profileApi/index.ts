@@ -14,7 +14,7 @@ export const profileApi = createApi({
     // Дані профіля
     getCurrentUserProfile: builder.query<Profile, void>({
       query: () => ({
-        url: "getCurrentUserProfile",
+        url: "/current",
       }),
       providesTags: ["Profile"],
     }),
@@ -22,7 +22,7 @@ export const profileApi = createApi({
     // створення профіля
     createProfile: builder.mutation<Profile, { id: string; email: string }>({
       query: ({ id, email }) => ({
-        url: "createNewProfile",
+        url: "/",
         method: "POST",
         body: { id, email },
       }),
@@ -31,7 +31,7 @@ export const profileApi = createApi({
     // Обновлення профілю
     updateProfile: builder.mutation<Profile, { data: Partial<Profile> }>({
       query: ({ data }) => ({
-        url: "updateUserProfile",
+        url: "/",
         method: "PATCH",
         body: { data },
       }),

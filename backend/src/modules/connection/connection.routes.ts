@@ -3,13 +3,13 @@ import { connectAccounts, deleteConnectionById, getConnectedAccounts, getConnect
 
 const router = Router();
 
-router.get("/getAllConnections", getConnectedAccounts);
-router.get("/getConnections/:connectionId", getConnectionById);
+router.get("/", getConnectedAccounts);
+router.get("/:connectionId", getConnectionById);
 
 //Створення конекшина
-router.post("/createNewConnection", connectAccounts);
+router.post("/", connectAccounts);
 
 //Видалення конекшина
-router.delete("/deleteConnection/:connectionId", deleteConnectionById)
+router.delete("/:connectionId", deleteConnectionById)
 
 export default router;

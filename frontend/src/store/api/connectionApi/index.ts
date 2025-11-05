@@ -15,7 +15,7 @@ export const connectionApi = createApi({
 
     getConnectedAccountProfileList: builder.query<ConnectedAccount[], void>({
       query: () => ({
-        url: "getAllConnections",
+        url: "/",
       }),
       providesTags: ["Connections"],
     }),
@@ -23,7 +23,7 @@ export const connectionApi = createApi({
     // Витягування конекшина по ід
     getConnectionById: builder.query<StudentTeacher, string>({
       query: (connectionId) => ({
-        url: `getConnections/${connectionId}`, // відповідає бекенд ендпоїнту /api/connections/:id
+        url: `/${connectionId}`, // відповідає бекенд ендпоїнту /api/connections/:id
       }),
       providesTags: ["Connections"],
     }),
@@ -36,7 +36,7 @@ export const connectionApi = createApi({
       }
     >({
       query: ({ targetEmail }) => ({
-        url: "createNewConnection",
+        url: "/",
         method: "POST",
         body: { targetEmail },
       }),
@@ -46,7 +46,7 @@ export const connectionApi = createApi({
     // Видалення конекшина
     deleteConnection: builder.mutation<{ message: string }, string>({
       query: (connectionId) => ({
-        url: `deleteConnection/${connectionId}`,
+        url: `/${connectionId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Connections"],

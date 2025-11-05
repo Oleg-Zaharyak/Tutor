@@ -14,7 +14,7 @@ export const accountApi = createApi({
     // Список акаунтів
     getUserAccountsList: builder.query<Account[], void>({
       query: () => ({
-        url: "getAllUserAccounts",
+        url: "/",
       }),
       providesTags: ["Account"],
     }),
@@ -22,7 +22,7 @@ export const accountApi = createApi({
     // Дані акаунта по id
     getCurrentUserAccount: builder.query<Account, void>({
       query: () => ({
-        url: "getCurrentUserAccount",
+        url: "/current",
       }),
       providesTags: ["Account"],
     }),
@@ -30,7 +30,7 @@ export const accountApi = createApi({
     // створення акаунта
     createAccount: builder.mutation<Account, { type: string }>({
       query: ({ type }) => ({
-        url: "createNewAccount",
+        url: "/",
         method: "POST",
         body: { type },
       }),
