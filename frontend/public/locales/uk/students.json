@@ -17,6 +17,21 @@
   },
 
   "details": {
-    "back-btn": "Назад"
+    "back-btn": "Назад",
+    "chat-btn": "Написати",
+    "edit-btn": "Редагувати",
+    "save-btn": "Зберегти",
+    "cancel-btn": "Скасувати",
+    "delete-btn": "Видалити",
+    "confirm-delete-title": "Ви впевнені, що хочете видалити цього учня?",
+    "confirm-delete-btn": "Так, видалити",
+    "cancel-delete-btn": "Скасувати",
+
+    "status": {
+      "ACTIVE": "Активний",
+      "INACTIVE": "Неактивний",
+      "PENDING": "В очікуванні",
+      "BLOCKED": "Заблокований"
+    }
   }
 }

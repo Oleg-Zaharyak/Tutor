@@ -11,7 +11,7 @@ const Task = () => {
         <div className={styles.task_buttons}>
           <Button
             title="Edit"
-            // Icon={IoIosList}
+            Icon={Icons.gear}
             showOnlyIcon
             small
             showTooltip

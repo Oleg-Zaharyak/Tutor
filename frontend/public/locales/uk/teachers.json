@@ -14,5 +14,17 @@
   "grid": {
     "message-btn": "Написати",
     "more-info-btn": "Більше"
+  },
+
+  "details": {
+    "back-btn": "Назад",
+    "chat-btn": "Написати",
+    "edit-btn": "Редагувати",
+    "save-btn": "Зберегти",
+    "cancel-btn": "Скасувати",
+    "delete-btn": "Видалити",
+    "confirm-delete-title": "Ви впевнені, що хочете видалити цього вчителя?",
+    "confirm-delete-btn": "Так, видалити",
+    "cancel-delete-btn": "Скасувати"
   }
 }

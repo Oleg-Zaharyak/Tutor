@@ -1,5 +1,5 @@
 .container {
-  padding: 20px 20px 10px;
+  padding: 0 20px 10px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -8,9 +8,13 @@
 }
 
 .header {
-  height: 40px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  padding: 20px 0 10px;
+  background-color: var(--bg-main-color);
 }
 
 .buttons {
@@ -27,16 +31,18 @@
 .content {
   flex: 1;
   display: flex;
-  background-color: var(--bg-secondary-color);
-  border-radius: 10px;
+  flex-direction: column;
+  row-gap: 10px;
   transition: all 0.3s ease-in-out;
 }
 
-.user_content {
+.user_info {
   width: 100%;
   padding: 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: var(--bg-secondary-color);
 }
 .top_container {
   display: flex;
@@ -68,4 +74,20 @@
       font-size: 16px;
     }
   }
+}
+
+.user_calendar {
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--bg-secondary-color);
+}
+
+.user_status_ACTIVE {
+  font-size: 12px;
+  padding: 5px 10px;
+  height: max-content;
+  border-radius: 6px;
+  border: 1px solid rgb(9, 189, 9);
+  color: rgb(9, 189, 9);
 }

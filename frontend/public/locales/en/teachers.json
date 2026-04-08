@@ -14,5 +14,17 @@
   "grid": {
     "message-btn": "Message",
     "more-info-btn": "More info"
+  },
+  
+  "details": {
+    "back-btn": "Back",
+    "chat-btn": "Message",
+    "edit-btn": "Edit",
+    "save-btn": "Save",
+    "cancel-btn": "Cancel",
+    "delete-btn": "Delete",
+    "confirm-delete-title": "Are you sure you want to delete this teacher?",
+    "confirm-delete-btn": "Yes, delete",
+    "cancel-delete-btn": "Cancel"
   }
 }

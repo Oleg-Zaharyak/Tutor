@@ -24,11 +24,14 @@ const StudentDetails = () => {
   const { connectionId } = useParams<{ connectionId: string }>();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [deleteConnection] = useDeleteConnectionMutation();
 
   const { data, isError, isLoading } = useGetConnectionByIdQuery(
     connectionId ? connectionId : skipToken,
   );
+  // const conectionStaus = "ACTIVE";
+  const userStatus = data?.student.status;
 
   const userAvatarUrl = data?.student.profile.avatarUrl;
 
@@ -51,6 +54,40 @@ const StudentDetails = () => {
     }
   };
 
+  const editButtons = [
+    {
+      title: t("details.save-btn"),
+      buttonStyle: ButtonStyles.OUTLINE,
+    },
+    {
+      title: t("details.cancel-btn"),
+      buttonStyle: ButtonStyles.OUTLINE,
+      onClick: () => setIsEdit(false),
+    },
+  ];
+
+  const viewButtons = [
+    {
+      title: t("details.chat-btn"),
+      onClick: () => navigate("/dashboard/chats"),
+      buttonStyle: ButtonStyles.OUTLINE,
+    },
+    {
+      title: t("details.edit-btn"),
+      onClick: () => setIsEdit(true),
+      buttonStyle: ButtonStyles.OUTLINE,
+    },
+    {
+      title: t("details.delete-btn"),
+      Icon: Icons.delete,
+      onClick: () => setIsDeleteModalOpen(true),
+      buttonStyle: ButtonStyles.WARNING_OUTLINE,
+      collapseTextToIcon: true,
+    },
+  ];
+
+  const buttons = isEdit ? editButtons : viewButtons;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -62,25 +99,14 @@ const StudentDetails = () => {
           medium
         />
         <div className={styles.buttons}>
-          <Button
-            title="Message"
-            onClick={() => navigate("/dashboard/chats")}
-            buttonStyle={ButtonStyles.OUTLINE}
-            medium
-          />
-          <Button title="Edit" buttonStyle={ButtonStyles.OUTLINE} medium />
-          <Button
-            title="Delete"
-            Icon={Icons.delete}
-            onClick={() => setIsDeleteModalOpen(true)}
-            buttonStyle={ButtonStyles.WARNING_OUTLINE}
-            medium
-            collapseTextToIcon
-          />
+          {buttons.map((btn, index) => (
+            <Button key={index} medium {...btn} />
+          ))}
         </div>
       </div>
+
       <div className={styles.content}>
-        <div className={styles.user_content}>
+        <div className={styles.user_info}>
           <div className={styles.top_container}>
             {userAvatarUrl ? (
               <img
@@ -99,15 +125,20 @@ const StudentDetails = () => {
               </div>
             </div>
           </div>
+          <div className={styles[`user_status_${userStatus}`]}>
+            {userStatus &&
+              t(`details.status.${userStatus}`, { defaultValue: userStatus })}
+          </div>
         </div>
+        <div className={styles.user_calendar}>Календар</div>
       </div>
       {isDeleteModalOpen ? (
         <ConfirmModal
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={() => handleDeleteConnection(connectionId)}
-          title="Are you shure?"
-          cancelText="No"
-          confirmText="Yes"
+          title={t("details.confirm-delete-title")}
+          cancelText={t("details.cancel-delete-btn")}
+          confirmText={t("details.confirm-delete-btn")}
         />
       ) : null}
     </div>
