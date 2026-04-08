@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../../prismaClient";
+import { prisma } from "../../prismaClient";
 import { clerkClient } from "@clerk/express";
 
 // Отримати всіх користувачів

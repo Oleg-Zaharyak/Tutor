@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import "dotenv/config";
 
-const prisma = new PrismaClient();
-
-export default prisma;
+export  const prisma = new PrismaClient({
+  accelerateUrl: process.env.DATABASE_URL, // твій ключ Prisma Accelerate
+});

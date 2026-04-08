@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../../prismaClient";
+import { prisma } from "../../prismaClient";
 
 // Отримати всіх користувачів
 export const getAllUserAccounts = async (req: Request, res: Response) => {

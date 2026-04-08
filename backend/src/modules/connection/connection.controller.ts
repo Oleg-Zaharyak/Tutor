@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../../prismaClient";
+import { prisma } from "../../prismaClient";
 import { StudentTeacher } from "@prisma/client";
 
 interface ConnectedAccount {
@@ -217,7 +217,8 @@ export const deleteConnectionById = async (req: Request, res: Response) => {
     const { connectionId } = req.params;
 
     if (!profileId) return res.status(401).json({ message: "Unauthorized" });
-    if (!connectionId) return res.status(400).json({ message: "Connection ID is required" });
+    if (!connectionId)
+      return res.status(400).json({ message: "Connection ID is required" });
 
     // 1️⃣ Витягуємо профіль і selectedAccountId
     const profile = await prisma.profile.findUnique({
@@ -253,7 +254,9 @@ export const deleteConnectionById = async (req: Request, res: Response) => {
     }
 
     if (!connectionExists) {
-      return res.status(404).json({ message: "Connection not found in your account" });
+      return res
+        .status(404)
+        .json({ message: "Connection not found in your account" });
     }
 
     // 4️⃣ Видаляємо конекшин
@@ -267,5 +270,3 @@ export const deleteConnectionById = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
