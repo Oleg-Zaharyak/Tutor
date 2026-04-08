@@ -25,7 +25,7 @@
 .main {
   height: 100%;
   grid-area: main;
-  overflow: scroll;
+  overflow: auto;
 }
 
 @media (max-width: 1024px) {

@@ -5,7 +5,7 @@ import {
   useGetConnectionByIdQuery,
 } from "../../../../store/api/connectionApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import { IoArrowBackOutline } from "react-icons/io5";
+import { Icons } from "../../../../constants/icons";
 import { useTranslation } from "react-i18next";
 import Button from "../../../../components/Button";
 import { useState } from "react";
@@ -13,7 +13,6 @@ import ConfirmModal from "../../../../components/ConfirmModal";
 import { useAppDispatch } from "../../../../hooks/hooks";
 import { setLoading } from "../../../../store/slices/appUISlice";
 import { API_BASE_URL } from "../../../../constants/endpointsApi";
-import { HiOutlineTrash, HiOutlineUserCircle } from "react-icons/hi";
 import { ButtonStyles } from "../../../../components/Button/types";
 
 const TeacherDetails = () => {
@@ -26,7 +25,7 @@ const TeacherDetails = () => {
   const [deleteConnection] = useDeleteConnectionMutation();
 
   const { data, isError, isLoading } = useGetConnectionByIdQuery(
-    connectionId ? connectionId : skipToken
+    connectionId ? connectionId : skipToken,
   );
 
   const userAvatarUrl = data?.teacher.profile.avatarUrl;
@@ -54,7 +53,7 @@ const TeacherDetails = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <Button
-          Icon={IoArrowBackOutline}
+          Icon={Icons.arrowBack}
           title={t("details.back-btn")}
           onClick={() => navigate(-1)}
           buttonStyle={ButtonStyles.LINK}
@@ -70,7 +69,7 @@ const TeacherDetails = () => {
           <Button title="Edit" buttonStyle={ButtonStyles.OUTLINE} medium />
           <Button
             title="Delete"
-            Icon={HiOutlineTrash}
+            Icon={Icons.delete}
             onClick={() => setIsDeleteModalOpen(true)}
             buttonStyle={ButtonStyles.WARNING_OUTLINE}
             medium
@@ -87,7 +86,7 @@ const TeacherDetails = () => {
                 className={styles.user_avatar}
               />
             ) : (
-              <HiOutlineUserCircle className={styles.user_img} />
+              <Icons.defaultUserImg className={styles.user_img} />
             )}
             <div className={styles.user_field}>
               <div className={styles.user_field_name}>

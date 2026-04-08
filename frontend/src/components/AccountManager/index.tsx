@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../../hooks/hooks";
 
 import styles from "./styles.module.scss";
-import { FiPlus } from "react-icons/fi";
+import { Icons } from "../../constants/icons";
 
 import clsx from "clsx";
 import { useState } from "react";
@@ -76,7 +76,6 @@ const AccountManager = () => {
     } finally {
       setIsOpen(false);
       dispatch(setLoading(false));
-      
     }
   };
 
@@ -92,21 +91,21 @@ const AccountManager = () => {
         onClick={() => setIsOpen(true)}
         className={clsx(
           styles.addAccount,
-          isOpen && styles.addAccount_disabledHover
+          isOpen && styles.addAccount_disabledHover,
         )}
       >
         <div className={styles.addAccount_text}>
           {t(
-            `profile-modal.account-section.${accountType?.toLowerCase()}.add-btn`
+            `profile-modal.account-section.${accountType?.toLowerCase()}.add-btn`,
           )}
         </div>
-        <FiPlus className={styles.addAccount_icon} />
+        <Icons.plus className={styles.addAccount_icon} />
         {isOpen ? (
           <ConfirmModal
             onClose={() => setIsOpen(false)}
             onConfirm={handleCreateAccount}
             title={t(
-              "profile-modal.account-section.confirm-modal.title.add-account"
+              "profile-modal.account-section.confirm-modal.title.add-account",
             )}
             cancelText={t("profile-modal.account-section.confirm-modal.no")}
             confirmText={t("profile-modal.account-section.confirm-modal.yes")}
@@ -128,11 +127,11 @@ const AccountManager = () => {
             key={item.id}
             className={clsx(
               styles.account_btn,
-              item.id === activeAccountId && styles.account_btn_active
+              item.id === activeAccountId && styles.account_btn_active,
             )}
           >
             {t(
-              `profile-modal.account-section.${item.type.toLowerCase()}.title`
+              `profile-modal.account-section.${item.type.toLowerCase()}.title`,
             )}
           </button>
         ))}
@@ -141,7 +140,7 @@ const AccountManager = () => {
             onClose={() => setIsOpen(false)}
             onConfirm={handleChangeAccount}
             title={t(
-              "profile-modal.account-section.confirm-modal.title.change-account"
+              "profile-modal.account-section.confirm-modal.title.change-account",
             )}
             cancelText={t("profile-modal.account-section.confirm-modal.no")}
             confirmText={t("profile-modal.account-section.confirm-modal.yes")}

@@ -3,6 +3,7 @@ import { Table } from "../../../../components/Table";
 import { ConnectedAccount } from "../../../../store/api/connectionApi/types";
 import Button from "../../../../components/Button";
 import { ButtonStyles } from "../../../../components/Button/types";
+import { useNavigate } from "react-router";
 // import styles from "./styles.module.scss";
 
 export const TeacherTable = ({
@@ -13,6 +14,7 @@ export const TeacherTable = ({
   isLoading?: boolean;
 }) => {
   const { t } = useTranslation("teachers");
+  const navigate = useNavigate();
 
   const studentColumns = [
     {
@@ -50,11 +52,14 @@ export const TeacherTable = ({
     {
       key: "action",
       label: "",
-      render: () => (
+      render: (item: ConnectedAccount) => (
         <Button
           buttonStyle={ButtonStyles.OUTLINE}
           title={t("table-label.btn")}
           small
+           onClick={() => {
+            navigate(`/dashboard/teachers/${item.connection.id}`);
+          }}
         />
       ),
     },

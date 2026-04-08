@@ -30,7 +30,6 @@ import {
   Statistic,
   Files,
   Quizzes,
-  ToDoList,
   Settings,
   DashboardLoyaut,
 } from "./pages/DashboardPages";
@@ -39,6 +38,7 @@ import SecuritySettings from "./pages/DashboardPages/Settings/Security";
 import AccountSettings from "./pages/DashboardPages/Settings/Account";
 import ProfileSettings from "./pages/DashboardPages/Settings/Profile";
 import RoleGuard from "./utils/RoleGuard";
+import TasksPage from "./pages/DashboardPages/TasksPage";
 
 // import NotFoundPage from "./pages/NotFoundPage";
 
@@ -101,7 +101,7 @@ function App() {
             />
             <Route path="calendar" element={<Calendar />} />
             <Route path="chats" element={<Chat />} />
-            <Route path="todolist" element={<ToDoList />} />
+            <Route path="tasks" element={<TasksPage />} />
             <Route path="whiteboards" element={<Whiteboards />} />
             <Route path="statistic" element={<Statistic />} />
             <Route path="files" element={<Files />} />

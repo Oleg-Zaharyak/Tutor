@@ -1,9 +1,7 @@
 import { FC, useState } from "react";
 import styles from "./styles.module.scss";
 
-import { IoMenu } from "react-icons/io5";
-import { RxCross2 } from "react-icons/rx";
-import { HiOutlineUserCircle } from "react-icons/hi";
+import { Icons } from "../../constants/icons";
 
 import { TopBarProps } from "./types";
 import { useGetCurrentUserAccountQuery } from "../../store/api/accountApi";
@@ -40,9 +38,9 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
       <div className={styles.left_container}>
         <button onClick={onBurgerClick} className={styles.menu_button}>
           {isMobileMenuOpen ? (
-            <RxCross2 className={styles.menu_button_icon} />
+            <Icons.cross className={styles.menu_button_icon} />
           ) : (
-            <IoMenu className={styles.menu_button_icon} />
+            <Icons.menu className={styles.menu_button_icon} />
           )}
         </button>
         Logo
@@ -61,7 +59,7 @@ const TopBar: FC<TopBarProps> = ({ onBurgerClick, isMobileMenuOpen }) => {
                 className={styles.profile_img}
               />
             ) : (
-              <HiOutlineUserCircle className={styles.profile_img} />
+              <Icons.defaultUserImg className={styles.profile_img} />
             )}
             <div className={styles.profile_info}>
               <p className={styles.profile_name}>{profileData?.fullName}</p>

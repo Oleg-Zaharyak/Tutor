@@ -4,11 +4,11 @@ import styles from "./styles.module.scss";
 import { LayoutToggleProps } from "./types";
 
 import clsx from "clsx";
-import { BsGrid, BsList } from "react-icons/bs";
+import { Icons } from "../../constants/icons";
 
 const layoutOptions = [
-  { key: "grid" as const, icon: BsGrid },
-  { key: "table" as const, icon: BsList },
+  { key: "grid" as const, icon: Icons.grid },
+  { key: "table" as const, icon: Icons.list },
 ];
 
 const LayoutToggle: FC<LayoutToggleProps> = ({ value, onChange }) => {
@@ -20,7 +20,7 @@ const LayoutToggle: FC<LayoutToggleProps> = ({ value, onChange }) => {
             onClick={() => onChange(key)}
             className={clsx(
               styles.container_btn,
-              value === key && styles.container_btn_active
+              value === key && styles.container_btn_active,
             )}
           >
             <Icon className={styles.container_btn_icon} />

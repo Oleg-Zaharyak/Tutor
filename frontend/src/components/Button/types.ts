@@ -14,6 +14,8 @@ export type ButtonProps = {
   collapseToIcon?: boolean;
   collapseTextToIcon?: boolean;
   showOnlyIcon?: boolean;
+  showTooltip?: boolean;
+  tooltipPosition?: "top" | "right" | "bottom" | "left";
   big?: boolean;
   medium?: boolean;
   small?: boolean;

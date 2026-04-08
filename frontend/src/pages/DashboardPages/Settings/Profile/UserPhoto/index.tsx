@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styles from "./styles.module.scss";
-import { HiOutlineUserCircle } from "react-icons/hi";
-import { TbPhotoCog, TbPhotoPlus } from "react-icons/tb";
+import { Icons } from "../../../../../constants/icons";
 import { API_BASE_URL } from "../../../../../constants/endpointsApi";
 
 type UserPhotoProps = {
@@ -15,14 +14,14 @@ export const UserPhoto: FC<UserPhotoProps> = ({ url, onEdit }) => {
       {url ? (
         <img src={`${API_BASE_URL}${url}`} className={styles.user_avatar} />
       ) : (
-        <HiOutlineUserCircle className={styles.default_icon} />
+        <Icons.defaultUserImg className={styles.default_icon} />
       )}
 
       <div className={styles.overlay}>
         {url ? (
-          <TbPhotoCog className={styles.overlay_icon} />
+          <Icons.editPhoto className={styles.overlay_icon} />
         ) : (
-          <TbPhotoPlus className={styles.overlay_icon} />
+          <Icons.uploadPhoto className={styles.overlay_icon} />
         )}
       </div>
     </div>

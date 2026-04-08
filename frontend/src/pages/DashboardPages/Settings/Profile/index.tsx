@@ -52,7 +52,7 @@ const ProfileSettings = () => {
         Object.entries(values)
           .filter(
             ([key, value]) =>
-              value.trim() !== formik.initialValues[key as keyof typeof values]
+              value.trim() !== formik.initialValues[key as keyof typeof values],
           )
           .map(([key, value]) => {
             if (key === "birthDate") {
@@ -62,7 +62,7 @@ const ProfileSettings = () => {
               return [key, value.trim()];
             }
             return [key, value];
-          })
+          }),
       );
 
       try {

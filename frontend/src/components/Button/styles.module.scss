@@ -232,3 +232,11 @@
     transform: scale(0.95);
   }
 }
+
+
+.tooltip {
+  background-color: #4880ff !important;
+  font-size: 12px !important;
+  padding: 5px !important;
+  z-index: 9999;
+}

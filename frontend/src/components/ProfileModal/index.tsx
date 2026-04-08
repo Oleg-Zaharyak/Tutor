@@ -3,10 +3,8 @@ import Button from "../Button";
 import { ProfileModalProps } from "./types";
 import { useClerk } from "@clerk/clerk-react";
 
-import { GoGear } from "react-icons/go";
+import { Icons } from "../../constants/icons";
 import { useNavigate } from "react-router-dom";
-import { RxCross2 } from "react-icons/rx";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { FC } from "react";
 import LanguageToggle from "../LanguageToggle";
 import ThemeToggle from "../ThemeToggle";
@@ -39,14 +37,14 @@ const ProfileModal: FC<ProfileModalProps> = ({
             small
           />
           <div>
-            <GoGear
+            <Icons.gear
               onClick={() => {
                 navigate("/dashboard/settings");
                 handleCloseModal();
               }}
               className={styles.modal_btns_setting}
             />
-            <RxCross2
+            <Icons.cross
               onClick={handleCloseModal}
               className={styles.modal_btns_close}
             />
@@ -62,7 +60,7 @@ const ProfileModal: FC<ProfileModalProps> = ({
               className={styles.modal_user_img}
             />
           ) : (
-            <HiOutlineUserCircle className={styles.modal_user_img} />
+            <Icons.defaultUserImg className={styles.modal_user_img} />
           )}
           <div className={styles.modal_user_info}>
             <p className={styles.modal_user_name}>{profileData?.fullName}</p>

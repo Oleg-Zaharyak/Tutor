@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./styles.module.scss";
-import { HiOutlineUserCircle } from "react-icons/hi";
+import { Icons } from "../../../../../constants/icons";
 import Button from "../../../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -29,7 +29,7 @@ const StudentCard: FC<StudentCardProps> = ({
         {url ? (
           <img src={`${API_BASE_URL}${url}`} className={styles.user_avatar} />
         ) : (
-          <HiOutlineUserCircle className={styles.user_img} />
+          <Icons.defaultUserImg className={styles.user_img} />
         )}
         <div className={styles.user_fullName}>{fullName}</div>
         <div className={styles.user_email}>{email}</div>

@@ -1,8 +1,29 @@
 @import "./assets/fonts/fonts.scss";
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Nunito-600";
   font-size: 18px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.55);
 }

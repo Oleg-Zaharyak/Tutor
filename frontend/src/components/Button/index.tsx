@@ -2,11 +2,14 @@ import { FC } from "react";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
 import { ButtonProps } from "./types";
+import { Tooltip } from "react-tooltip";
 
 const Button: FC<ButtonProps> = ({
   title,
   type = "button",
   buttonStyle = "filled",
+  showTooltip = false,
+  tooltipPosition = "top",
   collapseToIcon,
   collapseTextToIcon,
   showOnlyIcon,
@@ -44,7 +47,7 @@ const Button: FC<ButtonProps> = ({
       [styles[buttonSize]]: buttonSize,
       [styles[`${buttonSize}_btn_with_icon`]]: Icon && buttonSize,
     },
-    className
+    className,
   );
   const customIconClass = clsx({
     [styles[`${buttonSize}_icon`]]: buttonSize,
@@ -52,10 +55,22 @@ const Button: FC<ButtonProps> = ({
     [styles.icon_show_only_icon]: applyShowOnlyIconStyle,
   });
   return (
-    <button className={customClassName} type={type} {...props}>
-      {Icon ? <Icon className={customIconClass} /> : null}
-      <span className={styles.title}>{title}</span>
-    </button>
+    <>
+      <button
+        data-tooltip-id={title}
+        data-tooltip-content={title}
+        data-tooltip-place={tooltipPosition}
+        className={customClassName}
+        type={type}
+        {...props}
+      >
+        {Icon ? <Icon className={customIconClass} /> : null}
+        <span className={styles.title}>{title}</span>
+      </button>
+      {showTooltip && (
+        <Tooltip className={styles.tooltip} id={title} place="right" />
+      )}
+    </>
   );
 };
 

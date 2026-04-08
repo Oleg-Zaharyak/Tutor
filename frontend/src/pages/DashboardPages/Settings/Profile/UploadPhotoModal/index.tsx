@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import styles from "./styles.module.scss";
-import { RxCross2 } from "react-icons/rx";
-import { HiOutlineUserCircle } from "react-icons/hi";
+import { Icons } from "../../../../../constants/icons";
+
 import Button from "../../../../../components/Button";
 import FileInput from "../../../../../components/FileInput";
 import { useTranslation } from "react-i18next";
@@ -50,7 +50,7 @@ const UploadPhotoModal: FC<UploadPhotoModalProps> = ({ url, onClose }) => {
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <RxCross2 onClick={onClose} className={styles.modal_btns_close} />
+        <Icons.cross onClick={onClose} className={styles.modal_btns_close} />
 
         {url || userAvatarUrl ? (
           <img
@@ -58,7 +58,7 @@ const UploadPhotoModal: FC<UploadPhotoModalProps> = ({ url, onClose }) => {
             className={styles.user_avatar}
           />
         ) : (
-          <HiOutlineUserCircle className={styles.default_icon} />
+          <Icons.defaultUserImg className={styles.default_icon} />
         )}
 
         <FileInput
@@ -69,7 +69,7 @@ const UploadPhotoModal: FC<UploadPhotoModalProps> = ({ url, onClose }) => {
           ifFileSelected={!!userAvatar}
           title={t("profile.upload-avatar.file-input.title")}
           fileLoadedTitle={t(
-            "profile.upload-avatar.file-input.file-loaded-title"
+            "profile.upload-avatar.file-input.file-loaded-title",
           )}
         />
         <Button

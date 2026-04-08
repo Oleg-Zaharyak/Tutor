@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { AccountConnectionModalProps } from "./types";
 import Button from "../Button";
 import Input from "../Input";
-import { RxCross2 } from "react-icons/rx";
+import { Icons } from "../../constants/icons";
 import { useFormik } from "formik";
 import { AccountConnectionSchema } from "./schema";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -66,7 +66,7 @@ const AccountConnectionModal: FC<AccountConnectionModalProps> = ({
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <RxCross2 onClick={onClose} className={styles.modal_btns_close} />
+        <Icons.cross onClick={onClose} className={styles.modal_btns_close} />
         <h1 className={styles.modal_title}>
           {t(`account-connection-modal.title.${accountType}`, { ns: "common" })}
         </h1>

@@ -6,7 +6,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &_head {
     position: sticky;

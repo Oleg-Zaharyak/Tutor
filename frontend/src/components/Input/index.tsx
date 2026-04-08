@@ -1,6 +1,6 @@
 import { FC, useId } from "react";
 import styles from "./styles.module.scss";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { Icons } from "../../constants/icons";
 import clsx from "clsx";
 import { InputsProps } from "./types";
 import { useMask } from "@react-input/mask";
@@ -32,7 +32,7 @@ const Input: FC<InputsProps> = ({
         className={clsx(
           styles.lable,
           styles[`${inputSize}_label`],
-          lableClassName
+          lableClassName,
         )}
         htmlFor={inputId}
       >
@@ -43,7 +43,7 @@ const Input: FC<InputsProps> = ({
           styles.input,
           styles[`${inputSize}_input`],
           error && styles.input_error,
-          inputClassName
+          inputClassName,
         )}
         {...(inputType === "tel" ? { ref: inputRef } : {})}
         type={!showPassword ? inputType : "text"}
@@ -52,12 +52,12 @@ const Input: FC<InputsProps> = ({
       />
       {inputType === "password" ? (
         showPassword ? (
-          <IoMdEye
+          <Icons.openEye
             className={styles.eyeIcon}
             onClick={() => setShowPassword && setShowPassword(!showPassword)}
           />
         ) : (
-          <IoMdEyeOff
+          <Icons.closedEye
             className={styles.eyeIcon}
             onClick={() => setShowPassword && setShowPassword(!showPassword)}
           />

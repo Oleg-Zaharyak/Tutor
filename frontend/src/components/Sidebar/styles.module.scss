@@ -20,7 +20,7 @@
   flex-direction: column;
   justify-content: flex-start;
   height: calc(100vh - 144px);
-  overflow-x: scroll;
+  overflow-x: auto;
   row-gap: 10px;
   padding-right: 5px;
 }

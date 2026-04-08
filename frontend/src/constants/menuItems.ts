@@ -1,79 +1,70 @@
-import {
-  IoCalendarOutline,
-  IoChatbubblesOutline,
-  IoGameControllerOutline,
-  IoPeopleOutline,
-} from "react-icons/io5";
-import { TbChalkboard } from "react-icons/tb";
-import { GoGear } from "react-icons/go";
-import { MdOutlineQueryStats } from "react-icons/md";
-import { LuFileSpreadsheet, LuLayoutDashboard, LuListTodo } from "react-icons/lu";
+import { Icons } from "./icons";
 
 export const menuItems = [
   {
     titleKey: "menu.title-dashboard",
     url: "/dashboard/home",
-    Icon: LuLayoutDashboard,
+    Icon: Icons.dashboard,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
     titleKey: "menu.title-student",
     url: "/dashboard/students",
-    Icon: IoPeopleOutline,
+    Icon: Icons.students,
     hasAccess: ["TEACHER"],
   },
   {
     titleKey: "menu.title-teacher",
     url: "/dashboard/teachers",
-    Icon: IoPeopleOutline,
+    Icon: Icons.teachers,
     hasAccess: ["STUDENT"],
   },
   {
     titleKey: "menu.title-calendar",
     url: "/dashboard/calendar",
-    Icon: IoCalendarOutline,
+    Icon: Icons.calendar,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
-    titleKey: "menu.title-todolist",
-    url: "/dashboard/todolist",
-    Icon: LuListTodo,
+    titleKey: "menu.title-tasks",
+    url: "/dashboard/tasks",
+    Icon: Icons.tasks,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
     titleKey: "menu.title-chats",
     url: "/dashboard/chats",
-    Icon: IoChatbubblesOutline,
+    Icon: Icons.chats,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
     titleKey: "menu.title-whiteboards",
     url: "/dashboard/whiteboards",
-    Icon: TbChalkboard,
+    Icon: Icons.whiteboards,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
     titleKey: "menu.title-statistic",
     url: "/dashboard/statistic",
-    Icon: MdOutlineQueryStats,
+    Icon: Icons.statistic,
     hasAccess: ["TEACHER"],
   },
   {
     titleKey: "menu.title-files",
     url: "/dashboard/files",
-    Icon: LuFileSpreadsheet,
+    Icon: Icons.files,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
     titleKey: "menu.title-quizzes",
     url: "/dashboard/quizzes",
-    Icon: IoGameControllerOutline,
+    Icon: Icons.quizz,
     hasAccess: ["STUDENT", "TEACHER"],
   },
   {
     titleKey: "menu.title-settings",
     url: "/dashboard/settings",
-    Icon: GoGear,
+    Icon: Icons.gear,
     hasAccess: ["STUDENT", "TEACHER"],
   },
 ];

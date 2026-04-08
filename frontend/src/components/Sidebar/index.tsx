@@ -8,10 +8,7 @@ import { toggleExpandMenu } from "../../store/slices/appUISlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useTranslation } from "react-i18next";
 
-import {
-  TbLayoutSidebarLeftCollapse,
-  TbLayoutSidebarLeftExpand,
-} from "react-icons/tb";
+import { Icons } from "../../constants/icons";
 
 import MenuButtonSkeleton from "./skeleton";
 import { menuItems } from "../../constants/menuItems";
@@ -27,7 +24,7 @@ export const Sidebar: FC = () => {
 
   const hangleCollapseMenu = useCallback(
     () => dispatch(toggleExpandMenu()),
-    [dispatch]
+    [dispatch],
   );
 
   return (
@@ -60,13 +57,9 @@ export const Sidebar: FC = () => {
             }
           >
             {expandMenu ? (
-              <TbLayoutSidebarLeftExpand
-                className={styles.collapse_button_icon}
-              />
+              <Icons.expand className={styles.collapse_button_icon} />
             ) : (
-              <TbLayoutSidebarLeftCollapse
-                className={styles.collapse_button_icon}
-              />
+              <Icons.collapser className={styles.collapse_button_icon} />
             )}
             <Tooltip
               className={styles.tooltip}
