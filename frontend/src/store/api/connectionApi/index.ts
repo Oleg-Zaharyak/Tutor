@@ -7,6 +7,16 @@ export const connectionApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: urls.connection,
     credentials: "include",
+    prepareHeaders: async (headers) => {
+      // Отримуємо токен з Clerk через глобальний об'єкт (або через window.Clerk)
+      // Це безпечно, бо Clerk сам кешує токен у пам'яті
+      const token = await window.Clerk?.session?.getToken();
+
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ["Connections"],
 

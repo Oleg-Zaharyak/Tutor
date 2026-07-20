@@ -4,5 +4,5 @@ export const urls = {
   profile: `${API_BASE_URL}/api/profiles`,
   account: `${API_BASE_URL}/api/accounts`,
   connection: `${API_BASE_URL}/api/connections`,
-  uploads: `${API_BASE_URL}/api/uploads`,
+  uploads: `${API_BASE_URL}/uploads`,
 };
