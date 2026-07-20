@@ -11,9 +11,9 @@ const app = express();
 // CORS спочатку
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
-  })
+  }),
 );
 // якщо є проксі/cdn — важливо для secure-cookie/схеми
 app.set("trust proxy", 1);
