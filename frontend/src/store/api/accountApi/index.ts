@@ -1,50 +1,21 @@
-import {
-  createApi,
-  fetchBaseQuery,
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-} from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { urls } from "../../../constants/endpointsApi";
 import { Account } from "./types";
+import { getAuthToken } from "../../../utils/getToken";
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: urls.account,
-  credentials: "include",
-  // 2. prepareHeaders тепер — це просто "взяв і додав, якщо є"
-  prepareHeaders: async (headers) => {
-    try {
-      const token = await window.Clerk?.session?.getToken();
+export const accountApi = createApi({
+  reducerPath: "accountApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: urls.account,
+    credentials: "include",
+    prepareHeaders: async (headers) => {
+      const token = await getAuthToken();
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-    } catch (err) {
-      console.log(err);
-    }
-    return headers;
-  },
-});
-
-// 3. ОБГОРТКА: Логіка автоматичного повтору запиту
-const baseQueryWithRetry: BaseQueryFn<
-  string | FetchArgs,
-  unknown,
-  FetchBaseQueryError
-> = async (args, api, extraOptions) => {
-  // Виконуємо перший запит
-  let result = await baseQuery(args, api, extraOptions);
-
-  // Логіка повтору
-  if (result.error?.status === 401) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    result = await baseQuery(args, api, extraOptions);
-  }
-
-  return result;
-};
-
-export const accountApi = createApi({
-  baseQuery: baseQueryWithRetry,
+      return headers;
+    },
+  }),
   tagTypes: ["Account"],
 
   endpoints: (builder) => ({

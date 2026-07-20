@@ -39,86 +39,91 @@ import AccountSettings from "./pages/DashboardPages/Settings/Account";
 import ProfileSettings from "./pages/DashboardPages/Settings/Profile";
 import RoleGuard from "./utils/RoleGuard";
 import TasksPage from "./pages/DashboardPages/TasksPage";
+import { useAuth } from "@clerk/clerk-react";
 
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const { theme } = useAppSelector((state) => state.theme);
   const { isLoading } = useAppSelector((state) => state.appUI);
+  const { isLoaded } = useAuth();
+  const showLoader = !isLoaded || isLoading;
 
   return (
     <div className={clsx(styles.container, styles[`${theme}_theme`])}>
-      <Routes>
-        <Route element={<AuthRoute />}>
-          <Route element={<AuthLoyaut />}>
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/email-verify" element={<EmailVerifyPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-          </Route>
-        </Route>
-
-        <Route element={<OnboardingRoute />}>
-          <Route path="/user-onboarding" element={<UserOnboardingPage />} />
-        </Route>
-
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<DashboardLoyaut />}>
-            <Route index element={<Navigate to="home" replace />} />
-            <Route path="home" element={<Main />} />
-            <Route
-              path="students"
-              element={
-                <RoleGuard allow={["TEACHER"]} fallback="/dashboard/teachers">
-                  <Students />
-                </RoleGuard>
-              }
-            />
-            <Route
-              path="students/:connectionId"
-              element={
-                <RoleGuard allow={["TEACHER"]} fallback="/dashboard/teachers">
-                  <StudentDetails />
-                </RoleGuard>
-              }
-            />
-            <Route
-              path="teachers"
-              element={
-                <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
-                  <Teachers />
-                </RoleGuard>
-              }
-            />
-            <Route
-              path="teachers/:connectionId"
-              element={
-                <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
-                  <TeacherDetails />
-                </RoleGuard>
-              }
-            />
-            <Route path="calendar" element={<Calendar />} />
-            <Route path="chats" element={<Chat />} />
-            <Route path="tasks" element={<TasksPage />} />
-            <Route path="whiteboards" element={<Whiteboards />} />
-            <Route path="statistic" element={<Statistic />} />
-            <Route path="files" element={<Files />} />
-            <Route path="quizzes" element={<Quizzes />} />
-            <Route path="settings" element={<Settings />}>
-              <Route index element={<Navigate to="profile" replace />} />
-              <Route path="profile" element={<ProfileSettings />} />
-              <Route path="account" element={<AccountSettings />} />
-              <Route path="security" element={<SecuritySettings />} />
+      {isLoaded ? (
+        <Routes>
+          <Route element={<AuthRoute />}>
+            <Route element={<AuthLoyaut />}>
+              <Route path="/sign-in" element={<SignInPage />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
+              <Route path="/email-verify" element={<EmailVerifyPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
             </Route>
           </Route>
-        </Route>
 
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
-      {isLoading && <Loader />}
+          <Route element={<OnboardingRoute />}>
+            <Route path="/user-onboarding" element={<UserOnboardingPage />} />
+          </Route>
+
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<DashboardLoyaut />}>
+              <Route index element={<Navigate to="home" replace />} />
+              <Route path="home" element={<Main />} />
+              <Route
+                path="students"
+                element={
+                  <RoleGuard allow={["TEACHER"]} fallback="/dashboard/teachers">
+                    <Students />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="students/:connectionId"
+                element={
+                  <RoleGuard allow={["TEACHER"]} fallback="/dashboard/teachers">
+                    <StudentDetails />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="teachers"
+                element={
+                  <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
+                    <Teachers />
+                  </RoleGuard>
+                }
+              />
+              <Route
+                path="teachers/:connectionId"
+                element={
+                  <RoleGuard allow={["STUDENT"]} fallback="/dashboard/students">
+                    <TeacherDetails />
+                  </RoleGuard>
+                }
+              />
+              <Route path="calendar" element={<Calendar />} />
+              <Route path="chats" element={<Chat />} />
+              <Route path="tasks" element={<TasksPage />} />
+              <Route path="whiteboards" element={<Whiteboards />} />
+              <Route path="statistic" element={<Statistic />} />
+              <Route path="files" element={<Files />} />
+              <Route path="quizzes" element={<Quizzes />} />
+              <Route path="settings" element={<Settings />}>
+                <Route index element={<Navigate to="profile" replace />} />
+                <Route path="profile" element={<ProfileSettings />} />
+                <Route path="account" element={<AccountSettings />} />
+                <Route path="security" element={<SecuritySettings />} />
+              </Route>
+            </Route>
+          </Route>
+
+          {/* <Route path="*" element={<NotFoundPage />} /> */}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+        </Routes>
+      ) : null}
+      {showLoader && <Loader />}
     </div>
   );
 }
