@@ -4,8 +4,11 @@ import {
   getCurrentAccount,
   getAllUserAccounts,
 } from "./account.controller";
+import { requireAuth } from "@clerk/express";
 
 const router = Router();
+
+router.use(requireAuth());
 
 router.get("/", getAllUserAccounts);
 router.get("/current", getCurrentAccount);

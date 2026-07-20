@@ -1,20 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { urls } from "../../../constants/endpointsApi";
 import { ConnectedAccount, StudentTeacher } from "./types";
-import { getAuthToken } from "../../../utils/getToken";
 
 export const connectionApi = createApi({
   reducerPath: "connectionApi",
   baseQuery: fetchBaseQuery({
     baseUrl: urls.connection,
     credentials: "include",
-    prepareHeaders: async (headers) => {
-      const token = await getAuthToken();
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
   }),
   tagTypes: ["Connections"],
 

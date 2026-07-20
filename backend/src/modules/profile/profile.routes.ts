@@ -5,8 +5,11 @@ import {
   getProfileById,
   updateProfile,
 } from "./profile.controller";
+import { requireAuth } from "@clerk/express";
 
 const router = Router();
+
+router.use(requireAuth());
 
 router.get("/", getAllProfiles);
 router.get("/current", getProfileById);
