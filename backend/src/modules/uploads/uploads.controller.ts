@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import multer from "multer";
-import prisma from "../../prismaClient";
+import { prisma } from "../../prismaClient";
 import path from "path";
 import fs from "fs";
 
