@@ -1,0 +1,16 @@
+{
+  "title": "Tasks",
+  "add-btn-title": "Add task",
+
+  "task": {
+    "edit-btn-title": "Edit",
+    "assign-btn-title": "Assign"
+  },
+
+  "modal": {
+    "title": "Create task",
+    "name": "Name",
+    "description": "Description",
+    "submit-btn-title": "Create"
+  }
+}

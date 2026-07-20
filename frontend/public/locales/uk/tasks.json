@@ -1,0 +1,16 @@
+{
+  "title": "Завдання",
+  "add-btn-title": "Додати завдання",
+
+  "task": {
+    "edit-btn-title": "Редагувати",
+    "assign-btn-title": "Призначити"
+  },
+
+  "modal": {
+    "title": "Створити завдання",
+    "name": "Назва",
+    "description": "Опис",
+    "submit-btn-title": "Створити"
+  }
+}
