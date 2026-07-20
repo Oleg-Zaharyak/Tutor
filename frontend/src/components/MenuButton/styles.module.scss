@@ -32,11 +32,6 @@
   height: 20px;
 }
 
-.tooltip {
-  background-color: #4880ff !important;
-  font-size: 14px !important;
-  z-index: 9999;
-}
 @media (max-width: 1024px) {
   .tooltip {
     display: none;

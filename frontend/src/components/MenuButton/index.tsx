@@ -16,7 +16,7 @@ const MenuButton: FC<MenuButtonProps> = ({
   const activeButtonClassName = clsx(
     styles.button,
     styles.button_active,
-    className
+    className,
   );
   const buttonClassName = clsx(styles.button, className);
 
@@ -38,7 +38,16 @@ const MenuButton: FC<MenuButtonProps> = ({
         {title}
       </NavLink>
       {showTooltip && (
-        <Tooltip className={styles.tooltip} id={title} place="right" />
+        <Tooltip
+          style={{
+            padding: "10px",
+            fontSize: "14px",
+            backgroundColor: "#4880ff",
+            zIndex: "9999",
+          }}
+          id={title}
+          place="right"
+        />
       )}
     </>
   );

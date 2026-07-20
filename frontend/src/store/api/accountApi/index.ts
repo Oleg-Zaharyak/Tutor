@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { urls } from "../../../constants/endpointsApi";
 import { Account } from "./types";
+import { getAuthToken } from "../../../utils/getToken";
 
 export const accountApi = createApi({
   reducerPath: "accountApi",
@@ -8,10 +9,7 @@ export const accountApi = createApi({
     baseUrl: urls.account,
     credentials: "include",
     prepareHeaders: async (headers) => {
-      // Отримуємо токен з Clerk через глобальний об'єкт (або через window.Clerk)
-      // Це безпечно, бо Clerk сам кешує токен у пам'яті
-      const token = await window.Clerk?.session?.getToken();
-
+      const token = await getAuthToken();
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

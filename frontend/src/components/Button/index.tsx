@@ -68,7 +68,15 @@ const Button: FC<ButtonProps> = ({
         <span className={styles.title}>{title}</span>
       </button>
       {showTooltip && (
-        <Tooltip className={styles.tooltip} id={title} place="right" />
+        <Tooltip
+          style={{
+            backgroundColor: "#4880ff",
+            fontSize: "12px",
+            zIndex: "9999",
+          }}
+          id={title}
+          place="right"
+        />
       )}
     </>
   );
