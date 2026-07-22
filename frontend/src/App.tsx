@@ -40,6 +40,7 @@ import ProfileSettings from "./pages/DashboardPages/Settings/Profile";
 import RoleGuard from "./utils/RoleGuard";
 import TasksPage from "./pages/DashboardPages/TasksPage";
 import { useAuth } from "@clerk/clerk-react";
+import TaskDetails from "./pages/DashboardPages/TasksPage/Task/TaskDetails";
 
 // import NotFoundPage from "./pages/NotFoundPage";
 
@@ -105,7 +106,10 @@ function App() {
               />
               <Route path="calendar" element={<Calendar />} />
               <Route path="chats" element={<Chat />} />
+
               <Route path="tasks" element={<TasksPage />} />
+              <Route path="tasks/:taskId" element={<TaskDetails />} />
+
               <Route path="whiteboards" element={<Whiteboards />} />
               <Route path="statistic" element={<Statistic />} />
               <Route path="files" element={<Files />} />

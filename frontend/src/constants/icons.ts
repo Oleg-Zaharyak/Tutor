@@ -29,6 +29,7 @@ import {
   LuFileSpreadsheet,
   LuLayoutDashboard,
   LuListTodo,
+  LuArrowBigRight,
 } from "react-icons/lu";
 
 export const Icons = {
@@ -40,6 +41,7 @@ export const Icons = {
   arrowBack: IoArrowBackOutline, // Icon for navigating back to the previous page or view
   delete: HiOutlineTrash, // Icon for deleting items
   notFound: TbFaceIdError, // Icon for indicating a not found error
+  open: LuArrowBigRight, // Icon for opening items
 
   openEye: IoMdEye, // Icon for showing hidden content, such as passwords or details
   closedEye: IoMdEyeOff, // Icon for hiding content, such as passwords or details

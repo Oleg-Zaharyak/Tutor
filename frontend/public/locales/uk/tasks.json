@@ -4,7 +4,8 @@
 
   "task": {
     "edit-btn-title": "Редагувати",
-    "assign-btn-title": "Призначити"
+    "assign-btn-title": "Призначити",
+    "open-btn-title": "Відкрити"
   },
 
   "modal": {

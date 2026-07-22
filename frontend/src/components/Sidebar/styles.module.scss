@@ -8,7 +8,7 @@
 
 .menu {
   height: 100%;
-  padding: 10px 10px 10px 15px;
+  padding: 10px 7px 10px 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,8 +21,8 @@
   justify-content: flex-start;
   height: calc(100vh - 144px);
   overflow-x: auto;
+  scrollbar-gutter: stable;
   row-gap: 10px;
-  padding-right: 5px;
 }
 
 .collapse_button_container {

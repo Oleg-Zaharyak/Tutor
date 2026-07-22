@@ -7,13 +7,23 @@ import Task from "./Task";
 import { useTranslation } from "react-i18next";
 import AssignTaskModal from "../../../components/AssignTaskModal";
 
-// const taskList = [
-//   {
-//     id: 1,
-//     title: "Завдання 1",
-//     description: "Опис завдання 1",
-//   },
-// ];
+const tasks = [
+  {
+    id: 1,
+    title: "Завдання 1",
+    description: "Опис завдання 1",
+  },
+  {
+    id: 2,
+    title: "Завдання 2",
+    description: "Опис завдання 2",
+  },
+  {
+    id: 3,
+    title: "Завдання 3",
+    description: "Опис завдання 3",
+  },
+];
 
 const TasksPage = () => {
   const { t } = useTranslation("tasks");
@@ -39,7 +49,14 @@ const TasksPage = () => {
       </div>
       <div className={styles.content}>
         <div className={styles.content_grid}>
-          <Task onAssign={handleToggleAssignTaskModal} />
+          {tasks.map((task: (typeof tasks)[0]) => (
+            <Task
+              key={task.id}
+              title={task.title}
+              description={task.description}
+              id={task.id}
+            />
+          ))}
         </div>
 
         {/* <div className={styles.content_empty}>

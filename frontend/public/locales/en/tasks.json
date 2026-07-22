@@ -4,7 +4,8 @@
 
   "task": {
     "edit-btn-title": "Edit",
-    "assign-btn-title": "Assign"
+    "assign-btn-title": "Assign",
+    "open-btn-title": "Open"
   },
 
   "modal": {
