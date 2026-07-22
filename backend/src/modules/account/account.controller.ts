@@ -3,7 +3,7 @@ import { prisma } from "../../prismaClient";
 
 // Отримати всіх користувачів
 export const getAllUserAccounts = async (req: Request, res: Response) => {
-  const profileId = (req as any).auth?.userId;
+  const profileId = (req as any).auth()?.userId;
 
   if (!profileId) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -31,7 +31,7 @@ export const getAllUserAccounts = async (req: Request, res: Response) => {
 // Отримати профіль по id
 export const getCurrentAccount = async (req: Request, res: Response) => {
   try {
-    const profileId = (req as any).auth?.userId;
+    const profileId = (req as any).auth()?.userId;
 
     if (!profileId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -76,7 +76,7 @@ export const getCurrentAccount = async (req: Request, res: Response) => {
 
 export const createAccount = async (req: Request, res: Response) => {
   try {
-    const profileId = (req as any).auth?.userId;
+    const profileId = (req as any).auth()?.userId;
     const { type } = req.body;
 
     if (!profileId || !type)

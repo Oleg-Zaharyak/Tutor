@@ -41,7 +41,7 @@ export const uploadProfileImg = async (req: Request, res: Response) => {
 
     // Тут можна зберегти шлях до БД (наприклад, через Prisma)
     await prisma.profile.update({
-      where: { id: (req as any).auth?.userId },
+      where: { id: (req as any).auth()?.userId },
       data: { avatarUrl: filePath },
     });
 

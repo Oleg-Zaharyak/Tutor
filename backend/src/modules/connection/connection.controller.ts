@@ -8,7 +8,7 @@ interface ConnectedAccount {
 
 export const getConnectionById = async (req: Request, res: Response) => {
   try {
-    const profileId = (req as any).auth?.userId; // id поточного профілю
+    const profileId = (req as any).auth()?.userId; // id поточного профілю
     const connectionId = req.params.connectionId; // витягуємо id конекшина з URL
 
     if (!profileId) {
@@ -59,7 +59,7 @@ export const getConnectionById = async (req: Request, res: Response) => {
 
 export const getConnectedAccounts = async (req: Request, res: Response) => {
   try {
-    const profileId = (req as any).auth?.userId;
+    const profileId = (req as any).auth()?.userId;
 
     if (!profileId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -113,7 +113,7 @@ export const getConnectedAccounts = async (req: Request, res: Response) => {
 export const connectAccounts = async (req: Request, res: Response) => {
   try {
     // 1️⃣ Отримуємо профіль користувача (через Clerk або JWT)
-    const profileId = (req as any).auth?.userId;
+    const profileId = (req as any).auth()?.userId;
 
     // 2️⃣ Витягуємо selectedAccountId з профілю
     const profile = await prisma.profile.findUnique({
@@ -213,7 +213,7 @@ export const connectAccounts = async (req: Request, res: Response) => {
 
 export const deleteConnectionById = async (req: Request, res: Response) => {
   try {
-    const profileId = (req as any).auth?.userId;
+    const profileId = (req as any).auth()?.userId;
     const { connectionId } = req.params;
 
     if (!profileId) return res.status(401).json({ message: "Unauthorized" });
