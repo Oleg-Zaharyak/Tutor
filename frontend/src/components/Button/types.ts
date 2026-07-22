@@ -9,6 +9,7 @@ export enum ButtonStyles {
 }
 
 export type ButtonProps = {
+  id?: string;
   title?: string;
   type?: "submit" | "button" | "reset";
   collapseToIcon?: boolean;

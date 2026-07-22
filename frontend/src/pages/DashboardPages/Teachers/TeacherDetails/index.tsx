@@ -7,16 +7,16 @@ import {
 import { skipToken } from "@reduxjs/toolkit/query";
 import { Icons } from "../../../../constants/icons";
 import { useTranslation } from "react-i18next";
-import Button from "../../../../components/Button";
 import { useState } from "react";
 import ConfirmModal from "../../../../components/ConfirmModal";
 import { useAppDispatch } from "../../../../hooks/hooks";
 import { setLoading } from "../../../../store/slices/appUISlice";
 import { API_BASE_URL } from "../../../../constants/endpointsApi";
 import { ButtonStyles } from "../../../../components/Button/types";
+import ActionToolbar from "../../../../components/ActionToolbar";
 
 const TeacherDetails = () => {
-  const { t } = useTranslation("teachers");
+  const { t } = useTranslation(["teachers", "common"]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { connectionId } = useParams<{ connectionId: string }>();
@@ -52,11 +52,11 @@ const TeacherDetails = () => {
 
   const editButtons = [
     {
-      title: t("details.save-btn"),
+      title: t("common:buttons-title.save-btn"),
       buttonStyle: ButtonStyles.OUTLINE,
     },
     {
-      title: t("details.cancel-btn"),
+      title: t("common:buttons-title.cancel-btn"),
       buttonStyle: ButtonStyles.OUTLINE,
       onClick: () => setIsEdit(false),
     },
@@ -64,17 +64,17 @@ const TeacherDetails = () => {
 
   const viewButtons = [
     {
-      title: t("details.chat-btn"),
+      title: t("common:buttons-title.chat-btn"),
       onClick: () => navigate("/dashboard/chats"),
       buttonStyle: ButtonStyles.OUTLINE,
     },
     {
-      title: t("details.edit-btn"),
+      title: t("common:buttons-title.edit-btn"),
       onClick: () => setIsEdit(true),
       buttonStyle: ButtonStyles.OUTLINE,
     },
     {
-      title: t("details.delete-btn"),
+      title: t("common:buttons-title.delete-btn"),
       Icon: Icons.delete,
       onClick: () => setIsDeleteModalOpen(true),
       buttonStyle: ButtonStyles.WARNING_OUTLINE,
@@ -86,20 +86,7 @@ const TeacherDetails = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <Button
-          Icon={Icons.arrowBack}
-          title={t("details.back-btn")}
-          onClick={() => navigate(-1)}
-          buttonStyle={ButtonStyles.LINK}
-          medium
-        />
-        <div className={styles.buttons}>
-          {buttons.map((btn, index) => (
-            <Button key={index} medium {...btn} />
-          ))}
-        </div>
-      </div>
+      <ActionToolbar buttons={buttons} />
       <div className={styles.content}>
         <div className={styles.user_content}>
           <div className={styles.top_container}>
@@ -122,15 +109,12 @@ const TeacherDetails = () => {
           </div>
         </div>
       </div>
-      {isDeleteModalOpen ? (
+      {isDeleteModalOpen && (
         <ConfirmModal
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={() => handleDeleteConnection(connectionId)}
-          title={t("details.confirm-delete-title")}
-          cancelText={t("details.cancel-delete-btn")}
-          confirmText={t("details.confirm-delete-btn")}
         />
-      ) : null}
+      )}
     </div>
   );
 };

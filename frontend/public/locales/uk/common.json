@@ -41,6 +41,19 @@
     }
   },
 
+  "buttons-title": {
+    "back-btn": "Назад",
+    "chat-btn": "Написати",
+    "edit-btn": "Редагувати",
+    "save-btn": "Зберегти",
+    "cancel-btn": "Скасувати",
+    "delete-btn": "Видалити",
+
+    "delete-modal-title": "Ви впевнені, що хочете видалити?",
+    "confirm-delete-btn": "Так, видалити",
+    "cancel-delete-btn": "Скасувати"
+  },
+
   "menu": {
     "title-dashboard": "Головна",
     "title-student": "Учні",

@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction, HTMLInputTypeAttribute } from "react";
 
 export type InputsProps = {
-  title: string;
-  inputSize?: "big" | "medium" | "small";
+  title?: string;
+  big?: boolean;
+  medium?: boolean;
+  small?: boolean;
   inputType?: HTMLInputTypeAttribute;
   containerClassName?: string;
   inputClassName?: string;

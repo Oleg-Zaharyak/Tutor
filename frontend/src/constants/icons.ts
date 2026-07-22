@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { GoGear } from "react-icons/go";
 import { FiPlus } from "react-icons/fi";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { BsGrid, BsList } from "react-icons/bs";
+import { BsGrid, BsList, BsCheck2 } from "react-icons/bs";
 import { HiOutlineTrash, HiOutlineUserCircle } from "react-icons/hi";
 import { MdOutlineQueryStats } from "react-icons/md";
 
@@ -36,6 +36,7 @@ export const Icons = {
   addPerson: BsPersonPlus, // Icon for adding a person to a task or project
   defaultUserImg: HiOutlineUserCircle, // Placeholder for user profile image
   cross: RxCross2, // Icon for closing modals, deleting items, or canceling actions
+  check: BsCheck2,
   plus: FiPlus, // Icon for adding new items, such as tasks, projects, or users
   gear: GoGear, // Icon for settings or configuration options
   arrowBack: IoArrowBackOutline, // Icon for navigating back to the previous page or view

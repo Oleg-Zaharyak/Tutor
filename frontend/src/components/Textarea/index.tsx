@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { TextareaProps } from "./types";
 import clsx from "clsx";
 
-const Input: FC<TextareaProps> = ({
+const Textarea: FC<TextareaProps> = ({
   title,
   containerClassName,
   inputClassName,
@@ -14,9 +14,11 @@ const Input: FC<TextareaProps> = ({
 
   return (
     <div className={clsx(styles.container, containerClassName)}>
-      <label className={clsx(styles.lable, lableClassName)} htmlFor={inputId}>
-        {title}
-      </label>
+      {title && (
+        <label className={clsx(styles.lable, lableClassName)} htmlFor={inputId}>
+          {title}
+        </label>
+      )}
       <textarea
         className={clsx(styles.textarea, inputClassName)}
         id={inputId}
@@ -26,4 +28,4 @@ const Input: FC<TextareaProps> = ({
   );
 };
 
-export default Input;
+export default Textarea;

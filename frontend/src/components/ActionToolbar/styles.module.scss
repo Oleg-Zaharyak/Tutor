@@ -1,0 +1,18 @@
+.header {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+
+  background-color: var(--bg-main-color);
+}
+.buttons {
+  display: flex;
+  column-gap: 10px;
+}
+.back_btn {
+  width: max-content;
+  padding: 8px 10px;
+  min-height: 40px;
+}

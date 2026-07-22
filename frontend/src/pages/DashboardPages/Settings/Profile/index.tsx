@@ -82,7 +82,6 @@ const ProfileSettings = () => {
   });
 
   const commonConfig = {
-    inputSize: "medium" as const,
     onBlur: formik.handleBlur,
     onChange: formik.handleChange,
   };
@@ -172,7 +171,7 @@ const ProfileSettings = () => {
         )}
         <div className={styles.inputs}>
           {inputsConfig.map((item) => (
-            <Input key={item.name} {...commonConfig} {...item} />
+            <Input key={item.name} medium {...commonConfig} {...item} />
           ))}
           <Textarea
             name="bio"

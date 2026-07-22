@@ -41,6 +41,19 @@
     }
   },
 
+  "buttons-title": {
+    "back-btn": "Back",
+    "chat-btn": "Message",
+    "edit-btn": "Edit",
+    "save-btn": "Save",
+    "cancel-btn": "Cancel",
+    "delete-btn": "Delete",
+
+    "delete-modal-title": "Are you sure you want to delete?",
+    "confirm-delete-btn": "Yes, delete",
+    "cancel-delete-btn": "Cancel"
+  },
+
   "menu": {
     "title-dashboard": "Dashboard",
     "title-student": "Students",

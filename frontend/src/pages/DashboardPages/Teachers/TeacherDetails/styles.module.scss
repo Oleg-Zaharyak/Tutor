@@ -6,6 +6,13 @@
   color: var(--text-color);
   min-height: 100%;
 }
+.content {
+  flex: 1;
+  display: flex;
+  background-color: var(--bg-secondary-color);
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
 
 .header {
   height: 40px;
@@ -22,14 +29,6 @@
   width: max-content;
   padding: 8px 10px;
   min-height: 40px;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  background-color: var(--bg-secondary-color);
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
 }
 
 .user_content {

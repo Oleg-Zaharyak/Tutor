@@ -17,12 +17,8 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({ onClose }) => {
           className={styles.modal_form}
           onSubmit={(e) => e.preventDefault()}
         >
-          <Input name="title" title={t("modal.name")} inputSize="medium" />
-          <Input
-            name="description"
-            title={t("modal.description")}
-            inputSize="medium"
-          />
+          <Input name="title" title={t("modal.name")} medium />
+          <Input name="description" title={t("modal.description")} medium />
           <Button type="submit" medium title={t("modal.submit-btn-title")} />
         </form>
       </div>

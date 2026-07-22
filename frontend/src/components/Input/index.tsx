@@ -7,7 +7,9 @@ import { useMask } from "@react-input/mask";
 import { telInputMask } from "../../constants/variables";
 
 const Input: FC<InputsProps> = ({
-  inputSize = "big",
+  big,
+  medium,
+  small,
   title,
   error,
   errorText,
@@ -26,18 +28,33 @@ const Input: FC<InputsProps> = ({
     replacement: { _: /\d/ },
   });
 
+  const inputSize = (() => {
+    switch (true) {
+      case small:
+        return "small";
+      case medium:
+        return "medium";
+      case big:
+        return "big";
+      default:
+        return "big";
+    }
+  })();
+
   return (
     <div className={clsx(styles.container, containerClassName)}>
-      <label
-        className={clsx(
-          styles.lable,
-          styles[`${inputSize}_label`],
-          lableClassName,
-        )}
-        htmlFor={inputId}
-      >
-        {title}
-      </label>
+      {title && (
+        <label
+          className={clsx(
+            styles.lable,
+            styles[`${inputSize}_label`],
+            lableClassName,
+          )}
+          htmlFor={inputId}
+        >
+          {title}
+        </label>
+      )}
       <input
         className={clsx(
           styles.input,

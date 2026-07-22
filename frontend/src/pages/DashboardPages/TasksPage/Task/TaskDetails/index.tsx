@@ -1,69 +1,177 @@
 // import { useParams } from "react-router-dom";
-import Button from "../../../../../components/Button";
+import ActionToolbar from "../../../../../components/ActionToolbar";
 import { ButtonStyles } from "../../../../../components/Button/types";
-import { Icons } from "../../../../../constants/icons";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
+import { Icons } from "../../../../../constants/icons";
+import { useState } from "react";
+import ConfirmModal from "../../../../../components/ConfirmModal";
+import TaskHeader from "./TaskHeader";
 
 const TaskDetails = () => {
   // const { taskId } = useParams<{ taskId: string }>();
+  const { t } = useTranslation(["tasks", "common"]);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const actionButtons = [
+    {
+      title: t("buttons-title.add-question-btn"),
+      onClick: () => {},
+      buttonStyle: ButtonStyles.OUTLINE,
+      Icon: Icons.plus,
+      collapseTextToIcon: true,
+    },
+    {
+      title: t("common:buttons-title.delete-btn"),
+      Icon: Icons.delete,
+      onClick: () => setIsDeleteModalOpen(true),
+      buttonStyle: ButtonStyles.WARNING_OUTLINE,
+      collapseTextToIcon: true,
+    },
+  ];
 
   return (
-    <div className={styles.task_container}>
-      <div className={styles.left}>
-        <div className={styles.header}>
-          <div className={styles.header_title}>Title</div>
-          <div className={styles.header_description}>Description</div>
-        </div>
-        <div className={styles.left_bottom}>
-          <div className={styles.questions}>
-            <div className={styles.block}>
-              <p>Some text</p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
+    <div className={styles.container}>
+      <ActionToolbar buttons={actionButtons} />
+      <div className={styles.task}>
+        <TaskHeader />
+        <div className={styles.task_content}>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
           </div>
-          <Button
-            onClick={() => {}}
-            title={"Add Question"}
-            buttonStyle={ButtonStyles.OUTLINE}
-            medium
-          />
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div className={styles.block}>
+            <p>Some text</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
         </div>
       </div>
-      <div className={styles.right}>
-        <div className={styles.task_buttons}>
-          <Button
-            title={"Edit"}
-            Icon={Icons.gear}
-            showOnlyIcon
-            small
-            showTooltip
-            buttonStyle={ButtonStyles.OUTLINE}
-            // onClick={() => handleOpenTaskDetails(id)}
-          />
-          <Button
-            title={"Assign"}
-            Icon={Icons.addPerson}
-            showOnlyIcon
-            small
-            showTooltip
-            buttonStyle={ButtonStyles.OUTLINE}
-            // onClick={onAssign}
-          />
-        </div>
-      </div>
+      {isDeleteModalOpen && (
+        <ConfirmModal
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={() => {
+            console.log("Delete");
+            setIsDeleteModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 };
 
 export default TaskDetails;
+
+

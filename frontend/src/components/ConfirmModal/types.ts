@@ -3,7 +3,7 @@ export type ConfirmModalProps = {
   onConfirm?: () => void;
   confirmText?: string;
   cancelText?: string;
-  title: string;
+  title?: string;
   showTwoButton?: boolean;
   className?: string;
 };

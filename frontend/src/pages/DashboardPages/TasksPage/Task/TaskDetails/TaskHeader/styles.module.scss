@@ -1,0 +1,46 @@
+.task_header {
+  position: relative;
+  padding: 10px;
+  width: calc(100%);
+  background-color: var(--bg-secondary-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  &_title {
+    font-size: 18px;
+    font-family: "Nunito-600";
+    line-height: 36px;
+    padding-left: 9.5px;
+  }
+
+  &_description {
+    font-size: 14px;
+    padding-left: 9.5px;
+    color: var(--text-secondary-color);
+  }
+}
+
+.buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  column-gap: 5px;
+}
+
+.input {
+  font-size: 18px;
+  border-width: 1px;
+  padding: 5px 8.5px;
+  &_container {
+    margin-right: 87px;
+  }
+}
+
+.textarea {
+  border-width: 1px;
+  font-size: 14px;
+  padding: 5px 9.5px;
+}

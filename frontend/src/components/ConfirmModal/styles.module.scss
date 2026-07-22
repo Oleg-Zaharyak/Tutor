@@ -14,22 +14,27 @@
 
 .modal {
   background-color: var(--bg-main-color);
-  padding: 20px;
+  padding: 30px;
   border-radius: 12px;
+  width: 350px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 
 .text {
-  margin-bottom: 20px;
   font-size: 16px;
 }
 
 .buttons {
   display: flex;
   column-gap: 10px;
+  width: 100%;
 }
 
 .btn {
   font-size: 14px;
-  padding: 2px 0;
+  text-wrap: nowrap;
+  width: 50%;
 }

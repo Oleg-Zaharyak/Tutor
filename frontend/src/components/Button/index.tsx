@@ -5,6 +5,7 @@ import { ButtonProps } from "./types";
 import { Tooltip } from "react-tooltip";
 
 const Button: FC<ButtonProps> = ({
+  id,
   title,
   type = "button",
   buttonStyle = "filled",
@@ -57,6 +58,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <>
       <button
+        id={id}
         data-tooltip-id={title}
         data-tooltip-content={title}
         data-tooltip-place={tooltipPosition}

@@ -1,5 +1,5 @@
 export type TextareaProps = {
-  title: string;
+  title?: string;
   containerClassName?: string;
   inputClassName?: string;
   lableClassName?: string;

@@ -81,7 +81,7 @@ const AccountConnectionModal: FC<AccountConnectionModalProps> = ({
             }
             errorText={formik.errors.email}
             title={t("account-connection-modal.email.title", { ns: "common" })}
-            inputSize="medium"
+            medium
             placeholder={t("account-connection-modal.email.placeholder", {
               ns: "common",
             })}

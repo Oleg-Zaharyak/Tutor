@@ -1,63 +1,30 @@
-.task_container {
+.container {
   padding: 20px 20px 10px;
   display: flex;
-  flex-direction: row;
-  column-gap: 10px;
+  flex-direction: column;
+  row-gap: 10px;
   color: var(--text-color);
   height: 100%;
 }
 
-.left {
-  width: 75%;
+.task {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  height: calc(100% - 50px);
 
-  &_bottom {
-    height: calc(100% - 70px);
+  &_content {
+    margin-right: -10px;
+    row-gap: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    row-gap: 10px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    padding-right: 3px;
+    border-radius: 10px;
   }
 }
 
-.header {
-  min-height: 60px;
-  padding: 10px;
-  width: calc(100% - 10px);
-  background-color: var(--bg-secondary-color);
-  border-radius: 10px;
-
-  &_title {
-    font-size: 18px;
-    font-family: "Nunito-600";
-  }
-
-  &_description {
-    font-size: 14px;
-    color: var(--text-secondary-color);
-  }
-}
-
-.right {
-  min-width: 250px;
-  width: 25%;
-  height: 100%;
-  background-color: var(--bg-secondary-color);
-  border-radius: 10px;
-}
-
-.questions {
-  padding-bottom: 10px;
-  row-gap: 10px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
-  padding-right: 3px;
-  border-radius: 10px;
-}
 .block {
   width: 100%;
   background-color: var(--bg-secondary-color);

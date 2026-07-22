@@ -13,5 +13,9 @@
     "name": "Name",
     "description": "Description",
     "submit-btn-title": "Create"
+  },
+
+  "buttons-title": {
+    "add-question-btn": "Add question"
   }
 }

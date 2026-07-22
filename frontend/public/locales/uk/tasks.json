@@ -13,5 +13,9 @@
     "name": "Назва",
     "description": "Опис",
     "submit-btn-title": "Створити"
+  },
+
+  "buttons-title": {
+    "add-question-btn": "Додати питання"
   }
 }

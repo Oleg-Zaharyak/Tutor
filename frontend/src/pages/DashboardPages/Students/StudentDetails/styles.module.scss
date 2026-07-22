@@ -1,31 +1,10 @@
 .container {
-  padding: 0 20px 10px;
+  padding: 20px 20px 10px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   color: var(--text-color);
   min-height: 100%;
-}
-
-.header {
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  padding: 20px 0 10px;
-  background-color: var(--bg-main-color);
-}
-
-.buttons {
-  display: flex;
-  column-gap: 10px;
-}
-
-.back_btn {
-  width: max-content;
-  padding: 8px 10px;
-  min-height: 40px;
 }
 
 .content {
