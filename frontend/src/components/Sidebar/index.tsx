@@ -62,10 +62,10 @@ export const Sidebar: FC = () => {
               <Icons.collapser className={styles.collapse_button_icon} />
             )}
             <Tooltip
-              style={{ backgroundColor: "#4880ff", fontSize: "14px" }}
               id="my-tooltip-expand"
               place="right"
               openOnClick={true}
+              className={styles.tooltip}
             />
           </button>
         </div>

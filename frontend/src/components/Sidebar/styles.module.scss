@@ -30,6 +30,17 @@
   justify-content: flex-end;
 }
 
+.tooltip {
+  background-color: #4880ff !important;
+  font-size: 14px !important;
+  padding: 10px !important;
+
+  &:first-child {
+    font-size: inherit;
+    padding: 0;
+  }
+}
+
 .collapse_button {
   cursor: pointer;
   background-color: inherit;
