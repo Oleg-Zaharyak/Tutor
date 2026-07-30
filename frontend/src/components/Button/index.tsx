@@ -75,11 +75,11 @@ const Button: FC<ButtonProps> = ({
       </button>
       {showTooltip && (
         <Tooltip
+          opacity={1}
           style={{
             backgroundColor: "#4880ff",
             fontSize: "14px",
             padding: "10px",
-            opacity: 1,
             zIndex: 9999,
           }}
           id={title}
