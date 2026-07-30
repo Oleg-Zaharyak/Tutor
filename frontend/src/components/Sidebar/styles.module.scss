@@ -36,8 +36,12 @@
   padding: 10px !important;
 
   &:first-child {
-    font-size: inherit;
-    padding: 0;
+    font-size: inherit !important;
+    padding: 0 !important;
+  }
+  .react-tooltip-content-wrapper {
+    font-size: inherit !important;
+    padding: 0 !important;
   }
 }
 
