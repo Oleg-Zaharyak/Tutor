@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import path from "path";
 import cookieParser from "cookie-parser";
 import routes from "./routes";
-import { clerkMiddleware, requireAuth, getAuth } from "@clerk/express";
+import { clerkMiddleware, getAuth } from "@clerk/express";
 dotenv.config();
 const app = express();
 // CORS спочатку

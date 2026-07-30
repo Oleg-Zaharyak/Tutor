@@ -5,11 +5,19 @@ import {
   getProfileById,
   updateProfile,
 } from "./profile.controller";
-import { requireAuth } from "@clerk/express";
+import { getAuth } from "@clerk/express";
 
 const router = Router();
 
-router.use(requireAuth());
+router.use((req, res, next) => {
+  const { userId } = getAuth(req);
+
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  next();
+});
 
 router.get("/", getAllProfiles);
 router.get("/current", getProfileById);
