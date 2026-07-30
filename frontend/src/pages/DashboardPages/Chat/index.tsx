@@ -1,10 +1,12 @@
+import ActionToolbar from "../../../components/ActionToolbar";
 import styles from "./styles.module.scss";
 
 const Chat = () => {
   return (
-    <ul className={styles.container}>
-      <li>Тут можна буде переписуватись з наявними учнями</li>
-    </ul>
+    <div className={styles.container}>
+      <ActionToolbar title="Чати"/>
+      <p>Тут можна буде переписуватись з наявними учнями</p>
+    </div>
   );
 };
 
