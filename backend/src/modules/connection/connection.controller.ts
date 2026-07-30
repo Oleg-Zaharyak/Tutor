@@ -214,7 +214,7 @@ export const connectAccounts = async (req: Request, res: Response) => {
 export const deleteConnectionById = async (req: Request, res: Response) => {
   try {
     const profileId = (req as any).auth()?.userId;
-    const { connectionId } = req.params;
+    const { connectionId } = req.params as { connectionId: string };
 
     if (!profileId) return res.status(401).json({ message: "Unauthorized" });
     if (!connectionId)
