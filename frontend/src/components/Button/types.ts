@@ -10,7 +10,9 @@ export enum ButtonStyles {
 
 export type ButtonProps = {
   id?: string;
+  disabled?: boolean;
   title?: string;
+  defaultTooltipText?: string;
   type?: "submit" | "button" | "reset";
   collapseToIcon?: boolean;
   collapseTextToIcon?: boolean;

@@ -109,6 +109,8 @@ const AccountManager = () => {
             )}
             cancelText={t("profile-modal.account-section.confirm-modal.no")}
             confirmText={t("profile-modal.account-section.confirm-modal.yes")}
+            containerSize="small"
+            containerSelector="#profile_modal_container"
           />
         ) : null}
       </button>
@@ -144,6 +146,8 @@ const AccountManager = () => {
             )}
             cancelText={t("profile-modal.account-section.confirm-modal.no")}
             confirmText={t("profile-modal.account-section.confirm-modal.yes")}
+            containerSize="small"
+            containerSelector="#profile_modal_container"
           />
         ) : null}
       </div>

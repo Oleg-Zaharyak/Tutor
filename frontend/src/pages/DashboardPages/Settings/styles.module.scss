@@ -26,7 +26,6 @@
   max-height: 40px;
   background-color: var(--bg-secondary-color);
   border-radius: 10px;
-  transition: all 0.3s ease-in-out;
 
   &_button {
     min-height: auto;
@@ -40,7 +39,6 @@
   display: flex;
   background-color: var(--bg-secondary-color);
   border-radius: 10px;
-  transition: all 0.3s ease-in-out;
 }
 
 @media (max-width: 500px) {

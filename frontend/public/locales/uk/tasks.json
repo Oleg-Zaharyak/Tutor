@@ -16,6 +16,7 @@
   },
 
   "buttons-title": {
-    "add-question-btn": "Додати питання"
+    "add-question-btn": "Додати питання",
+    "assign-btn": "Призначити"
   }
 }

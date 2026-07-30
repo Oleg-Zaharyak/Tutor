@@ -3,7 +3,6 @@
   min-width: 320px;
   height: 100vh;
   background-color: var(--bg-main-color);
-  transition: all ease-in-out 0.3s;
   display: grid;
   grid-template-columns: 240px 1fr;
   grid-template-rows: 70px 1fr;
@@ -45,7 +44,6 @@
     width: 240px;
     background-color: var(--bg-main-color);
     z-index: 999;
-    transition: left 0.3s ease-in-out;
   }
 
   .mobileMenuOpen .sidebar {

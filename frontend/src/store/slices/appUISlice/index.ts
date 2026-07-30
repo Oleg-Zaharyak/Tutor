@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UIState } from "./types";
 
 const savedExpandMenu = localStorage.getItem("expandMenu");
@@ -16,7 +16,7 @@ const appUISlice = createSlice({
       state.expandMenu = !state.expandMenu;
       localStorage.setItem("expandMenu", JSON.stringify(state.expandMenu));
     },
-    setLoading: (state, action) => {
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
   },

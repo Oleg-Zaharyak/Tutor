@@ -5,6 +5,11 @@
   padding: 0;
   font-family: "Nunito-600";
   font-size: 18px;
+
+  transition:
+    background-color ease-in-out 0.3s,
+    border-color ease-in-out 0.3s,
+    color ease-in-out 0.3s;
 }
 
 ::-webkit-scrollbar {

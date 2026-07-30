@@ -6,23 +6,27 @@ import { Icons } from "../../constants/icons";
 import { useTranslation } from "react-i18next";
 
 type ActionToolbarProps = {
-  withButtons?: boolean;
   buttons?: ButtonProps[];
+  title?: string;
 };
 
-const ActionToolbar = ({ buttons }: ActionToolbarProps) => {
+const ActionToolbar = ({ buttons, title }: ActionToolbarProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation("common");
 
   return (
     <div className={styles.header}>
-      <Button
-        Icon={Icons.arrowBack}
-        title={t("buttons-title.back-btn")}
-        onClick={() => navigate(-1)}
-        buttonStyle={ButtonStyles.LINK}
-        medium
-      />
+      {title ? (
+        <h1 className={styles.header_text}>{title}</h1>
+      ) : (
+        <Button
+          Icon={Icons.arrowBack}
+          title={t("buttons-title.back-btn")}
+          onClick={() => navigate(-1)}
+          buttonStyle={ButtonStyles.LINK}
+          medium
+        />
+      )}
       {buttons && (
         <div className={styles.buttons}>
           {buttons?.map((btn, index) => (

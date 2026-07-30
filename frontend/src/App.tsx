@@ -51,7 +51,7 @@ function App() {
   const showLoader = !isLoaded || isLoading;
 
   return (
-    <div className={clsx(styles.container, styles[`${theme}_theme`])}>
+    <div id="app_root" className={clsx(styles.container, styles[`${theme}_theme`])}>
       {isLoaded ? (
         <Routes>
           <Route element={<AuthRoute />}>

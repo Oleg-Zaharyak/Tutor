@@ -49,8 +49,8 @@
     "cancel-btn": "Скасувати",
     "delete-btn": "Видалити",
 
-    "delete-modal-title": "Ви впевнені, що хочете видалити?",
-    "confirm-delete-btn": "Так, видалити",
+    "delete-modal-title": "Ви впевнені?",
+    "confirm-delete-btn": "Так",
     "cancel-delete-btn": "Скасувати"
   },
 

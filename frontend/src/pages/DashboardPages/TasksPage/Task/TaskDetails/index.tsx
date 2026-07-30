@@ -7,19 +7,61 @@ import { Icons } from "../../../../../constants/icons";
 import { useState } from "react";
 import ConfirmModal from "../../../../../components/ConfirmModal";
 import TaskHeader from "./TaskHeader";
+import Question from "./Task";
+import AssignTaskModal from "./AssignTaskModal";
+import AddNewQuestionModal from "./AddNewQuestionModal";
+
+const questions = [
+  {
+    id: "someId1",
+    title:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, dolorum! Placeat tenetur, magnam quidem praesentium iure saepe doloremque, voluptas a, inventore eligendi commodi optio! Esse vitae expedita rem dolore harum! ",
+    ansver: "some",
+  },
+  {
+    id: "someId2",
+    title:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, dolorum! Placeat tenetur, magnam quidem praesentium iure saepe doloremque, voluptas a, inventore eligendi commodi optio! Esse vitae expedita rem dolore harum!",
+    ansver: "some2",
+  },
+  {
+    id: "someId3",
+    title:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, dolorum! Placeat tenetur, magnam quidem praesentium iure saepe doloremque, voluptas a, inventore eligendi commodi optio! Esse vitae expedita rem dolore harum!",
+    ansver: "some3",
+  },
+];
 
 const TaskDetails = () => {
   // const { taskId } = useParams<{ taskId: string }>();
   const { t } = useTranslation(["tasks", "common"]);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditActive, setIsEditActive] = useState(false);
+  const [isAssignTaskModalOpen, setIsAssignTaskModalOpen] = useState(false);
+  const [isAddQuestionModalOpen, setIsAddQuestionModalOpen] = useState(false);
+
+  const toggleAssignTaskModal = () => {
+    setIsAssignTaskModalOpen((prev) => !prev);
+  };
+
+  const toggleAddQuestionModalOpen = () => {
+    setIsAddQuestionModalOpen(false);
+  };
 
   const actionButtons = [
     {
       title: t("buttons-title.add-question-btn"),
-      onClick: () => {},
+      onClick: () => setIsAddQuestionModalOpen(true),
       buttonStyle: ButtonStyles.OUTLINE,
       Icon: Icons.plus,
+      collapseTextToIcon: true,
+    },
+    {
+      title: t("buttons-title.assign-btn"),
+      onClick: () => setIsAssignTaskModalOpen(true),
+      buttonStyle: ButtonStyles.OUTLINE,
+      Icon: Icons.addPerson,
       collapseTextToIcon: true,
     },
     {
@@ -35,128 +77,20 @@ const TaskDetails = () => {
     <div className={styles.container}>
       <ActionToolbar buttons={actionButtons} />
       <div className={styles.task}>
-        <TaskHeader />
+        <TaskHeader
+          isEditActive={isEditActive}
+          toggleIsEditActive={setIsEditActive}
+        />
         <div className={styles.task_content}>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className={styles.block}>
-            <p>Some text</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
+          {questions.map((question, index) => (
+            <Question
+              isEditActive={isEditActive}
+              toggleIsEditActive={setIsEditActive}
+              index={index + 1}
+              key={question.id}
+              question={question}
+            />
+          ))}
         </div>
       </div>
       {isDeleteModalOpen && (
@@ -168,10 +102,14 @@ const TaskDetails = () => {
           }}
         />
       )}
+      {isAssignTaskModalOpen && (
+        <AssignTaskModal onClose={toggleAssignTaskModal} />
+      )}
+      {isAddQuestionModalOpen && (
+        <AddNewQuestionModal onClose={toggleAddQuestionModalOpen} />
+      )}
     </div>
   );
 };
 
 export default TaskDetails;
-
-

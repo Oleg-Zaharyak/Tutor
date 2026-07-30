@@ -5,8 +5,11 @@ import { Icons } from "../../../../../../constants/icons";
 import styles from "./styles.module.scss";
 import Input from "../../../../../../components/Input";
 import Textarea from "../../../../../../components/Textarea";
-
-const TaskHeader = () => {
+type TaskHeaderProps = {
+  isEditActive: boolean;
+  toggleIsEditActive: (value: boolean) => void;
+};
+const TaskHeader = ({ isEditActive, toggleIsEditActive }: TaskHeaderProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const editButtons = [
@@ -21,7 +24,10 @@ const TaskHeader = () => {
       medium: true,
       Icon: Icons.cross,
       buttonStyle: ButtonStyles.WARNING_OUTLINE,
-      onClick: () => setIsEditMode(false),
+      onClick: () => {
+        setIsEditMode(false);
+        toggleIsEditActive(!isEditActive);
+      },
     },
   ];
 
@@ -29,10 +35,14 @@ const TaskHeader = () => {
     {
       id: "editBtn",
       small: true,
-      Icon: Icons.gear,
+      Icon: Icons.edit,
       buttonStyle: ButtonStyles.OUTLINE,
       className: styles.edit_btn,
-      onClick: () => setIsEditMode(true),
+      onClick: () => {
+        setIsEditMode(true);
+        toggleIsEditActive(!isEditActive);
+      },
+      disabled: isEditActive,
     },
   ];
 

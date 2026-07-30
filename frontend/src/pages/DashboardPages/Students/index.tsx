@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import Button from "../../../components/Button";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { LayoutType } from "../../../components/LayoutToggle/types";
@@ -10,6 +9,7 @@ import { StudentGrid } from "./StudentGrid";
 import { StudentTable } from "./StudentTable";
 import clsx from "clsx";
 import { ButtonStyles } from "../../../components/Button/types";
+import ActionToolbar from "../../../components/ActionToolbar";
 
 const LAYOUT_KEY = "selected_layout";
 
@@ -43,17 +43,22 @@ const Students = () => {
   const isDataLoading =
     isConnectedAccountListDataFetching || isConnectedAccountListDataLoading;
 
+  const headerButtons = [
+    {
+      onClick: handleToggleModal,
+      title: t("add-btn-title", { ns: "students" }),
+      buttonStyle: ButtonStyles.OUTLINE,
+      medium: true,
+    },
+  ];
+
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.header_text}>{t("title", { ns: "students" })}</h1>
-        <Button
-          onClick={handleToggleModal}
-          title={t("add-btn-title", { ns: "students" })}
-          buttonStyle={ButtonStyles.OUTLINE}
-          medium
-        />
-      </div>
+      <ActionToolbar
+        buttons={headerButtons}
+        title={t("title", { ns: "students" })}
+      />
+
       <div className={styles.filter_container}>
         <LayoutToggle value={layout} onChange={setLayout} />
       </div>

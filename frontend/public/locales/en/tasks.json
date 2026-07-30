@@ -16,6 +16,7 @@
   },
 
   "buttons-title": {
-    "add-question-btn": "Add question"
+    "add-question-btn": "Add question",
+    "assign-btn": "Assign"
   }
 }

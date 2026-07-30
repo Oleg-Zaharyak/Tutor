@@ -1,11 +1,10 @@
 import { useState } from "react";
-import Button from "../../../components/Button";
 import { ButtonStyles } from "../../../components/Button/types";
 import styles from "./styles.module.scss";
 import CreateTaskModal from "../../../components/CreateTaskModal";
 import Task from "./Task";
 import { useTranslation } from "react-i18next";
-import AssignTaskModal from "../../../components/AssignTaskModal";
+import ActionToolbar from "../../../components/ActionToolbar";
 
 const tasks = [
   {
@@ -28,25 +27,23 @@ const tasks = [
 const TasksPage = () => {
   const { t } = useTranslation("tasks");
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isAssignTaskModalOpen, setIsAssignTaskModalOpen] = useState(false);
+
   const handleToggleModal = () => {
     setIsOpenModal((prev) => !prev);
   };
-  const handleToggleAssignTaskModal = () => {
-    setIsAssignTaskModalOpen((prev) => !prev);
-  };
+
+  const headerButtons = [
+    {
+      onClick: handleToggleModal,
+      title: t("add-btn-title"),
+      buttonStyle: ButtonStyles.OUTLINE,
+      medium: true,
+    },
+  ];
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.header_text}>{t("title")}</h1>
-        <Button
-          onClick={handleToggleModal}
-          title={t("add-btn-title")}
-          buttonStyle={ButtonStyles.OUTLINE}
-          medium
-        />
-      </div>
+      <ActionToolbar buttons={headerButtons} title={t("title")} />
       <div className={styles.content}>
         <div className={styles.content_grid}>
           {tasks.map((task: (typeof tasks)[0]) => (
@@ -58,18 +55,8 @@ const TasksPage = () => {
             />
           ))}
         </div>
-
-        {/* <div className={styles.content_empty}>
-          <div className={styles.content_empty_text}>
-            {/* {t("no-data", { ns: "common" })}
-            Нема даних
-          </div>
-        </div>  */}
       </div>
       {isOpenModal && <CreateTaskModal onClose={handleToggleModal} />}
-      {isAssignTaskModalOpen && (
-        <AssignTaskModal onClose={handleToggleAssignTaskModal} />
-      )}
     </div>
   );
 };

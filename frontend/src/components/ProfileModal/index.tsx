@@ -28,7 +28,11 @@ const ProfileModal: FC<ProfileModalProps> = ({
 
   return (
     <div onClick={handleCloseModal} className={styles.modal_wrapper}>
-      <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
+      <div
+        id="profile_modal_container"
+        onClick={(e) => e.stopPropagation()}
+        className={styles.modal}
+      >
         <div className={styles.modal_btns}>
           <Button
             title={t("profile-modal.logout-btn")}

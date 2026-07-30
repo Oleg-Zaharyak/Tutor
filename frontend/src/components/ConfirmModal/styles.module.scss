@@ -1,8 +1,5 @@
-/* ConfirmModal.module.scss */
 .overlay {
-  position: absolute;
-  inset: -2px;
-  border-radius: 6px;
+  inset: 0px;
   background: rgba(0, 0, 0, 0.4);
   padding: 20px;
   backdrop-filter: blur(2px);
@@ -12,19 +9,51 @@
   z-index: 1000;
 }
 
+.global {
+  position: fixed; 
+  border-radius: 0px; 
+}
+
+.local {
+  position: absolute; 
+  border-radius: 6px; 
+}
+
 .modal {
   background-color: var(--bg-main-color);
-  padding: 30px;
   border-radius: 12px;
-  width: 350px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
 }
 
-.text {
-  font-size: 16px;
+.big {
+  min-width: 350px;
+  width: auto;
+  padding: 40px;
+  row-gap: 40px;
+  .text {
+    font-size: 20px;
+  }
+}
+
+.medium {
+  width: 350px;
+  padding: 30px;
+  row-gap: 30px;
+  .text {
+    font-size: 16px;
+  }
+}
+
+.small {
+  width: auto;
+  min-width: 200px;
+  padding: 20px;
+  row-gap: 20px;
+  .text {
+    font-size: 14px;
+  }
 }
 
 .buttons {
@@ -34,7 +63,6 @@
 }
 
 .btn {
-  font-size: 14px;
   text-wrap: nowrap;
   width: 50%;
 }

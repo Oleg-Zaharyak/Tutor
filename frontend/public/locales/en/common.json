@@ -49,8 +49,8 @@
     "cancel-btn": "Cancel",
     "delete-btn": "Delete",
 
-    "delete-modal-title": "Are you sure you want to delete?",
-    "confirm-delete-btn": "Yes, delete",
+    "delete-modal-title": "Are you sure?",
+    "confirm-delete-btn": "Yes",
     "cancel-delete-btn": "Cancel"
   },
 

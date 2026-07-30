@@ -5,7 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { BsGrid, BsList, BsCheck2 } from "react-icons/bs";
 import { HiOutlineTrash, HiOutlineUserCircle } from "react-icons/hi";
-import { MdOutlineQueryStats } from "react-icons/md";
+import { MdOutlineQueryStats, MdOutlineModeEdit } from "react-icons/md";
 
 import {
   TbPhotoCog,
@@ -43,6 +43,7 @@ export const Icons = {
   delete: HiOutlineTrash, // Icon for deleting items
   notFound: TbFaceIdError, // Icon for indicating a not found error
   open: LuArrowBigRight, // Icon for opening items
+  edit: MdOutlineModeEdit,
 
   openEye: IoMdEye, // Icon for showing hidden content, such as passwords or details
   closedEye: IoMdEyeOff, // Icon for hiding content, such as passwords or details

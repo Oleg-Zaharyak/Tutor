@@ -6,6 +6,9 @@
   top: 0;
 
   background-color: var(--bg-main-color);
+  &_text {
+    font-size: 28px;
+  }
 }
 .buttons {
   display: flex;

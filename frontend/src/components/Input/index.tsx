@@ -37,7 +37,7 @@ const Input: FC<InputsProps> = ({
       case big:
         return "big";
       default:
-        return "big";
+        return "medium";
     }
   })();
 

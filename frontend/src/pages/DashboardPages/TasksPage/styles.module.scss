@@ -6,16 +6,6 @@
   color: var(--text-color);
   height: 100%;
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 40px;
-
-  &_text {
-    font-size: 28px;
-  }
-}
 
 .content {
   height: 100%;
@@ -25,11 +15,10 @@
   padding: 10px 0;
   border-top: 2px solid var(--bg-secondary-color);
   border-bottom: 2px solid var(--bg-secondary-color);
-  transition: all 0.3s ease-in-out;
 
   &_grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
   }
 

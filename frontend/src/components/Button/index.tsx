@@ -14,10 +14,12 @@ const Button: FC<ButtonProps> = ({
   collapseToIcon,
   collapseTextToIcon,
   showOnlyIcon,
+  defaultTooltipText,
   big,
   medium,
   small,
   className,
+  disabled,
   Icon,
   ...props
 }) => {
@@ -59,11 +61,13 @@ const Button: FC<ButtonProps> = ({
     <>
       <button
         id={id}
+        title={disabled && defaultTooltipText ? defaultTooltipText : undefined}
         data-tooltip-id={title}
         data-tooltip-content={title}
         data-tooltip-place={tooltipPosition}
         className={customClassName}
         type={type}
+        disabled={disabled}
         {...props}
       >
         {Icon ? <Icon className={customIconClass} /> : null}

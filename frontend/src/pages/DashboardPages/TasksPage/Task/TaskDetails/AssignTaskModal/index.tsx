@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import styles from "./styles.module.scss";
-import Button from "../Button";
-import { Icons } from "../../constants/icons";
 import { AssignTaskModalProps } from "./types";
+import { Icons } from "../../../../../../constants/icons";
+import Button from "../../../../../../components/Button";
 
 const users = [
   { id: "1", name: "John Doe", email: "john.doe@example.com" },
@@ -27,10 +27,6 @@ const AssignTaskModal: FC<AssignTaskModalProps> = ({ onClose }) => {
 
   const handleAssign = () => {
     console.log(selectedUsers);
-
-    // await assignTask({
-    //   userIds: selectedUsers,
-    // });
 
     onClose();
   };
