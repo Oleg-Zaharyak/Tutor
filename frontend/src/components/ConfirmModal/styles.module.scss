@@ -9,14 +9,18 @@
   z-index: 1000;
 }
 
+.text {
+  color: var(--text-color);
+}
+
 .global {
-  position: fixed; 
-  border-radius: 0px; 
+  position: fixed;
+  border-radius: 0px;
 }
 
 .local {
-  position: absolute; 
-  border-radius: 6px; 
+  position: absolute;
+  border-radius: 6px;
 }
 
 .modal {
