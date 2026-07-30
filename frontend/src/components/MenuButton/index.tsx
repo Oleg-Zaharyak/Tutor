@@ -40,10 +40,11 @@ const MenuButton: FC<MenuButtonProps> = ({
       {showTooltip && (
         <Tooltip
           style={{
-            padding: "10px",
-            fontSize: "14px",
             backgroundColor: "#4880ff",
-            zIndex: "9999",
+            fontSize: "14px",
+            padding: "10px",
+            opacity: 1,
+            zIndex: 9999,
           }}
           id={title}
           place="right"

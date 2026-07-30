@@ -65,7 +65,13 @@ export const Sidebar: FC = () => {
               id="my-tooltip-expand"
               place="right"
               openOnClick={true}
-              className={styles.tooltip}
+              style={{
+                backgroundColor: "#4880ff",
+                fontSize: "14px",
+                padding: "10px",
+                opacity: 1,
+                zIndex: 9999,
+              }}
             />
           </button>
         </div>

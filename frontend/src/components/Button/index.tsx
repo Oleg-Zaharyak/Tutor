@@ -77,8 +77,10 @@ const Button: FC<ButtonProps> = ({
         <Tooltip
           style={{
             backgroundColor: "#4880ff",
-            fontSize: "12px",
-            zIndex: "9999",
+            fontSize: "14px",
+            padding: "10px",
+            opacity: 1,
+            zIndex: 9999,
           }}
           id={title}
           place="right"
